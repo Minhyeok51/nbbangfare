@@ -8,6 +8,7 @@ import org.python.util.PythonInterpreter;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 @RestController
 public class SampleController {
 	
@@ -15,7 +16,7 @@ public class SampleController {
 	
 	@RequestMapping("/rest1")
 	public String rest1() {
-	return "rest1";
+		return "rest1";
 	}
 	
 	@GetMapping("/pytest") //파이썬 연결

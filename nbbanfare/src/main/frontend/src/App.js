@@ -1,10 +1,10 @@
 import './App.css';
-import React,{useEffect,useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import axios from 'axios';
 import requests from './api/requests';
 
 function App() {
-	const [hello, setHello] = useState('')
+	let [hello, setHello] = useState('')
 
     useEffect(() => {
         axios.get(requests.restPath)
