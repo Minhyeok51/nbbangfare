@@ -14,6 +14,7 @@ function App() {
   return (
     <div>
       백에서 가져온 데이터 : {hello}
+      여기 수정
     </div>
   );
 }
