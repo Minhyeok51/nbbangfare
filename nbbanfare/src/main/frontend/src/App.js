@@ -1,10 +1,10 @@
 import './App.css';
-import React,{useEffect, useState} from 'react';
+import React,{useEffect,useState} from 'react';
 import axios from 'axios';
 import requests from './api/requests';
 
 function App() {
-	let [hello, setHello] = useState('')
+	const [hello, setHello] = useState('')
 
     useEffect(() => {
         axios.get(requests.restPath)
@@ -15,6 +15,7 @@ function App() {
     <div>
       백에서 가져온 데이터 : {hello}
       여기 수정
+      <h1>git 테스트중입니다.</h1>
     </div>
   );
 }
