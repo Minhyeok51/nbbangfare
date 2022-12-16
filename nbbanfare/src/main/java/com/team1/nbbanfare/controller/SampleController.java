@@ -13,7 +13,7 @@ public class SampleController {
 	
 	private static PythonInterpreter interpreter;
 	
-	@GetMapping("/rest1")
+	@RequestMapping("/rest1")
 	public String rest1() {
 	return "rest1";
 	}
