@@ -166,11 +166,12 @@ function Join(){
                   <label htmlFor="phoneNumber">
                     <div>휴대전화</div>
                     <input
-                      type="number"
+                      type="tel"
                       id="phoneNumber"
                       name="phoneNumber"
                       onChange={onChange}
-                      placeholder="휴대전화"
+                      placeholder="123-4567-8910"
+                      pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
                     />
                   </label>
                 </div>
