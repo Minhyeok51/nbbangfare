@@ -1,8 +1,11 @@
-import './App.css';
 import React,{useEffect,useState} from 'react';
 import axios from 'axios';
 import requests from './api/requests';
-
+import Header from './component/Header';
+import Footer from './component/Footer';
+import Login from './component/Login';
+import { Routes, Route} from "react-router-dom";
+import Join from './component/Join';
 function App() {
 	const [hello, setHello] = useState('')
 
@@ -13,9 +16,35 @@ function App() {
     }, []);
   return (
     <div>
-      백에서 가져온 데이터 : {hello}
-      여기 수정
-      <h1>git 테스트중입니다.</h1>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div>
+              <Header />
+              <div>백에서 가져온 데이터 : {hello}</div>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <Footer />
+            </div>
+          }
+        ></Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/mypage"></Route>
+        <Route path="/Join" element={<Join/>}></Route>
+        <Route path="*" element={<div>404 Not Found</div>} />
+      </Routes>
     </div>
   );
 }

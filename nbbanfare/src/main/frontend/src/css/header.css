@@ -1,0 +1,40 @@
+.container{
+    margin-left: 0;
+    padding-left: 0;
+    
+}
+.header{
+    margin-top: 20px;
+    width: 100vw;
+}
+
+ul{
+    list-style: none;
+}
+li{
+    float: left;
+    margin-right:20px;
+    margin-top: 10px;
+}
+a{
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
+.dropDown .dropDownMenu{
+    display: none;
+}
+.dropDown:hover .dropDownMenu{
+    display: block;
+    justify-content: center;
+    position: absolute;
+    top: 120px;
+    left: 0;
+    z-index: 50;
+    width: 100%;
+    height: 300px;
+    padding: 10px 0 30px;
+    text-align: left;
+    background-color: rgb(30, 159, 243);
+}
