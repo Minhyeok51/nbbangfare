@@ -1,5 +1,6 @@
 import {useState} from "react";
 import '../css/join.css'
+import Post from './Post';
 function Join(){
 
     let userId = document.querySelector('#userId');
@@ -13,6 +14,22 @@ function Join(){
 		re_password: ''
     	});
 
+
+        const [enroll_company, setEnroll_company] = useState({
+            address:'',
+        });
+        
+        const [popup, setPopup] = useState(false);
+        const handleInput = (e) => {
+            setEnroll_company({
+                ...enroll_company,
+                [e.target.name]:e.target.value,
+            })
+        }
+
+        const handleComplete = (data) => {
+            setPopup(!popup);
+        }
 
   const onChange = (e) => {//input에 name을 가진 요소의 value에 이벤트를 걸었다
     const { name, value } = e.target   // 변수를 만들어 이벤트가 발생했을때의 value를 넣어줬다
@@ -198,16 +215,37 @@ function Join(){
             <div className="form-row">
               <div className="form-item">
                 <div className="form-input">
-                  <label htmlFor="address">
-                    <div>배송지</div>
-                    <input
-                      type="address"
-                      id="address"
-                      name="address"
-                      onChange={onChange}
-                      placeholder="배송지"
-                    />
-                  </label>
+                  <div>배송지</div>
+                  <input
+                    type="text"
+                    id="postcode"
+                    placeholder="우편번호"
+                  />
+                  <input
+                    type="button"
+                    onClick={handleComplete}
+                    value="우편번호 찾기"
+                  />
+                  <br />
+                  <input type="text" id="address" placeholder="주소" />
+                  <br />
+                  <input
+                    type="text"
+                    id="detailAddress"
+                    placeholder="상세주소"
+                  />
+                  <input
+                    type="text"
+                    id="extraAddress"
+                    placeholder="참고항목"
+                  />
+                  {/* <button onClick={handleComplete}>우편번호 찾기</button> */}
+                  {popup && (
+                    <Post
+                    //   company={enroll_company}
+                    //   setcompany={setEnroll_company}
+                    ></Post>
+                  )}
                 </div>
               </div>
             </div>
