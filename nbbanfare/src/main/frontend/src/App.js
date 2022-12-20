@@ -23,19 +23,7 @@ function App() {
             <div>
               <Header />
               <div>백에서 가져온 데이터 : {hello}</div>
-              <br></br>
-              <br></br>
-              <br></br>
-              <br></br>
-              <br></br>
-              <br></br>
-              <br></br>
-              <br></br>
-              <br></br>
-              <br></br>
-              <br></br>
-              <br></br>
-              <br></br>
+             
               <Footer />
             </div>
           }

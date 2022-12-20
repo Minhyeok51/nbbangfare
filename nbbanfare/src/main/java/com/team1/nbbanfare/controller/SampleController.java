@@ -5,10 +5,21 @@ import org.python.core.PyFunction;
 import org.python.core.PyInteger;
 import org.python.core.PyObject;
 import org.python.util.PythonInterpreter;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.team1.nbbanfare.dto.UserForm;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @RestController
 public class SampleController {
 	
@@ -34,5 +45,19 @@ public class SampleController {
 		System.out.println(pyobj);
 		
 		return pyobj.toString();
+	}
+	@GetMapping("/join")
+	public UserForm register(@ModelAttribute UserForm rq_user) {
+		UserForm userForm = rq_user;
+		log.info("userForm :{}", userForm);
+		
+		 return userForm;
+	}
+	@PostMapping("/join")
+	public String register2(@ModelAttribute UserForm userForm) {
+		
+		log.info("userForm :{}", userForm);
+		
+		 return "성공";
 	}
 }

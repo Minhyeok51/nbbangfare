@@ -1,225 +1,239 @@
+import axios from "../api/axios";
 import {useState} from "react";
 import '../css/join.css'
 import Post from './Post';
 function Join(){
+const [popup, setPopup] = useState(false);
+// 초기값 세팅 - 아이디, 닉네임, 비밀번호, 비밀번호확인, 이메일, 전화번호, 생년월일, 주소
+const [id, setId] = useState("");
+const [name, setName] = useState("");
+const [password, setPassword] = useState("");
+const [passwordConfirm, setPasswordConfirm] = useState("");
+const [email, setEmail] = useState("");
+const [phone, setPhone] = useState("");
+const [birth, setBirth] = useState("");
+const [enroll_company, setEnroll_company] = useState({address:'',});
+// 오류메세지 상태 저장
+const [idMessage, setIdMessage] = useState("");
+const [nameMessage, setNameMessage] = useState("");
+const [passwordMessage, setPasswordMessage] = useState("");
+const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
+const [emailMessage, setEmailMessage] = useState("");
+const [phoneMessage, setPhoneMessage] = useState("");
+const [birthMessage, setBirthMessage] = useState("");
 
-    let userId = document.querySelector('#userId');
-	let passwordForm = document.querySelector('#userPW');
-	let re_passwordForm = document.querySelector('#re_password');
-	
+// 유효성 검사
+const [isId, setIsId] = useState(false);
+const [isname, setIsName] = useState(false);
+const [isPassword, setIsPassword] = useState(false);
+const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
+const [isEmail, setIsEmail] = useState(false);
+const [isPhone, setIsPhone] = useState(false);
+const [isBirth, setIsBirth] = useState(false);
 
-	const [inputs, setInputs] = useState({
-   		userId: '',
-		userPW: '',
-		re_password: ''
-    	});
+const onChangeId = (e) => {
+  const currentId = e.target.value;
+  setId(currentId);
+  const idRegExp = /^[a-zA-z0-9]{4,12}$/;
 
-
-        const [enroll_company, setEnroll_company] = useState({
-            address:'',
-        });
-        
-        const [popup, setPopup] = useState(false);
-        const handleInput = (e) => {
-            setEnroll_company({
-                ...enroll_company,
-                [e.target.name]:e.target.value,
-            })
-        }
-
-        const handleComplete = (data) => {
-            setPopup(!popup);
-        }
-
-  const onChange = (e) => {//input에 name을 가진 요소의 value에 이벤트를 걸었다
-    const { name, value } = e.target   // 변수를 만들어 이벤트가 발생했을때의 value를 넣어줬다
-    const nextInputs = { ...inputs,  [name]: value,}//스프레드 문법으로 기존의 객체를 복사한다.
-    setInputs(nextInputs);       //만든 변수를 seInput으로 변경해준다.
+  if (!idRegExp.test(currentId)) {
+    setIdMessage("4-12사이 대소문자 또는 숫자만 입력해 주세요!");
+    setIsId(false);
+  } else {
+    setIdMessage("사용가능한 아이디 입니다.");
+    setIsId(true);
   }
+};
+
+const onChangeName = (e) => {
+  const currentName = e.target.value;
+  setName(currentName);
+
+  if (currentName.length < 2 || currentName.length > 5) {
+    setNameMessage("이름은 2글자 이상 5글자 이하로 입력해주세요!");
+    setIsName(false);
+  } else {
+    // setNameMessage("사용가능한 닉네임 입니다.");
+    setIsName(true);
+  }
+};
+
+const onChangePassword = (e) => {
+  const currentPassword = e.target.value;
+  setPassword(currentPassword);
+  const passwordRegExp =
+    /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+  if (!passwordRegExp.test(currentPassword)) {
+    setPasswordMessage(
+      "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!"
+    );
+    setIsPassword(false);
+  } else {
+    setPasswordMessage("안전한 비밀번호 입니다.");
+    setIsPassword(true);
+  }
+};
+const onChangePasswordConfirm = (e) => {
+  const currentPasswordConfirm = e.target.value;
+  setPasswordConfirm(currentPasswordConfirm);
+  if (password !== currentPasswordConfirm) {
+    setPasswordConfirmMessage("떼잉~ 비밀번호가 똑같지 않아요!");
+    setIsPasswordConfirm(false);
+  } else {
+    setPasswordConfirmMessage("똑같은 비밀번호를 입력했습니다.");
+    setIsPasswordConfirm(true);
+  }
+};
+const onChangeEmail = (e) => {
+  const currentEmail = e.target.value;
+  setEmail(currentEmail);
+  const emailRegExp =
+    /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
+
+  if (!emailRegExp.test(currentEmail)) {
+    setEmailMessage("이메일의 형식이 올바르지 않습니다!");
+    setIsEmail(false);
+  } else {
+    setEmailMessage("사용 가능한 이메일 입니다.");
+    setIsEmail(true);
+  }
+};
+const onChangePhone = (getNumber) => {
+  const currentPhone = getNumber;
+  setPhone(currentPhone);
+  const phoneRegExp = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+
+  if (!phoneRegExp.test(currentPhone)) {
+    setPhoneMessage("올바른 형식이 아닙니다!");
+    setIsPhone(false);
+  } else {
+    setPhoneMessage("사용 가능한 번호입니다:-)");
+    setIsPhone(true);
+  }
+};
+
+const addHyphen = (e) => {
+  const currentNumber = e.target.value;
+  setPhone(currentNumber);
+  if (currentNumber.length == 3 || currentNumber.length == 8) {
+    setPhone(currentNumber + "-");
+    onChangePhone(currentNumber + "-");
+  } else {
+    onChangePhone(currentNumber);
+  }
+};
+
+const onChangeBirth = (e) => {
+  const currentBirth = e.target.value;
+  setBirth(currentBirth);
+};
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  await axios
+      .post("/join",null,{params: {
+          userId:id,
+          userPw:password,
+          userName:name,
+          userBirth:birth,
+          userPhoneNo:phone,
+          userEmail:email,
+          userAdress:enroll_company
+      }})
+      .then((response) => {
+          console.log(response.data)
+      })
+      .catch((error) => {
+          console.log(error);
+      });
+}
+
+//주소검색
 
 
-    function CheckPass(str){ //비밀번호 정규식
-        let reg1 =  /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{6,}$/;
-        return(reg1.test(str));
-    };
-   
-	
-	function letsJoin() { //로그인 유효성 검사
-        if(inputs.userId===""){
-            alert("아이디를 입력해주세요!");
-            userId.focus();
-            return;
-        }else if(inputs.userPW===""){
-            alert("비밀번호를 입력해주세요!");
-            passwordForm.focus();
-            return;
-        }
-        else if(inputs.re_password===""){
-            alert("비밀번호 중복 확인을 입력해주세요!");
-            re_passwordForm.focus();
-            return;
-        }
-        else if(CheckPass(inputs.userPW) === false){
-            alert("비밀번호는 영문+숫자 6자를 조합하여 입력해주세요 !");
-            passwordForm.focus();
-            return;
-        }else if(inputs.re_password !==inputs.userPW){
-            alert("비밀번호가 동일하지 않습니다!");
-            re_passwordForm.focus();
-            return;
-        }else{
-            fetch("/register", { //원하는 주소 입력
-                method: 'post',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body : JSON.stringify({
-                    userId : inputs.userId,
-                    userPW : inputs.userPW,
-                })
-            }).then(res => res.json())
-                .then(resonse => {
-                    if(resonse===true){
-                        window.location.replace("/원하는 주소");
-                    }else{
-                        alert("다시 시도해주세요");
-                    }
-               });
-          }
-	  }
+
+
+const handleInput = (e) => {
+	setEnroll_company({
+    	...enroll_company,
+        [e.target.name]:e.target.value,
+    })
+}
+
+const handleComplete = (data) => {
+    setPopup(!popup);
+}
     return (
-      <div className="userJoinOuter">
-        <div
-          className="form-box login-register-form-element"
-          id="userJoinInner"
-        >
-          <h2 className="form-box-title">회원가입</h2>
-          <form className="form" id="registerFrm" name="register-page">
-            <div className="form-row">
-              <div className="form-item">
-                <div className="form-input">
-                  <label htmlFor="userId">
-                    <div>아이디</div>
-                    <input
-                      type="text"
-                      id="userId"
-                      name="userId"
-                      onChange={onChange}
-                      placeholder="아이디"
-                    />
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div className="form-row">
-              <div className="form-item">
-                <div className="form-input">
-                  <label htmlFor="userPW">
-                    <div>비밀번호</div>
-                    <input
-                      type="password"
-                      id="userPW"
-                      name="userPW"
-                      onChange={onChange}
-                      placeholder="비밀번호"
-                    />
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div className="form-row">
-              <div className="form-item">
-                <div className="form-input">
-                  <input
-                    type="password"
-                    id="re_password"
-                    name="re_password"
-                    onChange={onChange}
-                    placeholder="비밀번호 확인"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="form-row">
-              <div className="form-item">
-                <div className="form-input">
-                  <label htmlFor="user_name">
-                    <div>이름</div>
-                    <input
-                      type="text"
-                      id="user_name"
-                      name="user_name"
-                      onChange={onChange}
-                      placeholder="이름"
-                    />
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div className="form-row">
-              <div className="form-item">
-                <div className="form-input">
-                  <label htmlFor="birth">
-                    <div>생년월일</div>
-                    <input
-                      type="date"
-                      id="birth"
-                      name="birth"
-                      onChange={onChange}
-                      placeholder="생년월일"
-                    />
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div className="form-row">
-              <div className="form-item">
-                <div className="form-input">
-                  <label htmlFor="phoneNumber">
-                    <div>휴대전화</div>
-                    <input
-                      type="tel"
-                      id="phoneNumber"
-                      name="phoneNumber"
-                      onChange={onChange}
-                      placeholder="123-4567-8910"
-                      pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
-                    />
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div className="form-row">
-              <div className="form-item">
-                <div className="form-input">
-                  <label htmlFor="email">
-                    <div>이메일</div>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      onChange={onChange}
-                      placeholder="이메일"
-                    />
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div className="form-row">
-              <div className="form-item">
-                <div className="form-input">
-                  <div>배송지</div>
+      <>
+      <h3>Sign Up</h3>
+      <form action="" method="post">
+      <div className="form">
+        <div className="form-el">
+          <label htmlFor="id">Id</label> <br />
+          <input id="id" name="id" value={id} onChange={onChangeId} />
+          <p className="message"> {idMessage} </p>
+        </div>
+ 
+        <div className="form-el">
+          <label htmlFor="name">Name</label> <br />
+          <input id="name" name="name" value={name} onChange={onChangeName} />
+          <p className="message">{nameMessage}</p>
+        </div>
+        <div className="form-el">
+          <label htmlFor="password">Password</label> <br />
+          <input
+          type="password"
+            id="password"
+            name="password"
+            value={password}
+            onChange={onChangePassword}
+          />
+          <p className="message">{passwordMessage}</p>
+        </div>
+        <div className="form-el">
+          <label htmlFor="passwordConfirm">Password Confirm</label> <br />
+          <input
+          type="password"
+            id="passwordConfirm"
+            name="passwordConfirm"
+            value={passwordConfirm}
+            onChange={onChangePasswordConfirm}
+          />
+          <p className="message">{passwordConfirmMessage}</p>
+        </div>
+        <div className="form-el">
+          <label htmlFor="email">Email</label> <br />
+          <input
+            id="email"
+            name="name"
+            value={email}
+            onChange={onChangeEmail}
+          />
+          <p className="message">{emailMessage}</p>
+        </div>
+        <div className="form-el">
+          <label htmlFor="phone">Phone</label> <br />
+          <input id="phone" name="phone" value={phone} onChange={addHyphen} />
+          <p className="message">{phoneMessage}</p>
+        </div>
+        <div className="form-el">
+          <label htmlFor="birth">Birth</label> <br />
+          <input
+          type="date"
+            id="birth"
+            name="birth"
+            value={birth}
+            onChange={onChangeBirth}
+          />
+          <p className="message">{birthMessage}</p>
+        </div>
+        <div>배송지</div>
                   <input
                     type="text"
                     id="postcode"
                     placeholder="우편번호"
+                    onChange={handleInput}
                   />
                   <input
                     type="button"
@@ -239,30 +253,13 @@ function Join(){
                     id="extraAddress"
                     placeholder="참고항목"
                   />
-                  {/* <button onClick={handleComplete}>우편번호 찾기</button> */}
-                  {popup && (
-                    <Post
-                    //   company={enroll_company}
-                    //   setcompany={setEnroll_company}
-                    ></Post>
-                  )}
-                </div>
-              </div>
-            </div>
-            <div className="form-row">
-              <div className="form-item">
-                <input
-                  type="button"
-                  className="button medium primary"
-                  onClick={letsJoin}
-                  id="joinBtn"
-                  value="가입하기"
-                />
-              </div>
-            </div>
-          </form>
-        </div>
+                  {popup && (<Post company={enroll_company} setcompany={setEnroll_company}></Post>)}
+        <br />
+        <br />
+        <button type="submit" onClick={handleSubmit}>Submit</button>
       </div>
-    );
-}
+        </form>
+    </>
+  );
+ };
 export default Join;

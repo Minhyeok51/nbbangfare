@@ -39,7 +39,7 @@ function Header() {
                   <a onClick={()=>{navigate('/mypage')}}>마이페이지</a>
                 </li>
                 <li>
-                  <a onClick={()=>{navigate('/Join')}}>회원가입</a>
+                  <a onClick={()=>{navigate('/join')}}>회원가입</a>
                 </li>
                 <li>
                   <a onClick={()=>{navigate("/login")}}>로그인</a>
