@@ -11,7 +11,6 @@ public class UserForm {
 	private String userBirth;
 	private String userPhoneNo;
 	private String userEmail;
-	private String userAdress;
 	
 	
 }

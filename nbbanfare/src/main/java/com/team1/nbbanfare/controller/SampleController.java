@@ -5,7 +5,9 @@ import org.python.core.PyFunction;
 import org.python.core.PyInteger;
 import org.python.core.PyObject;
 import org.python.util.PythonInterpreter;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,14 +17,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.team1.nbbanfare.dto.UserForm;
+import com.team1.nbbanfare.repository.UserRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
+@RequiredArgsConstructor
 public class SampleController {
-	
+	private final UserRepository userRepository;
 	private static PythonInterpreter interpreter;
 	
 	@RequestMapping("/rest1")
@@ -46,18 +51,13 @@ public class SampleController {
 		
 		return pyobj.toString();
 	}
-	@GetMapping("/join")
-	public UserForm register(@ModelAttribute UserForm rq_user) {
-		UserForm userForm = rq_user;
-		log.info("userForm :{}", userForm);
-		
-		 return userForm;
-	}
+	
+	
 	@PostMapping("/join")
 	public String register2(@ModelAttribute UserForm userForm) {
 		
 		log.info("userForm :{}", userForm);
-		
-		 return "성공";
+		userRepository.insert(userForm);
+		 return "http://localhost:3000/join";
 	}
 }

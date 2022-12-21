@@ -2,7 +2,12 @@ import axios from "../api/axios";
 import {useState} from "react";
 import '../css/join.css'
 import Post from './Post';
+import requests from '../api/requests'
+import instance from "../api/axios";
+
+
 function Join(){
+  
 const [popup, setPopup] = useState(false);
 // 초기값 세팅 - 아이디, 닉네임, 비밀번호, 비밀번호확인, 이메일, 전화번호, 생년월일, 주소
 const [id, setId] = useState("");
@@ -12,7 +17,8 @@ const [passwordConfirm, setPasswordConfirm] = useState("");
 const [email, setEmail] = useState("");
 const [phone, setPhone] = useState("");
 const [birth, setBirth] = useState("");
-const [enroll_company, setEnroll_company] = useState({address:'',});
+const [address, setAddress] = useState({address:'',});
+
 // 오류메세지 상태 저장
 const [idMessage, setIdMessage] = useState("");
 const [nameMessage, setNameMessage] = useState("");
@@ -129,17 +135,23 @@ const onChangeBirth = (e) => {
 };
 
 const handleSubmit = async (e) => {
+  if(password !== passwordConfirm){
+    alert('비밀번호가 달라요')
+    e.preventDefault();
+    return
+  }
   e.preventDefault();
-
+  console.log(address)
+  
   await axios
-      .post("/join",null,{params: {
+      .post(requests.joinPath,null,{params: {
           userId:id,
           userPw:password,
           userName:name,
           userBirth:birth,
           userPhoneNo:phone,
           userEmail:email,
-          userAdress:enroll_company
+          // userAdress:address
       }})
       .then((response) => {
           console.log(response.data)
@@ -155,8 +167,8 @@ const handleSubmit = async (e) => {
 
 
 const handleInput = (e) => {
-	setEnroll_company({
-    	...enroll_company,
+	setAddress({
+    	...address,
         [e.target.name]:e.target.value,
     })
 }
@@ -166,100 +178,102 @@ const handleComplete = (data) => {
 }
     return (
       <>
-      <h3>Sign Up</h3>
-      <form action="" method="post">
-      <div className="form">
-        <div className="form-el">
-          <label htmlFor="id">Id</label> <br />
-          <input id="id" name="id" value={id} onChange={onChangeId} />
-          <p className="message"> {idMessage} </p>
-        </div>
- 
-        <div className="form-el">
-          <label htmlFor="name">Name</label> <br />
-          <input id="name" name="name" value={name} onChange={onChangeName} />
-          <p className="message">{nameMessage}</p>
-        </div>
-        <div className="form-el">
-          <label htmlFor="password">Password</label> <br />
-          <input
-          type="password"
-            id="password"
-            name="password"
-            value={password}
-            onChange={onChangePassword}
-          />
-          <p className="message">{passwordMessage}</p>
-        </div>
-        <div className="form-el">
-          <label htmlFor="passwordConfirm">Password Confirm</label> <br />
-          <input
-          type="password"
-            id="passwordConfirm"
-            name="passwordConfirm"
-            value={passwordConfirm}
-            onChange={onChangePasswordConfirm}
-          />
-          <p className="message">{passwordConfirmMessage}</p>
-        </div>
-        <div className="form-el">
-          <label htmlFor="email">Email</label> <br />
-          <input
-            id="email"
-            name="name"
-            value={email}
-            onChange={onChangeEmail}
-          />
-          <p className="message">{emailMessage}</p>
-        </div>
-        <div className="form-el">
-          <label htmlFor="phone">Phone</label> <br />
-          <input id="phone" name="phone" value={phone} onChange={addHyphen} />
-          <p className="message">{phoneMessage}</p>
-        </div>
-        <div className="form-el">
-          <label htmlFor="birth">Birth</label> <br />
-          <input
-          type="date"
-            id="birth"
-            name="birth"
-            value={birth}
-            onChange={onChangeBirth}
-          />
-          <p className="message">{birthMessage}</p>
-        </div>
-        <div>배송지</div>
-                  <input
-                    type="text"
-                    id="postcode"
-                    placeholder="우편번호"
-                    onChange={handleInput}
-                  />
-                  <input
-                    type="button"
-                    onClick={handleComplete}
-                    value="우편번호 찾기"
-                  />
-                  <br />
-                  <input type="text" id="address" placeholder="주소" />
-                  <br />
-                  <input
-                    type="text"
-                    id="detailAddress"
-                    placeholder="상세주소"
-                  />
-                  <input
-                    type="text"
-                    id="extraAddress"
-                    placeholder="참고항목"
-                  />
-                  {popup && (<Post company={enroll_company} setcompany={setEnroll_company}></Post>)}
-        <br />
-        <br />
-        <button type="submit" onClick={handleSubmit}>Submit</button>
-      </div>
+        <h3>Sign Up</h3>
+        <form action="" method="post">
+          <div className="form">
+            <div className="form-el">
+              <label htmlFor="id">Id</label> <br />
+              <input id="id" name="id" value={id} onChange={onChangeId} />
+              <p className="message"> {idMessage} </p>
+            </div>
+
+            <div className="form-el">
+              <label htmlFor="name">Name</label> <br />
+              <input
+                id="name"
+                name="name"
+                value={name}
+                onChange={onChangeName}
+              />
+              <p className="message">{nameMessage}</p>
+            </div>
+            <div className="form-el">
+              <label htmlFor="password">Password</label> <br />
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={password}
+                onChange={onChangePassword}
+              />
+              <p className="message">{passwordMessage}</p>
+            </div>
+            <div className="form-el">
+              <label htmlFor="passwordConfirm">Password Confirm</label> <br />
+              <input
+                type="password"
+                id="passwordConfirm"
+                name="passwordConfirm"
+                value={passwordConfirm}
+                onChange={onChangePasswordConfirm}
+              />
+              <p className="message">{passwordConfirmMessage}</p>
+            </div>
+            <div className="form-el">
+              <label htmlFor="email">Email</label> <br />
+              <input
+                id="email"
+                name="name"
+                value={email}
+                onChange={onChangeEmail}
+              />
+              <p className="message">{emailMessage}</p>
+            </div>
+            <div className="form-el">
+              <label htmlFor="phone">Phone</label> <br />
+              <input
+                id="phone"
+                name="phone"
+                value={phone}
+                onChange={addHyphen}
+              />
+              <p className="message">{phoneMessage}</p>
+            </div>
+            <div className="form-el">
+              <label htmlFor="birth">Birth</label> <br />
+              <input
+                type="date"
+                id="birth"
+                name="birth"
+                value={birth}
+                onChange={onChangeBirth}
+              />
+              <p className="message">{birthMessage}</p>
+            </div>
+            {/* <div  className="form-el">
+            <label htmlFor="birth">Address</label> <br />
+            <input type="text" id="postcode" placeholder="우편번호" />
+            <input
+              type="button"
+              onClick={handleComplete}
+              onChange={handleInput}
+              value="우편번호 찾기"
+            />
+            <br />
+            <input type="text" id="address" placeholder="주소" />
+            <br />
+            <input type="text" id="detailAddress" placeholder="상세주소" />
+            <input type="text" id="extraAddress" placeholder="참고항목" />
+            </div> 
+            {popup && <Post company={address} setcompany={setAddress}></Post>} */}
+            <br />
+            <br />
+            <button type="submit" onClick={handleSubmit}>
+              Submit
+            </button>
+          </div>
         </form>
-    </>
-  );
+      </>
+    );
  };
 export default Join;
