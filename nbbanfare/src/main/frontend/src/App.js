@@ -8,12 +8,35 @@ import { Routes, Route} from "react-router-dom";
 import Join from './component/Join';
 function App() {
 	const [hello, setHello] = useState('')
+  const [product, setProduct] = useState([])
 
+    // useEffect(() => {
+    //     axios.get(requests.restPath)
+    //     .then(response => setProduct(response.data))
+    //     .catch(error => console.log(error))
+    // }, []);
+
+    
+
+    const getData = async() => {
+      const url = "http://localhost:8080";
+      axios
+        .get(url)
+        .then((response) => {
+          setProduct(response.data);
+          console.log(product)
+          console.log("성공");
+        })
+        .catch((Error) => {
+          console.log(Error);
+        });
+
+    };
     useEffect(() => {
-        axios.get(requests.restPath)
-        .then(response => setHello(response.data))
-        .catch(error => console.log(error))
-    }, []);
+      getData();
+    }, [])  
+
+    
   return (
     <div>
       <Routes>
@@ -22,7 +45,13 @@ function App() {
           element={
             <div>
               <Header />
-              <div>백에서 가져온 데이터 : {hello}</div>
+              {product.map((data,i) => {
+                return(
+                <div>백에서 가져온 데이터 : {data.productName},{data.productKind},{data.productName},{data.productPrice} </div>
+                
+                )
+              })}
+              
              
               <Footer />
             </div>
