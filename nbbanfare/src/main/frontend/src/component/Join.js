@@ -18,6 +18,7 @@ const [email, setEmail] = useState("");
 const [phone, setPhone] = useState("");
 const [birth, setBirth] = useState("");
 const [address, setAddress] = useState({address:'',});
+const [paddress, setPAddress] = useState("");
 
 // 오류메세지 상태 저장
 const [idMessage, setIdMessage] = useState("");
@@ -151,7 +152,7 @@ const handleSubmit = async (e) => {
           userBirth:birth,
           userPhoneNo:phone,
           userEmail:email,
-          // userAdress:address
+          userAddress:paddress
       }})
       .then((response) => {
           console.log(response.data)
@@ -171,6 +172,8 @@ const handleInput = (e) => {
     	...address,
         [e.target.name]:e.target.value,
     })
+    const currentAddress = e.target.value;
+  setPAddress(currentAddress);
 }
 
 const handleComplete = (data) => {
@@ -250,7 +253,7 @@ const handleComplete = (data) => {
               />
               <p className="message">{birthMessage}</p>
             </div>
-            {/* <div  className="form-el">
+            <div  className="form-el">
             <label htmlFor="birth">Address</label> <br />
             <input type="text" id="postcode" placeholder="우편번호" />
             <input
@@ -265,7 +268,7 @@ const handleComplete = (data) => {
             <input type="text" id="detailAddress" placeholder="상세주소" />
             <input type="text" id="extraAddress" placeholder="참고항목" />
             </div> 
-            {popup && <Post company={address} setcompany={setAddress}></Post>} */}
+            {popup && <Post company={address} setcompany={setAddress}></Post>}
             <br />
             <br />
             <button type="submit" onClick={handleSubmit}>

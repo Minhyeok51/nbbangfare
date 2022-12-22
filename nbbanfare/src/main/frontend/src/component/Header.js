@@ -10,7 +10,7 @@ function Header() {
     let navigate = useNavigate();
 
   return (
-    <>
+
    
     
       <div className='container'>
@@ -47,7 +47,7 @@ function Header() {
               </ul>
             </Col>
           </Row>
-          <div
+          <div  className='row'
             style={{
               background: "rgb(30, 159, 243)",
               height: "50px",
@@ -84,7 +84,7 @@ function Header() {
         </Container>
       </div>
       
-    </>
+
   );
 }
 export default Header;
