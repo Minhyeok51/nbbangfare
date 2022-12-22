@@ -48,11 +48,11 @@ const Post = (props) => {
                 let postCode = document.getElementById('postcode').value = data.zonecode;
                 let addrs = document.getElementById("address").value = addr;
                 // 커서를 상세주소 필드로 이동한다.
-                let detailAddr = document.getElementById("detailAddress").focus();
+                document.getElementById("detailAddress").focus();
 
                 props.setcompany({
                     ...props.company,
-                    address:postCode+addrs,
+                    address:`${postCode} ${addrs}`
                 })
                 
     }
