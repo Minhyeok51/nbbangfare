@@ -3,11 +3,13 @@ import {useState} from "react";
 import '../css/join.css'
 import Post from './Post';
 import requests from '../api/requests'
-import instance from "../api/axios";
-
+import moment from 'moment';
+import {useNavigate } from "react-router-dom";
 
 function Join(){
-  
+
+let navigate = useNavigate();
+let today = moment().format('YYYY-MM-DD');
 const [popup, setPopup] = useState(false);
 // 초기값 세팅 - 아이디, 닉네임, 비밀번호, 비밀번호확인, 이메일, 전화번호, 생년월일, 주소
 const [id, setId] = useState("");
@@ -18,7 +20,7 @@ const [email, setEmail] = useState("");
 const [phone, setPhone] = useState("");
 const [birth, setBirth] = useState("");
 const [address, setAddress] = useState({address:'',});
-const [paddress, setPAddress] = useState("");
+const [detailAddress, setDetailAddress] = useState("");
 
 // 오류메세지 상태 저장
 const [idMessage, setIdMessage] = useState("");
@@ -60,7 +62,7 @@ const onChangeName = (e) => {
     setNameMessage("이름은 2글자 이상 5글자 이하로 입력해주세요!");
     setIsName(false);
   } else {
-    // setNameMessage("사용가능한 닉네임 입니다.");
+    setNameMessage("이름좋네");
     setIsName(true);
   }
 };
@@ -136,13 +138,38 @@ const onChangeBirth = (e) => {
 };
 
 const handleSubmit = async (e) => {
-  if(password !== passwordConfirm){
+  if(id=='' || null || undefined || 0 || NaN){
+    alert("아이디입력")
+    e.preventDefault();
+    return
+  }else if(name == '' || null || undefined || 0 || NaN){
+    alert("이름")
+    e.preventDefault();
+    return
+  }else if(password == '' || null || undefined || 0 || NaN){
+    alert("비번")
+    e.preventDefault();
+    return
+  }else if(email == '' || null || undefined || 0 || NaN){
+    alert("email")
+    e.preventDefault();
+    return
+  }else if(phone == '' || null || undefined || 0 || NaN){
+    alert("전번");
+    e.preventDefault();
+    return
+  }else if(address.address =='' || null || undefined || 0 || NaN){
+    alert("주소적어라")
+    e.preventDefault();
+    return
+  }
+  if(password !== passwordConfirm ){
     alert('비밀번호가 달라요')
     e.preventDefault();
     return
   }
+
   e.preventDefault();
-  console.log(address)
   
   await axios
       .post(requests.joinPath,null,{params: {
@@ -152,7 +179,7 @@ const handleSubmit = async (e) => {
           userBirth:birth,
           userPhoneNo:phone,
           userEmail:email,
-          userAddress:paddress
+          userAddress:`${address.address} ${detailAddress}` 
       }})
       .then((response) => {
           console.log(response.data)
