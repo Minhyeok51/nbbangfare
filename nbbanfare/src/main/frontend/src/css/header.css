@@ -5,7 +5,7 @@
 }
 .header{
     margin-top: 20px;
-    width: 100vw;
+    width: 100%;
 }
 
 ul{
@@ -37,4 +37,8 @@ a{
     padding: 10px 0 30px;
     text-align: left;
     background-color: rgb(30, 159, 243);
+}
+.row {
+    --bs-gutter-x: 0;
+    --bs-gutter-y: 0;
 }

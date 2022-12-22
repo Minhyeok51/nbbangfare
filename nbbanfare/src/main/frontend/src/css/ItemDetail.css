@@ -1,0 +1,15 @@
+.ItemDetail {
+    display: flex;
+    justify-content: space-around;
+    
+}
+.textStyle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.btncss {
+    float: right;
+    margin-right: 250px;
+}

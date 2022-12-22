@@ -3,6 +3,7 @@ const requests = {
     rest2Path: "/rest2",
     foodListPath: "/food/list",
     joinPath :"/join",
-    mainPath : "/main"
+    mainPath : "/main",
+    ItemDetailPath: "/ItemDetail"
 }
 export default requests;
