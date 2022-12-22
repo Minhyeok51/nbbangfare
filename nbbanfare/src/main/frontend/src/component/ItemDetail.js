@@ -21,7 +21,10 @@ function ItemDetail(){
                 <button>버튼</button>
             </div>
             <Footer/>
+            
+            
         </div>
+        
     )
 }
 export default ItemDetail;
