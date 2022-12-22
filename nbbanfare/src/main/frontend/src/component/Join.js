@@ -183,29 +183,35 @@ const handleSubmit = async (e) => {
       }})
       .then((response) => {
           console.log(response.data)
+          console.log(response.status)
+          if(response.status == 200){
+            alert("우리 회원이 된걸 축하한다")
+            navigate("/login")
+          }
       })
       .catch((error) => {
           console.log(error);
+          alert("가입실패! 아마 서버에러?")
       });
+    
 }
 
 //주소검색
-
-
-
+const datailAddressInput = (e) => {
+	setDetailAddress(e.target.value)
+}
 
 const handleInput = (e) => {
 	setAddress({
     	...address,
         [e.target.name]:e.target.value,
     })
-    const currentAddress = e.target.value;
-  setPAddress(currentAddress);
 }
 
 const handleComplete = (data) => {
     setPopup(!popup);
 }
+
     return (
       <>
         <h3>Sign Up</h3>
@@ -276,6 +282,7 @@ const handleComplete = (data) => {
                 id="birth"
                 name="birth"
                 value={birth}
+                max={today}
                 onChange={onChangeBirth}
               />
               <p className="message">{birthMessage}</p>
@@ -292,7 +299,7 @@ const handleComplete = (data) => {
             <br />
             <input type="text" id="address" placeholder="주소" />
             <br />
-            <input type="text" id="detailAddress" placeholder="상세주소" />
+            <input type="text" id="detailAddress" onChange={datailAddressInput} placeholder="상세주소" />
             <input type="text" id="extraAddress" placeholder="참고항목" />
             </div> 
             {popup && <Post company={address} setcompany={setAddress}></Post>}
