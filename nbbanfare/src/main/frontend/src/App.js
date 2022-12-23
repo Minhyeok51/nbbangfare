@@ -5,6 +5,7 @@ import Header from './component/Header';
 import Footer from './component/Footer';
 import Login from './component/Login';
 import ItemDetail from './component/ItemDetail';
+import Mypage from './component/Mypage';
 import { Routes, Route} from "react-router-dom";
 import Join from './component/Join';
 function App() {
@@ -59,9 +60,9 @@ function App() {
           }
         ></Route>
         <Route path="/login" element={<Login />}></Route>
-        <Route path="/mypage"></Route>
+        <Route path="/mypage" element={<Mypage/>}></Route>
         <Route path="/Join" element={<Join/>}></Route>
-        <Route path="/ItemDetail" element={<ItemDetail/>}></Route> 
+        <Route path="/ItemDetail/:id" element={<ItemDetail/>}></Route> 
         <Route path="*" element={<div>404 Not Found</div>} />
       </Routes>
     </div>

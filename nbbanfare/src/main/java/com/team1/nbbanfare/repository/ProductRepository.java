@@ -6,4 +6,5 @@ import com.team1.nbbanfare.dto.ProductForm;
 
 public interface ProductRepository {
 	public List<ProductForm> selectAll();
+	public ProductForm selectById(int productNo); 
 }
