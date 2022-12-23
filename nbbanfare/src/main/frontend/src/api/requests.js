@@ -4,6 +4,7 @@ const requests = {
     foodListPath: "/food/list",
     joinPath :"/join",
     mainPath : "/main",
-    ItemDetailPath: "/ItemDetail"
+    ItemDetailPath: "/ItemDetail",
+    loginPath:"/login"
 }
 export default requests;

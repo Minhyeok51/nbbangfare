@@ -5,11 +5,17 @@
         
 <mapper namespace="com.team1.nbbanfare.repository.mybatis.UserMapper">
 
-<insert id="insert" parameterType="UserForm">
+<insert id="insert" parameterType="User">
 	insert into user_info(user_no ,user_id, user_password, user_name, user_birth,user_phone,user_email,user_address)
 		values(userPK.nextVal,
 		 #{userId}, #{userPw}, #{userName}, #{userBirth},
 		  #{userPhoneNo}, #{userEmail}, #{userAddress})
 </insert>
+
+<select id="selectByUserId" resultType="User">
+	select user_id, user_password, user_name
+	from user_info
+	where user_id = #{userId}
+</select>
 
 </mapper>

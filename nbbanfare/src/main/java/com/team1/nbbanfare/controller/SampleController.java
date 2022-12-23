@@ -21,7 +21,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.ui.Model;
 
 import com.team1.nbbanfare.dto.ProductForm;
-import com.team1.nbbanfare.dto.UserForm;
+import com.team1.nbbanfare.dto.User;
 import com.team1.nbbanfare.repository.ProductRepository;
 import com.team1.nbbanfare.repository.UserRepository;
 
@@ -62,7 +62,7 @@ public class SampleController {
 	
 	
 	@PostMapping("/join")
-	public String register2(@ModelAttribute UserForm userForm) {
+	public String register2(@ModelAttribute User userForm) {
 		
 		log.info("userForm :{}", userForm);
 		userRepository.insert(userForm);

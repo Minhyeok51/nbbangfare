@@ -3,7 +3,7 @@ package com.team1.nbbanfare.dto;
 import lombok.Data;
 
 @Data
-public class UserForm {
+public class User {
 
 	private Integer userNo;
 	private String userId;

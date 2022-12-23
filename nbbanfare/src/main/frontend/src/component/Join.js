@@ -185,7 +185,7 @@ const handleSubmit = async (e) => {
           console.log(response.data)
           console.log(response.status)
           if(response.status == 200){
-            alert("우리 회원이 된걸 축하한다")
+            alert("회원가입성공")
             navigate("/login")
           }
       })
@@ -214,7 +214,7 @@ const handleComplete = (data) => {
 
     return (
       <>
-        <h3>Sign Up</h3>
+        <h3>회원가입 페이지</h3>
         <form action="" method="post">
           <div className="form">
             <div className="form-el">
@@ -306,7 +306,7 @@ const handleComplete = (data) => {
             <br />
             <br />
             <button type="submit" onClick={handleSubmit}>
-              Submit
+              가입하기
             </button>
           </div>
         </form>
