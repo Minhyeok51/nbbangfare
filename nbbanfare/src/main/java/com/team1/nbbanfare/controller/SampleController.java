@@ -35,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 public class SampleController {
 	private final UserRepository userRepository;
 	private static PythonInterpreter interpreter;
-	private final ProductRepository productRepository;
+
 
 	@GetMapping("/rest1")
 	public String rest1() {
@@ -69,13 +69,7 @@ public class SampleController {
 		 return "http://localhost:3000/join";
 	}
 	
-	@GetMapping("/")
-	public List<ProductForm> ProductSearchAll(@ModelAttribute ProductForm productForm) {
-		List<ProductForm> productList = productRepository.selectAll();
-		
-		
-		return productList;
-	}
+
 	
 	@GetMapping("/{productKind}")
 	public List<ProductForm> food(Model model, @PathVariable("productKind") String productKind) {

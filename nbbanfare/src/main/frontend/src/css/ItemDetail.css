@@ -8,8 +8,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 70vh;
 }
 .btncss {
     float: right;
     margin-right: 250px;
+}
+
+.imgcls {
+    width: 30vh;
 }
