@@ -31,6 +31,19 @@ public class ProductFormRepository implements ProductRepository {
 			ProductForm productForm = productMapper.selectById(productNo);
 			return productForm;
 		}
+		
+		@Override
+		@Transactional
+		public List<ProductForm> selectByKind(String productKind) {
+			List<ProductForm> productform = productMapper.selectByKind(productKind);
+			return productform;
+		}
+
+		@Override
+		public List<ProductForm> selectById() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 
 
 	

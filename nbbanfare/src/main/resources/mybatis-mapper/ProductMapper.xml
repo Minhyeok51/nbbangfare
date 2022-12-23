@@ -22,4 +22,8 @@
 	where p.userNo = u.user_no AND p.productno = pr.productno
 </insert>
 
+<select id="selectByKind" resultType="ProductForm">
+	select * from product_test where productKind=#{productKind}
+</select>
+
 </mapper>

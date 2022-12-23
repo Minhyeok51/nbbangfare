@@ -1,11 +1,13 @@
 package com.team1.nbbanfare.repository;
 
 
-import com.team1.nbbanfare.dto.UserForm;
+import com.team1.nbbanfare.dto.User;
 
 
 public interface UserRepository {
-	public UserForm insert(UserForm user);
+	public User insert(User user);
+	
+	public User selectByUserId(String userId);
 
 //	public UserForm selectById(int id);
 
