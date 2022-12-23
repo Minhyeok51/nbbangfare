@@ -5,14 +5,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
 import "../css/header.css"
 import {useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
 
-function Header() {
+function Header({session,setSession}) {
     let navigate = useNavigate();
-
-  return (
-
-   
     
+  return (
       <div className='container'>
         <Container>
           <Row className="header">
@@ -34,17 +32,37 @@ function Header() {
               </form>
             </Col>
             <Col>
+            { session == false? (
               <ul style={{ listStyle: "none" }}>
-                <li>
-                  <a onClick={()=>{navigate('/mypage')}}>마이페이지</a>
-                </li>
-                <li>
-                  <a onClick={()=>{navigate('/join')}}>회원가입</a>
-                </li>
-                <li>
-                  <a onClick={()=>{navigate("/login")}}>로그인</a>
-                </li>
-              </ul>
+              <li>
+                <a onClick={()=>{navigate('/mypage')}}>마이페이지</a>
+              </li>
+              <li>
+                <a onClick={()=>{navigate('/join')}}>회원가입</a>
+              </li>
+              <li>
+                <a onClick={()=>{navigate("/login")}}>로그인</a>
+              </li>
+            </ul>
+            ) : (
+              <ul style={{ listStyle: "none" }}>
+              <li>
+              {sessionStorage.getItem("name")}님 환영합니다.
+              </li>
+              <li>
+                <a onClick={()=>{navigate('/mypage')}}>마이페이지</a>
+              </li>
+              <li>
+                <a onClick={()=>{
+                  sessionStorage.removeItem("name")
+                  sessionStorage.removeItem("user_id")
+                setSession(false)
+              navigate("/")}}>로그아웃</a>
+              </li>
+            </ul>
+            )
+            }
+              
             </Col>
           </Row>
           <div  className='row'
@@ -78,13 +96,10 @@ function Header() {
                   </li>
                 </ul>
               </Col>
-             
             </Row>
           </div>
         </Container>
       </div>
-      
-
   );
 }
 export default Header;

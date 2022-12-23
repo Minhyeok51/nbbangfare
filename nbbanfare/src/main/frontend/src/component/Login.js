@@ -32,8 +32,7 @@ function Login() {
         console.log("res.data.userId :: ", res.data.userPw);
         console.log("res.data.userName :: ", res.data.userName);
         console.log(res.status)
-        // if (res.data.userId === undefined) {
-          if (res.status == 500) {
+        if (res.data.userId === undefined) {
           // id 일치하지 않는 경우 userId = undefined, msg = '입력하신 id 가 일치하지 않습니다.'
           console.log("======================", res.data.msg);
           alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
@@ -49,10 +48,11 @@ function Login() {
           console.log("======================", "로그인 성공");
           sessionStorage.setItem("user_id", inputId); // sessionStorage에 id를 user_id라는 key 값으로 저장
           sessionStorage.setItem("name", res.data.userName); // sessionStorage에 id를 user_id라는 key 값으로 저장
+        
         }
         // 작업 완료 되면 페이지 이동(새로고침)
-        // document.location.href = "/";
-        navigate("/")
+        document.location.href = "/";
+        // navigate("/") 네비게이트 쓰면 세션저장이 안됨
       })
       .catch((error) =>{
         console.log("에러코드 : "+error.response.status)
