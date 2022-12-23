@@ -5,6 +5,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
 import "../css/header.css"
 import {useNavigate } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
+
+import Form from 'react-bootstrap/Form';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
 function Header() {
     let navigate = useNavigate();
@@ -47,7 +53,44 @@ function Header() {
               </ul>
             </Col>
           </Row>
-          <div  className='row'
+
+          <Navbar bg="light" expand="lg">
+          <Container fluid>
+        {/* <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
+        <Navbar.Toggle aria-controls="navbarScroll" /> */}
+        <Navbar.Collapse id="navbarScroll">
+          <Nav
+            className="me-auto my-2 my-lg-0"
+            style={{ maxHeight: '100px' }}
+            navbarScroll
+          >
+            <Nav.Link href="#action1">Home </Nav.Link>
+            <Nav.Link href="#action2">찜목록 </Nav.Link>
+            <NavDropdown title="상품목록" id="navbarScrollingDropdown">
+              <NavDropdown.Item href="#action3">전체보기</NavDropdown.Item>
+              <NavDropdown.Item href="001">
+                상의
+              </NavDropdown.Item>
+              <NavDropdown.Item href="002">
+                아우터
+              </NavDropdown.Item>
+              <NavDropdown.Item href="003">
+                하의
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="#action5">
+                Something else here
+              </NavDropdown.Item>
+            </NavDropdown>
+            <Nav.Link href="#action6">N빵빠레란 </Nav.Link>
+          </Nav>
+          
+        </Navbar.Collapse>
+      </Container>
+
+
+          </Navbar>
+          {/* <div  className='row'
             style={{
               background: "rgb(30, 159, 243)",
               height: "50px",
@@ -55,8 +98,8 @@ function Header() {
               width: "100vw",
               zIndex:"100"
             }}
-          >
-            <Row>
+          > */}
+            {/* <Row>
               <Col>
                 <ul className='dropDownMenu'>
                   <li className='dropDown'>
@@ -79,8 +122,8 @@ function Header() {
                 </ul>
               </Col>
              
-            </Row>
-          </div>
+            </Row> */}
+          {/* </div> */}
         </Container>
       </div>
       

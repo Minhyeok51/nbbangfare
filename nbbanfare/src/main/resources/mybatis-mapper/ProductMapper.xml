@@ -10,4 +10,8 @@
 		from product_test
 </select>
 
+<select id="selectByKind" resultType="ProductForm">
+	select * from product_test where productKind=#{productKind}
+</select>
+
 </mapper>

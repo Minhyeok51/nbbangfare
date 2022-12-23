@@ -6,4 +6,8 @@ import com.team1.nbbanfare.dto.ProductForm;
 
 public interface ProductRepository {
 	public List<ProductForm> selectAll();
+	
+	public List<ProductForm> selectById();
+
+	List<ProductForm> selectByKind(String productKind);
 }
