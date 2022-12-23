@@ -34,7 +34,6 @@ function App() {
         console.log("isLogin ?? :: ", isLogin);
       }
     });
-
   
 
     const getData = async() => {
@@ -64,13 +63,13 @@ function App() {
           path="/"
           element={
             <div>
+
                <div>
              
 
               {/* {product.map((data,i) => {
-                return( */}
+                return( */}               
                
-                
                   <Row xs={1} md={4} className="g-4">
                   
                   {/* {Array.from({ length: 4 }).map((_, idx) => ( */}
@@ -97,6 +96,7 @@ function App() {
                 </Row>
                 
  
+              
               
              
               

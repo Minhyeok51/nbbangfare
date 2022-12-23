@@ -13,13 +13,10 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
-function Header() {
+function Header({session,setSession}) {
     let navigate = useNavigate();
-
-  return (
-
-   
     
+  return (
       <div className='container'>
         <Container>
           <Row className="header">
@@ -41,17 +38,37 @@ function Header() {
               </form>
             </Col>
             <Col>
+            { session == false? (
               <ul style={{ listStyle: "none" }}>
-                <li>
-                  <a onClick={()=>{navigate('/mypage')}}>마이페이지</a>
-                </li>
-                <li>
-                  <a onClick={()=>{navigate('/join')}}>회원가입</a>
-                </li>
-                <li>
-                  <a onClick={()=>{navigate("/login")}}>로그인</a>
-                </li>
-              </ul>
+              <li>
+                <a onClick={()=>{navigate('/mypage')}}>마이페이지</a>
+              </li>
+              <li>
+                <a onClick={()=>{navigate('/join')}}>회원가입</a>
+              </li>
+              <li>
+                <a onClick={()=>{navigate("/login")}}>로그인</a>
+              </li>
+            </ul>
+            ) : (
+              <ul style={{ listStyle: "none" }}>
+              <li>
+              {sessionStorage.getItem("name")}님 환영합니다.
+              </li>
+              <li>
+                <a onClick={()=>{navigate('/mypage')}}>마이페이지</a>
+              </li>
+              <li>
+                <a onClick={()=>{
+                  sessionStorage.removeItem("name")
+                  sessionStorage.removeItem("user_id")
+                setSession(false)
+              navigate("/")}}>로그아웃</a>
+              </li>
+            </ul>
+            )
+            }
+              
             </Col>
           </Row>
 
@@ -127,8 +144,6 @@ function Header() {
           {/* </div> */}
         </Container>
       </div>
-      
-
   );
 }
 export default Header;
