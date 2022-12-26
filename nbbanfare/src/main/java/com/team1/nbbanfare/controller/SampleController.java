@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 public class SampleController {
 	private final UserRepository userRepository;
 	private static PythonInterpreter interpreter;
-
+	private final ProductRepository productRepository;
 
 	@GetMapping("/rest1")
 	public String rest1() {
