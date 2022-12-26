@@ -141,32 +141,32 @@ const onChangeBirth = (e) => {
 
 const handleSubmit = async (e) => {
   
-  if(id=='' || null || undefined || 0 || NaN || isId ==false){
-    alert("아이디입력")
+  if(isId ==false){
+    alert("아이디를 형식에 맞게 입력해주세요")
     e.preventDefault();
     return
-  }else if(name == '' || null || undefined || 0 || NaN || isName == false){
-    alert("이름")
+  }else if(isName == false){
+    alert("올바른 이름을 입력해주세요")
     e.preventDefault();
     return
-  }else if(password == '' || null || undefined || 0 || NaN || isPassword == false){
-    alert("비번")
+  }else if(isPassword == false){
+    alert("비밀번호를 형식에 맞게 입력해주세요")
     e.preventDefault();
     return
-  }else if(email == '' || null || undefined || 0 || NaN || isEmail == false){
-    alert("email")
+  }else if(isEmail == false){
+    alert("이메일 형식에 맞게 입력해주세요")
     e.preventDefault();
     return
-  }else if(phone == '' || null || undefined || 0 || NaN || isPhone == false){
-    alert("전번");
+  }else if(isPhone == false){
+    alert("전화번호 형식에 맞게 입력해주세요");
     e.preventDefault();
     return
-  }else if(birth =='' || null || undefined || 0 || NaN || isBirth == false){
+  }else if(isBirth == false){
     alert("태어난 연도를 입력해주세요")
     e.preventDefault();
     return
   }else if(address.address =='' || null || undefined || 0 || NaN){
-    alert("주소적어라")
+    alert("주소를 입력해주세요")
     e.preventDefault();
     return
   }
@@ -193,10 +193,9 @@ const handleSubmit = async (e) => {
           console.log(response.status)
           if(response.data == "0"){
             alert("이미 가입된 아이디입니다")
-          }if(response.data == "1")
-          {
+          }if(response.data == "1"){
             alert("회원가입 성공")
-          navigate("/login")
+            navigate("/login")
           }
       })
       .catch((error) => {
@@ -229,7 +228,7 @@ const handleComplete = (data) => {
           <div className="form">
             <div className="form-el">
               <label htmlFor="id">Id</label> <br />
-              <input id="id" name="id" value={id} onChange={onChangeId} />
+              <input id="id" name="id" value={id} onChange={onChangeId} autoFocus/>
               <p className="message"> {idMessage} </p>
             </div>
 
