@@ -23,7 +23,9 @@ public class MybatisUserRepository implements UserRepository{
 	public User selectByUserId(String userId) {
 
 		User user = userMapper.selectByUserId(userId);
+		
 		return user;
 	}
+	
 
 }
