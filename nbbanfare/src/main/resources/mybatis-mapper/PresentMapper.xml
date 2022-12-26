@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="com.team1.nbbanfare.repository.mybatis.PresentMapper">
+	<insert id="insertPresent" parameterType="PresentForm">
+		insert into present_test(presentid, productno, userno)
+		values(presentPK.nextval, #{productNo}, #{userNo})
+	</insert>
+	
+	<select id="selectByPresent" resultType="PresentForm">
+		select p.presentId presentId, u.user_name user_name, pr.productname productname, pr.productprice productprice, p.presentCount presentCount,TO_CHAR(p.presentDate, 'YYYY-MM-DD') presentDate
+		from present_test p, user_info u, product_test pr
+		where p.userNo = u.user_id and p.productno = pr.productno and u.user_id = #{userNo}
+	</select>
+</mapper>

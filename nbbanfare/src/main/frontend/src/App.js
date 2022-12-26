@@ -6,17 +6,19 @@ import Footer from './component/Footer';
 import Login from './component/Login';
 import ItemDetail from './component/ItemDetail';
 import Mypage from './component/Mypage';
-import { Routes, Route} from "react-router-dom";
+import { Routes, Route, useNavigate} from "react-router-dom";
 import Join from './component/Join';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import CategoryItem from './component/CategoryItem';
+import Follower from './component/Follower';
 
 function App() {
   const [product, setProduct] = useState([])
   const [isLogin, setIsLogin] = useState(false); //로그인 관리
+  let navigate = useNavigate();
 
     // useEffect(() => {
     //     axios.get(requests.restPath)
@@ -79,7 +81,7 @@ function App() {
                  return(
                     
                     <Col>
-                      <Card style = {{height: '33rem'}}>
+                      <Card style = {{height: '33rem'}} onClick={()=>{navigate(`/ItemDetail/${data.productNo}`)}}>
                         <Card.Img style={{height:'360px'}} variant="top" src={data.productImage} />
                         <Card.Body>
                           <Card.Title>{data.productName}</Card.Title>
@@ -107,8 +109,9 @@ function App() {
         ></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/mypage" element={<Mypage/>}></Route>
+        <Route path="follow:name" element={<Follower/>}></Route>
         <Route path="/Join" element={<Join/>}></Route>
-        <Route path="/ItemDetail/:id" element={<ItemDetail/>}></Route> 
+        <Route path="ItemDetail/:id" element={<ItemDetail/>}> </Route>
         <Route path="*" element={<div>404 Not Found</div>} />
         <Route path="/:productKind" element={<CategoryItem/>} />
       </Routes>

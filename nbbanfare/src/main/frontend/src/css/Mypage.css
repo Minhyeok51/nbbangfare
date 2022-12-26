@@ -16,9 +16,36 @@
     align-items: center;
 }
 .purchaseList {
-
+    
 }
 .Retxt {
     margin-top: 10vh;
     margin-left: 10vh;
+}
+.presentTable {
+    border-top: 2px solid black;
+    width: 100%;
+    text-align: center;
+    background-color: white;
+}
+.presentTable th, td {
+    padding: 10px;
+    vertical-align: center;
+    text-align: center;
+    
+}
+.presentTable th {
+    font-size: 12px;
+    color: rgb(172, 163, 163);
+    border-bottom: 2px solid black;
+}
+
+.presentTable th:nth-child(1) {
+    width: 30%;
+}
+.presentTable th:nth-child(3) {
+    width: 10%;
+}
+.presentTable td:nth-child(6) {
+    background-color: yellow;
 }

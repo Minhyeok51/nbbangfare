@@ -4,9 +4,10 @@ import Col from 'react-bootstrap/Col';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
 import "../css/header.css"
-import {useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import { useEffect, useState } from 'react';
+
 
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
@@ -41,7 +42,7 @@ function Header({session,setSession}) {
             { session == false? (
               <ul style={{ listStyle: "none" }}>
               <li>
-                <a onClick={()=>{navigate('/mypage')}}>마이페이지</a>
+                <a onClick={()=>{navigate('/login')}}>마이페이지</a>
               </li>
               <li>
                 <a onClick={()=>{navigate('/join')}}>회원가입</a>
@@ -56,7 +57,7 @@ function Header({session,setSession}) {
               {sessionStorage.getItem("name")}님 환영합니다.
               </li>
               <li>
-                <a onClick={()=>{navigate('/mypage')}}>마이페이지</a>
+                <a onClick={()=>{navigate(`/mypage`)}}>마이페이지</a>
               </li>
               <li>
                 <a onClick={()=>{
