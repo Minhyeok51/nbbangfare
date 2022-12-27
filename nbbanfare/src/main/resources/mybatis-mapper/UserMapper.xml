@@ -9,11 +9,11 @@
 	insert into user_info(user_no ,user_id, user_password, user_name, user_birth,user_phone,user_email,user_address)
 		values(userPK.nextVal,
 		 #{userId}, #{userPw}, #{userName}, #{userBirth},
-		  #{userPhoneNo}, #{userEmail}, #{userAddress})
+		  #{userPhone}, #{userEmail}, #{userAddress})
 </insert>
 
 <select id="selectByUserId" resultType="User">
-	select user_id, user_password, user_name
+	select *
 	from user_info
 	where user_id = #{userId}
 </select>
