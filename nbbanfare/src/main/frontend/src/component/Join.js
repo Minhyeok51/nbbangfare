@@ -33,7 +33,7 @@ const [birthMessage, setBirthMessage] = useState("");
 
 // 유효성 검사
 const [isId, setIsId] = useState(false);
-const [isname, setIsName] = useState(false);
+const [isName, setIsName] = useState(false);
 const [isPassword, setIsPassword] = useState(false);
 const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
 const [isEmail, setIsEmail] = useState(false);
@@ -41,7 +41,7 @@ const [isPhone, setIsPhone] = useState(false);
 const [isBirth, setIsBirth] = useState(false);
 
 const onChangeId = (e) => {
-  const currentId = e.target.value;
+  const currentId = e.target.value.trim();
   setId(currentId);
   const idRegExp = /^[a-zA-z0-9]{4,12}$/;
 
@@ -51,11 +51,12 @@ const onChangeId = (e) => {
   } else {
     setIdMessage("사용가능한 아이디 입니다.");
     setIsId(true);
+    
   }
 };
 
 const onChangeName = (e) => {
-  const currentName = e.target.value;
+  const currentName = e.target.value.trim();
   setName(currentName);
 
   if (currentName.length < 2 || currentName.length > 5) {
@@ -68,7 +69,7 @@ const onChangeName = (e) => {
 };
 
 const onChangePassword = (e) => {
-  const currentPassword = e.target.value;
+  const currentPassword = e.target.value.trim();
   setPassword(currentPassword);
   const passwordRegExp =
     /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
@@ -83,7 +84,7 @@ const onChangePassword = (e) => {
   }
 };
 const onChangePasswordConfirm = (e) => {
-  const currentPasswordConfirm = e.target.value;
+  const currentPasswordConfirm = e.target.value.trim();
   setPasswordConfirm(currentPasswordConfirm);
   if (password !== currentPasswordConfirm) {
     setPasswordConfirmMessage("떼잉~ 비밀번호가 똑같지 않아요!");
@@ -94,7 +95,7 @@ const onChangePasswordConfirm = (e) => {
   }
 };
 const onChangeEmail = (e) => {
-  const currentEmail = e.target.value;
+  const currentEmail = e.target.value.trim();
   setEmail(currentEmail);
   const emailRegExp =
     /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
@@ -108,7 +109,7 @@ const onChangeEmail = (e) => {
   }
 };
 const onChangePhone = (getNumber) => {
-  const currentPhone = getNumber;
+  const currentPhone = getNumber.trim();
   setPhone(currentPhone);
   const phoneRegExp = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
 
@@ -135,31 +136,37 @@ const addHyphen = (e) => {
 const onChangeBirth = (e) => {
   const currentBirth = e.target.value;
   setBirth(currentBirth);
+  setIsBirth(true)
 };
 
 const handleSubmit = async (e) => {
-  if(id=='' || null || undefined || 0 || NaN){
-    alert("아이디입력")
+  
+  if(isId ==false){
+    alert("아이디를 형식에 맞게 입력해주세요")
     e.preventDefault();
     return
-  }else if(name == '' || null || undefined || 0 || NaN){
-    alert("이름")
+  }else if(isName == false){
+    alert("올바른 이름을 입력해주세요")
     e.preventDefault();
     return
-  }else if(password == '' || null || undefined || 0 || NaN){
-    alert("비번")
+  }else if(isPassword == false){
+    alert("비밀번호를 형식에 맞게 입력해주세요")
     e.preventDefault();
     return
-  }else if(email == '' || null || undefined || 0 || NaN){
-    alert("email")
+  }else if(isEmail == false){
+    alert("이메일 형식에 맞게 입력해주세요")
     e.preventDefault();
     return
-  }else if(phone == '' || null || undefined || 0 || NaN){
-    alert("전번");
+  }else if(isPhone == false){
+    alert("전화번호 형식에 맞게 입력해주세요");
+    e.preventDefault();
+    return
+  }else if(isBirth == false){
+    alert("태어난 연도를 입력해주세요")
     e.preventDefault();
     return
   }else if(address.address =='' || null || undefined || 0 || NaN){
-    alert("주소적어라")
+    alert("주소를 입력해주세요")
     e.preventDefault();
     return
   }
@@ -184,13 +191,15 @@ const handleSubmit = async (e) => {
       .then((response) => {
           console.log(response.data)
           console.log(response.status)
-          if(response.status == 200){
-            alert("회원가입성공")
+          if(response.data == "0"){
+            alert("이미 가입된 아이디입니다")
+          }if(response.data == "1"){
+            alert("회원가입 성공")
             navigate("/login")
           }
       })
       .catch((error) => {
-          console.log(error);
+          console.log(error.response);
           alert("가입실패! 아마 서버에러?")
       });
     
@@ -219,7 +228,7 @@ const handleComplete = (data) => {
           <div className="form">
             <div className="form-el">
               <label htmlFor="id">Id</label> <br />
-              <input id="id" name="id" value={id} onChange={onChangeId} />
+              <input id="id" name="id" value={id} onChange={onChangeId} autoFocus/>
               <p className="message"> {idMessage} </p>
             </div>
 
