@@ -37,7 +37,7 @@ function ItemDetail(){
         await axios
       .post(url,null,{params: {
         'productNo':product.productNo,
-        'productName':product.productName,
+        'userNo':sessionStorage.getItem('user_id'),
         'productPrice':product.productPrice
       }})
       .then((response) => {
@@ -57,7 +57,6 @@ function ItemDetail(){
 
     return(
         <div>
-            <Header/>
                 <div className="ItemDetail">
                     <div className="imgcls">
                         <img src={product.productImage}></img>
@@ -71,8 +70,6 @@ function ItemDetail(){
             <div className="btncss">
                 <button type="submit" onClick={ResItem}>찜하기</button>
             </div>
-
-            <Footer/>
             
             
         </div>

@@ -22,5 +22,13 @@ public class MybatisPresentRepository implements PresentRepository{
 		return present;
 	}
 
+	@Override
+	@Transactional
+	public List<PresentForm> selectByPresent(PresentForm userNo) {
+		// TODO Auto-generated method stub
+		List<PresentForm> selpresentList = presentMapper.selectByPresent(userNo);
+		return selpresentList;
+	}
+
 
 }

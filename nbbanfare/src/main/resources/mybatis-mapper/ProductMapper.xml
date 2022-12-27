@@ -16,12 +16,6 @@
 	where productno = #{productNo}
 </select>
 
-<insert id="insertPresent" parameterType="PresentForm">
-	select p.presentId presentId, u.user_name user_name, pr.productname productname, pr.productprice productprice, p.presentCount presentCount,p.presentDate presentDate
-	from present_test p, user_info u, product_test pr
-	where p.userNo = u.user_no AND p.productno = pr.productno
-</insert>
-
 <select id="selectByKind" resultType="ProductForm">
 	select * from product_test where productKind=#{productKind}
 </select>
