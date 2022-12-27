@@ -3,6 +3,8 @@ import "../css/login.css";
 import { useNavigate } from "react-router-dom";
 import axios from "../api/axios";
 import requests from "../api/requests";
+import KakaoBtn from "./KakaoBtn";
+import { KAKAO_AUTH_URL } from "./OAuth";
 function Login() {
   const [inputId, setInputId] = useState("");
   const [inputPw, setInputPw] = useState("");
@@ -122,6 +124,10 @@ function Login() {
           <li><a>비밀번호 찾기</a></li>
         </ul>
       </form>
+
+      <KakaoBtn href={KAKAO_AUTH_URL}>
+        <span>카카오게정 로그인</span>
+      </KakaoBtn>
     </div>
   );
 }
