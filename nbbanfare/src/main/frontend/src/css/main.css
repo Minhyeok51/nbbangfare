@@ -1,8 +1,7 @@
-li {
+productdiv {
     display: grid;
     grid-template-columns: repeat(auto-fill, 250px);
     justify-content: space-between;
     grid-gap: 20px;
-    list-style: none;
   
 }
