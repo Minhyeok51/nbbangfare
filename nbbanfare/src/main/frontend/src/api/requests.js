@@ -5,6 +5,8 @@ const requests = {
     joinPath :"/join",
     mainPath : "/main",
     ItemDetailPath: "/ItemDetail",
-    loginPath:"/login"
+    loginPath:"/login",
+    idCheckPath:"/idCheck"
+    
 }
 export default requests;

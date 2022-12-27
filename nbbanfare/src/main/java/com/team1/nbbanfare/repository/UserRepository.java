@@ -8,6 +8,7 @@ public interface UserRepository {
 	public User insert(User user);
 	
 	public User selectByUserId(String userId);
+	
 
 //	public UserForm selectById(int id);
 
