@@ -181,7 +181,7 @@ const handleSubmit = async (e) => {
   await axios
       .post(requests.joinPath,null,{params: {
           userId:id,
-          userPw:password,
+          userPassword:password,
           userName:name,
           userBirth:birth,
           userPhoneNo:phone,
