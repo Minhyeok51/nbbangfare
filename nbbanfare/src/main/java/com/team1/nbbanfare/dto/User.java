@@ -7,7 +7,7 @@ public class User {
 
 	private Integer userNo;
 	private String userId;
-	private String userPw;
+	private String userPassword;
 	private String userName;
 	private String userBirth;
 	private String userPhoneNo;

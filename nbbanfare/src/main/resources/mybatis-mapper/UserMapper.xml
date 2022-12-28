@@ -13,7 +13,7 @@
 </insert>
 
 <select id="selectByUserId" resultType="User">
-	select user_id, user_password, user_name
+	select *
 	from user_info
 	where user_id = #{userId}
 </select>

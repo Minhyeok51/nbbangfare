@@ -28,6 +28,7 @@ public class LoginController {
 			log.info("안됨");
 	 		return null;
 	 	}
+		log.info("됨 {}", user);
 		return user;
 	}
 }

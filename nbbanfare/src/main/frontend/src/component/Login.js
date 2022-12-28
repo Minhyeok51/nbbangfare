@@ -38,7 +38,7 @@ function Login() {
           console.log(res.data)
           // id는 있지만, pw 는 다른 경우 userId = null , msg = undefined
           alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
-        }else if(res.data.userId === inputId && res.data.userPw === inputPw) {
+        }else if(res.data.userId === inputId && res.data.userPassword === inputPw) {
           // id, pw 모두 일치 userId = userId1, msg = undefined
           console.log("======================", "로그인 성공");
           sessionStorage.setItem("user_id", inputId); // sessionStorage에 id를 user_id라는 key 값으로 저장

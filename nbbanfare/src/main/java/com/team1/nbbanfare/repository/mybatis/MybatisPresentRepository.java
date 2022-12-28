@@ -9,7 +9,9 @@ import com.team1.nbbanfare.dto.PresentForm;
 import com.team1.nbbanfare.repository.PresentRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class MybatisPresentRepository implements PresentRepository{
@@ -28,6 +30,15 @@ public class MybatisPresentRepository implements PresentRepository{
 		// TODO Auto-generated method stub
 		List<PresentForm> selpresentList = presentMapper.selectByPresent(userNo);
 		return selpresentList;
+	}
+
+	@Override
+	@Transactional
+	public List<PresentForm> selectByFriendPresent(PresentForm followerid) {
+		// TODO Auto-generated method stub
+		List<PresentForm> selFriendPreList = presentMapper.selectByFriendPresent(followerid);
+		log.info("repository {}", selFriendPreList);
+		return selFriendPreList;
 	}
 
 

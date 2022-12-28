@@ -49,3 +49,13 @@
 .presentTable td:nth-child(6) {
     background-color: yellow;
 }
+.modalcls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.footercls {
+    display: flex;
+    justify-content: center;
+}
