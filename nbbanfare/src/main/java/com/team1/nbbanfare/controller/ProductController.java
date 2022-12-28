@@ -1,6 +1,15 @@
 package com.team1.nbbanfare.controller;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,6 +22,7 @@ import com.team1.nbbanfare.dto.ProductForm;
 import com.team1.nbbanfare.repository.ProductRepository;
 import com.team1.nbbanfare.repository.UserRepository;
 
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,7 +31,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class ProductController {
 	private final ProductRepository productRepository;
-
 	
 	@GetMapping("/")
 	public List<ProductForm> ProductSearchAll(@ModelAttribute ProductForm productForm) {
@@ -35,4 +44,49 @@ public class ProductController {
 		log.info("{}",productPrintForm);
 		return productPrintForm;
 	}	
+	
+	@PostConstruct
+	public void insertInit() throws IOException, ParseException {
+		ArrayList<ProductForm> array = null;
+		JSONParser parser = new JSONParser();
+		FileReader reader = new FileReader("C:\\Users\\User\\git\\nbbangfare\\nbbanfare\\src\\main\\test.json");
+		
+		array = new ArrayList<ProductForm>();  
+		
+		JSONArray jsonArray = (JSONArray)parser.parse(reader);
+
+		for(int i=0; i<jsonArray.size(); i++) {
+			JSONObject jsonObject = (JSONObject)jsonArray.get(i);
+			String productName = (String)jsonObject.get("productName");
+			String productPrice = (String)jsonObject.get("productPrice");
+			String productImage = (String)jsonObject.get("productImage");
+			String productKind = (String)jsonObject.get("productKind");
+			ProductForm product = new ProductForm();
+			product.setProductName(productName);
+			product.setProductPrice(productPrice);
+			product.setProductImage(productImage);
+			product.setProductKind(productKind);
+			array.add(product);
+		}
+		System.out.println(array);
+		
+		//크롤링 상태 -> 일자, 결과
+		// 12/28 , 완료
+		
+		//select 12/28 완료된게 있나?
+		
+		//없으면
+		for(ProductForm product : array) {
+			productRepository.insertProduct(product);
+		}
+		
+		productRepository.mergeProduct();
+		
+		//있으면 패스
+		
+		
+	}
+	
+
+	
 }

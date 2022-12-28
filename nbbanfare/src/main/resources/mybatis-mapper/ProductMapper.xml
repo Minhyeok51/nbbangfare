@@ -20,4 +20,19 @@
 	select * from product_test where productKind=#{productKind}
 </select>
 
+<insert id="insertProduct" parameterType="ProductForm">
+	insert into product_test
+	values(#{productName}, #{productPrice}, #{productImage}, #{productKind}, productPK.NEXTVAL, sysdate)
+</insert>
+
+<update id="mergeProduct">
+	merge into product_real r
+	using (select * from product_test) p
+	on ( r.real_productName = p.productName)
+	when matched then
+	update set r.real_productPrice = p.productPrice
+	when not matched then
+	insert (r.real_productName,r.real_productPrice,r.real_productImage,r.real_productKind)
+	values (p.productName,p.productPrice,p.productImage,p.productKind)
+</update>
 </mapper>

@@ -1,5 +1,6 @@
 package com.team1.nbbanfare.repository.mybatis;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -13,5 +14,9 @@ public interface ProductMapper {
 	public ProductForm selectById(int productNo); 
 	
 	public List<ProductForm> selectByKind(String productKind);
+	
+	Integer insertProduct(ProductForm product);
+	
+	void mergeProduct();
 	
 }
