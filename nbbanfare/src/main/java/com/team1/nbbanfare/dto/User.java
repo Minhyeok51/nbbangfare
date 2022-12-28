@@ -10,7 +10,7 @@ public class User {
 	private String userPassword;
 	private String userName;
 	private String userBirth;
-	private String userPhoneNo;
+	private String userPhone;
 	private String userEmail;
 	private String userAddress;
 	

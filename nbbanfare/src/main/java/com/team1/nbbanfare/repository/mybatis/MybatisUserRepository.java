@@ -1,5 +1,6 @@
 package com.team1.nbbanfare.repository.mybatis;
 
+import org.python.jline.internal.Log;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +16,6 @@ public class MybatisUserRepository implements UserRepository{
 
 	private final UserMapper userMapper;
 	@Override
-	@Transactional
 	public User insert(User user) {
 
 		userMapper.insert(user);
@@ -23,10 +23,9 @@ public class MybatisUserRepository implements UserRepository{
 	}
 	@Override
 	public User selectByUserId(String userId) {
-
+		log.info(userId);
 		User user = userMapper.selectByUserId(userId);
-		log.info("mapper {}", user);
-		
+		Log.info("유저 안담기냐 왜 {}", user);
 		return user;
 	}
 	

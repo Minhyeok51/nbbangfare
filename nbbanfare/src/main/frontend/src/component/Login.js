@@ -7,44 +7,77 @@ function Login() {
   const [inputId, setInputId] = useState("");
   const [inputPw, setInputPw] = useState("");
   const [inputName, setInputName] = useState("");
+  const [isId, setIsId] = useState(false);
+  const [isPassword, setIsPassword] = useState(false);
+
   let navigate = useNavigate();
   const handleInputId = (e) => {
     setInputId(e.target.value);
+    setIsId(true)
   };
 
   const handleInputPw = (e) => {
     setInputPw(e.target.value);
+    setIsPassword(true)
   };
 
-  const onClickLogin = (e) => {
-    console.log("click login");
-    console.log("ID : ", inputId);
-    console.log("PW : ", inputPw);
+  const onClickLogin = async(e) => {
+    if(isId == false){
+      alert("아이디 입력해주세요")
+      e.preventDefault();
+      return
+    }else if(isPassword == false){
+      alert("비밀번호 입력해주세요")
+      e.preventDefault();
+      return
+    }
    
-    axios
+    await axios
       .post(requests.loginPath,null,{params: {
         userId:inputId,
-        userPw:inputPw,
+        userPassword:inputPw,
         userName:inputName
     }})
       .then((res) => {
         console.log("res.data.userName :: ", res.data.userName);
-        if (res.data.userId === undefined) {
+        if (res.data.userId === undefined || null) {
           // id 일치하지 않는 경우 userId = undefined, msg = '입력하신 id 가 일치하지 않습니다.'
-          console.log(res.data)
+          console.log(res.data.userId)
+          console.log(res.data.userPassword)
+          console.log(inputId)
+          console.log(inputPw)
+          console.log("여기서 걸림?")
           alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
           // window.location.reload()
-        } else if(res.data.userId === null) {
+         } else
+         if (res.data.userPassword === undefined || null) {
+          // id 일치하지 않는 경우 userId = undefined, msg = '입력하신 id 가 일치하지 않습니다.'
+          console.log(res.data.userId)
+          console.log(res.data.userPassword)
+          console.log(inputId)
+          console.log(inputPw)
+          console.log("여기서 걸림3333?")
+          alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
+          // window.location.reload()
+         } else
+         if(res.data.userPassword !== inputPw ) {
           console.log(res.data)
           // id는 있지만, pw 는 다른 경우 userId = null , msg = undefined
+          console.log("여기서 걸림?222")
           alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
+<<<<<<< HEAD
         }else if(res.data.userId === inputId && res.data.userPassword === inputPw) {
+=======
+         } else
+         if(res.data.userId === inputId && res.data.userPassword === inputPw) {
+>>>>>>> refs/heads/develop
           // id, pw 모두 일치 userId = userId1, msg = undefined
-          console.log("======================", "로그인 성공");
+          alert("로그인성공")
           sessionStorage.setItem("user_id", inputId); // sessionStorage에 id를 user_id라는 key 값으로 저장
           sessionStorage.setItem("name", res.data.userName); // sessionStorage에 id를 user_id라는 key 값으로 저장
-          document.location.href = "/";
+          window.location.reload()
         }
+        document.location.href = "/";
         // 작업 완료 되면 페이지 이동(새로고침)
         // navigate("/") 네비게이트 쓰면 세션저장이 안됨
       })
