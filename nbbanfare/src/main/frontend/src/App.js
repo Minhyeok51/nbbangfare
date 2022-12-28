@@ -91,25 +91,15 @@ function App() {
                         </Card.Body>
                       </Card>
                     </Col>
-                 
-                
-                  
-      
                 )})}
-                </Row>
-                
- 
-              
-              
-             
-              
+                </Row> 
             </div>
             </div>
           }
         ></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/mypage" element={<Mypage/>}></Route>
-        <Route path="follow:name" element={<Follower/>}></Route>
+        <Route path="follow/:name" element={<Follower/>}></Route>
         <Route path="/Join" element={<Join/>}></Route>
         <Route path="ItemDetail/:id" element={<ItemDetail/>}> </Route>
         <Route path="*" element={<div>404 Not Found</div>} />

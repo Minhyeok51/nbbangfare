@@ -37,4 +37,11 @@ public class PresentController {
 		log.info("presentPage Print : {}", printPresentList);
 		return printPresentList;
 	}
-}
+	
+	@GetMapping("/follow/{followerid}")
+	public List<PresentForm> selectByFriendPresent(@ModelAttribute PresentForm present, @PathVariable("followerid") String followerid) {
+		List<PresentForm> printFriendPreList = presentRepository.selectByFriendPresent(present);
+		log.info("controller {}", printFriendPreList);
+		return printFriendPreList;
+	}
+ }
