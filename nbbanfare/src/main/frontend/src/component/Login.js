@@ -65,8 +65,12 @@ function Login() {
           // id는 있지만, pw 는 다른 경우 userId = null , msg = undefined
           console.log("여기서 걸림?222")
           alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
+<<<<<<< HEAD
+        }else if(res.data.userId === inputId && res.data.userPassword === inputPw) {
+=======
          } else
          if(res.data.userId === inputId && res.data.userPassword === inputPw) {
+>>>>>>> refs/heads/develop
           // id, pw 모두 일치 userId = userId1, msg = undefined
           alert("로그인성공")
           sessionStorage.setItem("user_id", inputId); // sessionStorage에 id를 user_id라는 key 값으로 저장

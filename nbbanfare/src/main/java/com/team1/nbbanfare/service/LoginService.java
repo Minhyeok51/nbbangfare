@@ -21,12 +21,12 @@ public class LoginService {
 		log.info("유저 안담김? {} ", user);
 //		user.setUserPw(userPw);
 		if(user != null) {
-		
+
 			if(user.getUserPassword().equals(userPw)) {
 				return user;
 			}
 		}
-		
+
 		return null;
 	}
 }

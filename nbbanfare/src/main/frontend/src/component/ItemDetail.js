@@ -33,6 +33,10 @@ function ItemDetail(){
       }, [])  
 
       const ResItem = async (e) => {
+        if(sessionStorage.getItem('user_id') === null) {
+          alert("로그인 페이지로 이동합니다.")
+          navigate('/login')
+        } else {
         const url = `/ItemDetail/${id}`;
         await axios
       .post(url,null,{params: {
@@ -52,7 +56,7 @@ function ItemDetail(){
           console.log(error);
           alert("등록실패")
       });
-      }
+      }}
 
 
     return(

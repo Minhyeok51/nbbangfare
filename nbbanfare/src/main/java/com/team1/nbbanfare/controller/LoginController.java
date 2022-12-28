@@ -29,7 +29,6 @@ public class LoginController {
 			log.info("안됨");
 	 		return null;
 	 	}
-		
 		log.info("db에서넘어온 user{}",user);
 		return user;
 	}

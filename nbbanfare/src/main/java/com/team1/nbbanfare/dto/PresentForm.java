@@ -10,10 +10,18 @@ import lombok.Data;
 public class PresentForm {
 	private Integer presentId;
 	private String userName;
+	private String userBirth; 
+	private String userPhone;
+	private String userEmail;
+	private String userAddress;
+	private Date createdate;
 	private String productName;
 	private String productPrice;
+	private String productImage;
 	private Integer presentCount;
 	private String presentDate;
 	private Integer productNo;
 	private String userNo;
+	private String followerid;
+
 }
