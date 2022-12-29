@@ -15,8 +15,9 @@ public interface ProductMapper {
 	
 	public List<ProductForm> selectByKind(String productKind);
 	
-	Integer insertProduct(ProductForm product);
+	public Integer insertProduct(ProductForm product);
 	
-	void mergeProduct();
+	public void mergeProduct();
 	
+	public void deleteAll();
 }

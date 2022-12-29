@@ -35,4 +35,9 @@
 	insert (r.real_productName,r.real_productPrice,r.real_productImage,r.real_productKind)
 	values (p.productName,p.productPrice,p.productImage,p.productKind)
 </update>
+
+<delete id="deleteAll">
+	delete from product_test
+	where 'create_date' ^= to_char(sysdate, 'yyyymmdd') 
+</delete>
 </mapper>

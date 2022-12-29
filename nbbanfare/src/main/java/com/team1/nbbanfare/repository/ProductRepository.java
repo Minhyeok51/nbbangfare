@@ -16,4 +16,6 @@ public interface ProductRepository {
 	void insertProduct(ProductForm product);
 	
 	void mergeProduct();
+	
+	public void deleteAll();
 }

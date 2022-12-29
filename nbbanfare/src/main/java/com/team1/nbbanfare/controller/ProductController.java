@@ -10,7 +10,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,7 +45,8 @@ public class ProductController {
 		return productPrintForm;
 	}	
 	
-	@PostConstruct
+	//				  초 분 시 일 월 요일
+	@Scheduled(cron = "0 12 17 * * *" , zone = "Asia/Seoul")
 	public void insertInit() throws IOException, ParseException {
 		ArrayList<ProductForm> array = null;
 		JSONParser parser = new JSONParser();
@@ -72,7 +73,7 @@ public class ProductController {
 		
 		//크롤링 상태 -> 일자, 결과
 		// 12/28 , 완료
-		
+		productRepository.deleteAll();
 		//select 12/28 완료된게 있나?
 		
 		//없으면

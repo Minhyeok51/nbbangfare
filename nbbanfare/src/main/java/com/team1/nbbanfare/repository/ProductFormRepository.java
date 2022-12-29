@@ -62,6 +62,11 @@ public class ProductFormRepository implements ProductRepository {
 		public void mergeProduct() {
 			productMapper.mergeProduct();
 		}
+		
+		@Override
+		public void deleteAll() {
+			productMapper.deleteAll();
+		}
 
 
 	
