@@ -14,6 +14,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import CategoryItem from './component/CategoryItem';
 import Follower from './component/Follower';
+import KakaoLogin from './component/KakaoLogin';
 
 function App() {
   const [product, setProduct] = useState([])
@@ -104,6 +105,7 @@ function App() {
         <Route path="ItemDetail/:id" element={<ItemDetail/>}> </Route>
         <Route path="*" element={<div>404 Not Found</div>} />
         <Route path="/:productKind" element={<CategoryItem/>} />
+        <Route path='/oauth/kakao' element={<KakaoLogin/>}/>
       </Routes>
       <Footer />
     </div>
