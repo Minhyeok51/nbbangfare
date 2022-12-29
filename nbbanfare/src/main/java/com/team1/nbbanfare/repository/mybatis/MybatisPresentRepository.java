@@ -25,7 +25,6 @@ public class MybatisPresentRepository implements PresentRepository{
 	}
 
 	@Override
-	@Transactional
 	public List<PresentForm> selectByPresent(PresentForm userNo) {
 		// TODO Auto-generated method stub
 		List<PresentForm> selpresentList = presentMapper.selectByPresent(userNo);
@@ -33,7 +32,6 @@ public class MybatisPresentRepository implements PresentRepository{
 	}
 
 	@Override
-	@Transactional
 	public List<PresentForm> selectByFriendPresent(PresentForm followerid) {
 		// TODO Auto-generated method stub
 		List<PresentForm> selFriendPreList = presentMapper.selectByFriendPresent(followerid);
