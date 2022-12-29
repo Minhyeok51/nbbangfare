@@ -45,27 +45,18 @@ function Login() {
         if (res.data.userId === undefined || null) {
           // id 일치하지 않는 경우 userId = undefined, msg = '입력하신 id 가 일치하지 않습니다.'
           console.log(res.data.userId)
-          console.log(res.data.userPassword)
-          console.log(inputId)
-          console.log(inputPw)
-          console.log("여기서 걸림?")
           alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
           // window.location.reload()
          } else
          if (res.data.userPassword === undefined || null) {
           // id 일치하지 않는 경우 userId = undefined, msg = '입력하신 id 가 일치하지 않습니다.'
           console.log(res.data.userId)
-          console.log(res.data.userPassword)
-          console.log(inputId)
-          console.log(inputPw)
-          console.log("여기서 걸림3333?")
           alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
           // window.location.reload()
          } else
          if(res.data.userPassword !== inputPw ) {
           console.log(res.data)
           // id는 있지만, pw 는 다른 경우 userId = null , msg = undefined
-          console.log("여기서 걸림?222")
           alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
          } else
          if(res.data.userId === inputId && res.data.userPassword === inputPw) {
