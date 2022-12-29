@@ -38,6 +38,8 @@ public class MybatisPresentRepository implements PresentRepository{
 		log.info("repository {}", selFriendPreList);
 		return selFriendPreList;
 	}
+	
+	
 
 
 }

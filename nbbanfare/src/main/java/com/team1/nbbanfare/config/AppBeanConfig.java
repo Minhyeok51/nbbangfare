@@ -19,4 +19,6 @@ public class AppBeanConfig {
 	public UserRepository userRepository() {
 		return new MybatisUserRepository(userMapper);
 	}
+	
+	
 }

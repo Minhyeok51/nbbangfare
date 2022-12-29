@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.team1.nbbanfare.dto.ProductForm;
 import com.team1.nbbanfare.repository.mybatis.ProductMapper;
 
+
 import lombok.RequiredArgsConstructor;
 
 @Repository
@@ -17,6 +18,7 @@ public class ProductFormRepository implements ProductRepository {
 
 		private static List<ProductForm> db = new ArrayList<>();
 		private final ProductMapper productMapper;
+		
 		
 		@Override
 		@Transactional
@@ -43,6 +45,27 @@ public class ProductFormRepository implements ProductRepository {
 		public List<ProductForm> selectById() {
 			// TODO Auto-generated method stub
 			return null;
+		}
+		
+		@Override
+		public void insertProduct(ProductForm product) {
+//			foodItem.setId(seq++);
+			productMapper.insertProduct(product);
+		}
+		
+//		@Override
+//		public ArrayList<ProductForm> getList() {
+//			return db;
+//		}
+		
+		@Override
+		public void mergeProduct() {
+			productMapper.mergeProduct();
+		}
+		
+		@Override
+		public void deleteAll() {
+			productMapper.deleteAll();
 		}
 
 
