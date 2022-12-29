@@ -27,7 +27,9 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
+	
+	
+	
 	
 	//결제연동
 	implementation 'com.github.iamport:iamport-rest-client-java:0.2.14'
@@ -35,8 +37,11 @@ dependencies {
 	//오라클 연동하기
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.0' //mvnrepository -> spring boot mybatis검색
 	runtimeOnly 'com.oracle.database.jdbc:ojdbc8'
+<<<<<<< Upstream, based on origin/develop
 	
 	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4:1.16'
+=======
+>>>>>>> cdafcdf 카카오 로그인 구현중 데이터 받는것까지 성공
 }
 
 tasks.named('test') {

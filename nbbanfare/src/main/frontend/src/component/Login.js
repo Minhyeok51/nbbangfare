@@ -3,9 +3,11 @@ import "../css/login.css";
 import { useNavigate } from "react-router-dom";
 import axios from "../api/axios";
 import requests from "../api/requests";
-import KakaoBtn from "./KakaoBtn";
+import KakaoLogin from "./KakaoLogin";
 import { KAKAO_AUTH_URL } from "./OAuth";
 function Login() {
+  // 카카오 개발자 앱 키 선언
+  const KAKAO_AUTH_URI = KAKAO_AUTH_URL
   const [inputId, setInputId] = useState("");
   const [inputPw, setInputPw] = useState("");
   const [inputName, setInputName] = useState("");
@@ -111,10 +113,7 @@ function Login() {
           <li><a>비밀번호 찾기</a></li>
         </ul>
       </form>
-
-      <KakaoBtn href={KAKAO_AUTH_URL}>
-        <span>카카오게정 로그인</span>
-      </KakaoBtn>
+        <a href={KAKAO_AUTH_URI}><img className="kakaoBtn" src="https://asp.pointpark.com/PlusPointMember/resources/images/mobileHomePage/btn_kakao.png"/></a>
     </div>
   );
 }
