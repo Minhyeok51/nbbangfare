@@ -20,4 +20,6 @@ public interface ProductMapper {
 	public void mergeProduct();
 	
 	public void deleteAll();
+	
+	
 }

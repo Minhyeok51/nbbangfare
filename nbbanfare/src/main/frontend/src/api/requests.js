@@ -7,6 +7,7 @@ const requests = {
     ItemDetailPath: "/ItemDetail",
     loginPath:"/login",
     idCheckPath:"/idCheck",
-    followPath:"/follow"
+    followPath:"/follow",
+    searchPath:"/Search"
 }
 export default requests;

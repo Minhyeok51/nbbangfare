@@ -2,7 +2,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
+import {faFileWord, faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
 import "../css/header.css"
 import {useNavigate} from "react-router-dom";
 import Button from 'react-bootstrap/Button';
@@ -16,7 +16,18 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 
 function Header({session,setSession}) {
     let navigate = useNavigate();
+
+    const [word, setWord] = useState([])
     
+    const onSubmit = async => {
+      window.location.href = "/Search/"  + word
+      
+  }
+   
+    
+    
+
+
   return (
       <div className='container'>
         <Container>
@@ -30,8 +41,8 @@ function Header({session,setSession}) {
               <form action="/" method="get">
                 <fieldset>
                   <legend>
-                    <input type="text" value="갖고 싶은 선물 찾기" />
-                    <button type="submit">
+                    <input onChange={(e) => {setWord(e.target.value); console.log(word)}} type="text" placeholder="친구찾기" />
+                    <button type="button" onClick={() => {onSubmit();}}>
                       <FontAwesomeIcon icon={faMagnifyingGlass} />
                     </button>
                   </legend>

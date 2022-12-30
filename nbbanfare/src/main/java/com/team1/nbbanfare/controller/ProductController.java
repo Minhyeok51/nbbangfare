@@ -88,6 +88,17 @@ public class ProductController {
 		
 	}
 	
+//	@GetMapping("/search")
+//	public void getSearchProducts(@RequestParam(value="search") String search) {
+//			try {
+//				List<GetProductRes> getProductResList = productService.getSearchProducts(word);
+//				return new BaseResponse<>(getProductResList);
+//			} catch (Exception exception) {
+//				return new BaseResponse<>(BaseResponseStatus.FAIL);
+//			}
+//		}
+//		
+	
 
 	
 }

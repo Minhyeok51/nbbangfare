@@ -7,7 +7,7 @@
 
 <select id="selectAll" resultType="ProductForm">
 
-		select productname,productprice,productimage,productkind, productno 
+		select real_productname productname, real_productprice productprice, real_productimage productimage, real_productkind productkind
 		from product_real
 
 </select>
@@ -42,4 +42,6 @@
 	delete from product_test
 	where 'create_date' ^= to_char(sysdate, 'yyyymmdd') 
 </delete>
+
+
 </mapper>

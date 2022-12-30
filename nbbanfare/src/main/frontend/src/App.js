@@ -14,6 +14,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import CategoryItem from './component/CategoryItem';
 import Follower from './component/Follower';
+import Search from './component/Search';
 
 function App() {
   const [product, setProduct] = useState([])
@@ -98,12 +99,14 @@ function App() {
           }
         ></Route>
         <Route path="/login" element={<Login />}></Route>
-        <Route path="/mypage" element={<Mypage/>}></Route>
+        <Route path="/mypage" element={<Mypage session={isLogin} setSession={setIsLogin}/>}></Route>
         <Route path="follow/:name" element={<Follower/>}></Route>
         <Route path="/Join" element={<Join/>}></Route>
         <Route path="ItemDetail/:id" element={<ItemDetail/>}> </Route>
         <Route path="*" element={<div>404 Not Found</div>} />
         <Route path="/:productKind" element={<CategoryItem/>} />
+        <Route path='/Search/:word' element={<Search/>} />
+        <Route path='/oauth/kakao' element={<KakaoLogin/>}/>
       </Routes>
       <Footer />
     </div>

@@ -1,5 +1,7 @@
 package com.team1.nbbanfare.repository.mybatis;
 
+import java.util.List;
+
 import org.python.jline.internal.Log;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 public class MybatisUserRepository implements UserRepository{
 
 	private final UserMapper userMapper;
+
 	@Override
 	public User insert(User user) {
 
@@ -25,8 +28,15 @@ public class MybatisUserRepository implements UserRepository{
 	public User selectByUserId(String userId) {
 		log.info(userId);
 		User user = userMapper.selectByUserId(userId);
-		Log.info("유저 안담기냐 왜 {}", user);
+		log.info("유저 안담기냐 왜 {}", user);
 		return user;
+	}
+	
+	@Override
+	public List<User> searchUser(String word) {
+		List<User> searchUserList = userMapper.searchUser(word);
+		return searchUserList;
+		
 	}
 	
 

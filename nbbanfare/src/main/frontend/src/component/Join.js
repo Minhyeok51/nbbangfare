@@ -184,7 +184,7 @@ const handleSubmit = async (e) => {
           userPassword:password,
           userName:name,
           userBirth:birth,
-          userPhoneNo:phone,
+          userPhone:phone,
           userEmail:email,
           userAddress:`${address.address} ${detailAddress}` 
       }})
