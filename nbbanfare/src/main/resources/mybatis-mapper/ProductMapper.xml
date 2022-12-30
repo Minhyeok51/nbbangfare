@@ -25,7 +25,6 @@
 	values(#{productName}, #{productPrice}, #{productImage}, #{productKind}, productPK.NEXTVAL, sysdate)
 </insert>
 
-<<<<<<< Upstream, based on origin/develop
 <update id="mergeProduct">
 	merge into product_real r
 	using (select * from product_test) p

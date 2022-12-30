@@ -19,11 +19,18 @@ function KakaoLogin(){
     console.log(res.data)
     console.log(res.data.email)
     console.log(res.data.nickname)
+<<<<<<< HEAD
     sessionStorage.setItem("email", res.data.email)
     sessionStorage.setItem("image", res.data.image)
     sessionStorage.setItem("name", res.data.nickname)
     sessionStorage.setItem("id", res.data.id)
     // window.location.href="/"
+=======
+    sessionStorage.setItem("name", res.data.email)
+    sessionStorage.setItem("image", res.data.image)
+    sessionStorage.setItem("nickname", res.data.nickname)
+    window.location.href="/"
+>>>>>>> branch 'kakaoLogin' of https://github.com/Minhyeok51/nbbangfare.git
   // res에 포함된 토큰 받아서 원하는 로직을 하면된다.
 })
 }, [])

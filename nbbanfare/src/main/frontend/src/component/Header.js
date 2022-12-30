@@ -54,7 +54,11 @@ function Header({session,setSession}) {
             ) : (
               <ul style={{ listStyle: "none" }}>
               <li>
+<<<<<<< HEAD
                 
+=======
+                <img style={{width:"100px", height:"100px", borderRadius:"50px"}} src={sessionStorage.getItem("image")} alt="프로필이미지"/>
+>>>>>>> branch 'kakaoLogin' of https://github.com/Minhyeok51/nbbangfare.git
               {sessionStorage.getItem("name")}님 환영합니다.
               </li>
               <li>

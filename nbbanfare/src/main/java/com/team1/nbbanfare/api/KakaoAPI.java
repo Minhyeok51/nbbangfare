@@ -86,6 +86,7 @@ public class KakaoAPI {
 			
 			JSONParser parser = new JSONParser();
 			JSONObject element = (JSONObject) parser.parse(result);
+<<<<<<< HEAD
 			String id = element.get("id").toString();
 			JSONObject properties = (JSONObject)element.get("properties");
 			JSONObject kakaoAccount = (JSONObject) element.get("kakao_account");
@@ -94,6 +95,16 @@ public class KakaoAPI {
 			String email = kakaoAccount.get("email").toString();
 			String image = properties.get("profile_image").toString();
 			userInfo.put("id", id);
+=======
+			
+			JSONObject properties = (JSONObject)element.get("properties");
+			JSONObject kakaoAccount = (JSONObject) element.get("kakao_account");
+			
+			String nickname = properties.get("nickname").toString();
+			String email = kakaoAccount.get("email").toString();
+			String image = properties.get("profile_image").toString();
+			
+>>>>>>> branch 'kakaoLogin' of https://github.com/Minhyeok51/nbbangfare.git
 			userInfo.put("nickname", nickname);
 			userInfo.put("email", email);
 			userInfo.put("image", image);
