@@ -6,7 +6,7 @@ import {faFileWord, faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
 import "../css/header.css"
 import {useNavigate} from "react-router-dom";
 import requests from '../api/requests';
-
+import { useState } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -21,11 +21,6 @@ function Header({session,setSession}) {
       window.location.href = "/Search/"  + word
       
   }
-   
-    
-    
-
-
     const logOutFunc = ()=>{
       axios.post(requests.kakaoLogoutPath     
     ).then(res=>{

@@ -15,7 +15,6 @@ import com.team1.nbbanfare.form.LoginForm;
 import com.team1.nbbanfare.service.EmailService;
 import com.team1.nbbanfare.service.LoginService;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -64,7 +63,7 @@ public class LoginController {
 		return "카카오 로그아웃 성공";
 				
 	}
-	@PostMapping("emailConfirm")
+	@PostMapping("/emailConfirm")
 	@ResponseBody
 	public String emailConfirm(@RequestParam("email") String email) throws Exception {
 

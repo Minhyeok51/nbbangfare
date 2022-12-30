@@ -63,8 +63,6 @@ function Mypage({session,setSession}) {
                             <td>{data.productPrice}</td>
                             <td style={{cursor:'pointer'}}>구매하기</td>
                         </tr>   
- 
-
                 )
             })}    
   
