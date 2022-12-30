@@ -3,7 +3,7 @@ import noImg from "../img/noimg.jpg"
 import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 
-function Mypage() {
+function Mypage({session,setSession}) {
     const [present, setPresent] = useState([]);
     
     const getData = async() => {
@@ -26,10 +26,14 @@ function Mypage() {
     return(
         <div>
             <div className="userBar">
-
-                <img src={noImg} style={{width:'200px', height:'200px', margin:'10vh', borderRadius:'70%', overflow:'hidden'}}></img>
+                {sessionStorage.getItem("image") !== null ? 
+                <img src={sessionStorage.getItem("image")} style={{width:'200px', height:'200px', margin:'10vh', borderRadius:'70%', overflow:'hidden'}}></img>
+            :
+            <img src={noImg} style={{width:'200px', height:'200px', margin:'10vh', borderRadius:'70%', overflow:'hidden'}}></img>
+            }
+                
                 <div className="textplc">
-                    <p>사용자 이름: </p>
+                    <p>사용자 이름: {sessionStorage.getItem("nickname")}</p>
                     <p>가입일: </p>
                 </div>
 

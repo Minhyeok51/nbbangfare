@@ -86,14 +86,14 @@ public class KakaoAPI {
 			
 			JSONParser parser = new JSONParser();
 			JSONObject element = (JSONObject) parser.parse(result);
-			
+			String id = element.get("id").toString();
 			JSONObject properties = (JSONObject)element.get("properties");
 			JSONObject kakaoAccount = (JSONObject) element.get("kakao_account");
 			
 			String nickname = properties.get("nickname").toString();
 			String email = kakaoAccount.get("email").toString();
 			String image = properties.get("profile_image").toString();
-			
+			userInfo.put("id", id);
 			userInfo.put("nickname", nickname);
 			userInfo.put("email", email);
 			userInfo.put("image", image);

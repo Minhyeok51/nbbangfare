@@ -99,7 +99,7 @@ function App() {
           }
         ></Route>
         <Route path="/login" element={<Login />}></Route>
-        <Route path="/mypage" element={<Mypage/>}></Route>
+        <Route path="/mypage" element={<Mypage session={isLogin} setSession={setIsLogin}/>}></Route>
         <Route path="follow/:name" element={<Follower/>}></Route>
         <Route path="/Join" element={<Join/>}></Route>
         <Route path="ItemDetail/:id" element={<ItemDetail/>}> </Route>
