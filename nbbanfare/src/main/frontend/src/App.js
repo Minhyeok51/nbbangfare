@@ -105,8 +105,8 @@ function App() {
         <Route path="ItemDetail/:id" element={<ItemDetail/>}> </Route>
         <Route path="*" element={<div>404 Not Found</div>} />
         <Route path="/:productKind" element={<CategoryItem/>} />
-        <Route path='/Search/:word' element={<Search/>} />
         <Route path='/oauth/kakao' element={<KakaoLogin/>}/>
+         <Route path='/Search/:word' element={<Search/>} />
       </Routes>
       <Footer />
     </div>

@@ -8,6 +8,7 @@ const requests = {
     loginPath:"/login",
     idCheckPath:"/idCheck",
     followPath:"/follow",
-    searchPath:"/Search"
+    searchPath:"/Search",
+				kakaoLoginPath:"/oauth/kakao",
 }
 export default requests;
