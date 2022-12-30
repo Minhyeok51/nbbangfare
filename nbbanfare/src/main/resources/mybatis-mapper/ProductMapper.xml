@@ -42,19 +42,4 @@
 	delete from product_test
 	where 'create_date' ^= to_char(sysdate, 'yyyymmdd') 
 </delete>
-<<<<<<< HEAD
-
-
-=======
-<update id="mergeProduct">
-	merge into product_real r
-	using (select * from product_test) p
-	on ( r.real_productName = p.productName)
-	when matched then
-	update set r.real_productPrice = p.productPrice
-	when not matched then
-	insert (r.real_productName,r.real_productPrice,r.real_productImage,r.real_productKind)
-	values (p.productName,p.productPrice,p.productImage,p.productKind)
-</update>
->>>>>>> branch 'develop' of https://github.com/Minhyeok51/nbbangfare.git
 </mapper>

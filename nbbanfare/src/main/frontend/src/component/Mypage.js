@@ -33,7 +33,7 @@ function Mypage({session,setSession}) {
             }
                 
                 <div className="textplc">
-                    <p>사용자 이름: {sessionStorage.getItem("nickname")}</p>
+                    <p>사용자 이름: {sessionStorage.getItem("name")}</p>
                     <p>가입일: </p>
                 </div>
 

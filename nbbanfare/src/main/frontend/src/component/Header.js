@@ -5,14 +5,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faFileWord, faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
 import "../css/header.css"
 import {useNavigate} from "react-router-dom";
-import Button from 'react-bootstrap/Button';
-import { useEffect, useState } from 'react';
+import requests from '../api/requests';
 
-
-import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import axios from 'axios';
 
 function Header({session,setSession}) {
     let navigate = useNavigate();
@@ -28,6 +26,18 @@ function Header({session,setSession}) {
     
 
 
+    const logOutFunc = ()=>{
+      axios.post(requests.kakaoLogoutPath     
+    ).then(res=>{
+      console.log(res.data)
+    })
+    .catch(error =>{
+      console.log(error)
+    })
+    .then(
+      console.log("카카오로그아웃")
+    )
+  }
   return (
       <div className='container'>
         <Container>
@@ -66,8 +76,6 @@ function Header({session,setSession}) {
               <ul style={{ listStyle: "none" }}>
               <li>
 
-                <img style={{width:"100px", height:"100px", borderRadius:"50px"}} src={sessionStorage.getItem("image")} alt="프로필이미지"/>
-
               {sessionStorage.getItem("name")}님 환영합니다.
               </li>
               <li>
@@ -75,10 +83,15 @@ function Header({session,setSession}) {
               </li>
               <li>
                 <a onClick={()=>{
+                  logOutFunc()
                   sessionStorage.removeItem("name")
                   sessionStorage.removeItem("user_id")
-                setSession(false)
-              navigate("/")}}>로그아웃</a>
+                  sessionStorage.removeItem("image")
+                  sessionStorage.removeItem("id")
+                  sessionStorage.removeItem("email")
+                  setSession(false)
+                  window.location.href="/"
+              }}>로그아웃</a>
               </li>
             </ul>
             )

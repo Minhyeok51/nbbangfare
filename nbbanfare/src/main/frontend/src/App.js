@@ -15,6 +15,7 @@ import Row from 'react-bootstrap/Row';
 import CategoryItem from './component/CategoryItem';
 import Follower from './component/Follower';
 import Search from './component/Search';
+import KakaoLogin from './component/KakaoLogin';
 
 function App() {
   const [product, setProduct] = useState([])

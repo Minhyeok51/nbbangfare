@@ -11,7 +11,7 @@ public interface UserMapper {
 
 	public Integer insert(User user);
 	
-	public User selectByUserId(String userId);
+	public User selectByUserEmail(String userEmail);
 	
 	public List<User> searchUser(String word);
 	
