@@ -81,7 +81,7 @@ public class ProductController {
 			productRepository.insertProduct(product);
 		}
 		
-		productRepository.mergeProduct();
+//		productRepository.mergeProduct();
 		
 		//있으면 패스
 		

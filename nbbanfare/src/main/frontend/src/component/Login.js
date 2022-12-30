@@ -4,7 +4,11 @@ import { useNavigate } from "react-router-dom";
 import axios from "../api/axios";
 import requests from "../api/requests";
 
+import KakaoLogin from "./KakaoLogin";
+import { KAKAO_AUTH_URL } from "./OAuth";
 function Login() {
+  // 카카오 개발자 앱 키 선언
+  const KAKAO_AUTH_URI = KAKAO_AUTH_URL
   const [inputId, setInputId] = useState("");
   const [inputPw, setInputPw] = useState("");
   const [inputName, setInputName] = useState("");
@@ -44,27 +48,18 @@ function Login() {
         if (res.data.userId === undefined || null) {
           // id 일치하지 않는 경우 userId = undefined, msg = '입력하신 id 가 일치하지 않습니다.'
           console.log(res.data.userId)
-          console.log(res.data.userPassword)
-          console.log(inputId)
-          console.log(inputPw)
-          console.log("여기서 걸림?")
           alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
           // window.location.reload()
          } else
          if (res.data.userPassword === undefined || null) {
           // id 일치하지 않는 경우 userId = undefined, msg = '입력하신 id 가 일치하지 않습니다.'
           console.log(res.data.userId)
-          console.log(res.data.userPassword)
-          console.log(inputId)
-          console.log(inputPw)
-          console.log("여기서 걸림3333?")
           alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
           // window.location.reload()
          } else
          if(res.data.userPassword !== inputPw ) {
           console.log(res.data)
           // id는 있지만, pw 는 다른 경우 userId = null , msg = undefined
-          console.log("여기서 걸림?222")
           alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
          } else
          if(res.data.userId === inputId && res.data.userPassword === inputPw) {
@@ -119,10 +114,7 @@ function Login() {
           <li><a>비밀번호 찾기</a></li>
         </ul>
       </form>
-
-      {/* <KakaoBtn href={KAKAO_AUTH_URL}>
-        <span>카카오게정 로그인</span>
-      </KakaoBtn> */}
+        <a href={KAKAO_AUTH_URI}><img className="kakaoBtn" src="https://asp.pointpark.com/PlusPointMember/resources/images/mobileHomePage/btn_kakao.png"/></a>
     </div>
   );
 }

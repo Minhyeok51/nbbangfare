@@ -2,7 +2,6 @@ package com.team1.nbbanfare.repository.mybatis;
 
 import org.python.jline.internal.Log;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.team1.nbbanfare.dto.User;
 import com.team1.nbbanfare.repository.UserRepository;
