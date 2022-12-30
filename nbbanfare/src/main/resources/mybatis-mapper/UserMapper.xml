@@ -8,7 +8,7 @@
 <insert id="insert" parameterType="User">
 	insert into user_info(user_no ,user_id, user_password, user_name, user_birth,user_phone,user_email,user_address)
 		values(userPK.nextVal,
-		 #{userId}, #{userPw}, #{userName}, #{userBirth},
+		 #{userId}, #{userPassword}, #{userName}, #{userBirth},
 		  #{userPhone}, #{userEmail}, #{userAddress})
 </insert>
 

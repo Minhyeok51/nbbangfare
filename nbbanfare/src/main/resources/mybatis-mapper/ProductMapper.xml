@@ -7,7 +7,7 @@
 
 <select id="selectAll" resultType="ProductForm">
 		select productname,productprice,productimage,productkind, productno 
-		from product_test
+		from product_real
 </select>
 
 <select id="selectById" resultType="ProductForm">
