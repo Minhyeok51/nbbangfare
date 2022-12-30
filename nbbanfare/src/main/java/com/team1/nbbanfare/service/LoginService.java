@@ -17,7 +17,7 @@ public class LoginService {
 	
 	public User login(String userId, String userPw) {
 		log.info("아이디 비번 나와라 {} {}",userId,userPw);
-		User user = userRepository.selectByUserId(userId);
+		User user = userRepository.selectByUserEmail(userId);
 		log.info("유저 안담김? {} ", user);
 //		user.setUserPw(userPw);
 		if(user != null) {

@@ -7,7 +7,9 @@ const requests = {
     ItemDetailPath: "/ItemDetail",
     loginPath:"/login",
     idCheckPath:"/idCheck",
-    followPath:"/follow"
+    followPath:"/follow",
 	kakaoLoginPath:"/oauth/kakao",
+    kakaoLogoutPath:"/kakaoLogout",
+    emailConfirmPath:"/emailConfirm"
 }
 export default requests;

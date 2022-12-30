@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.team1.nbbanfare.api.KakaoAPI;
 import com.team1.nbbanfare.dto.User;
 import com.team1.nbbanfare.form.LoginForm;
+import com.team1.nbbanfare.service.EmailService;
 import com.team1.nbbanfare.service.LoginService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,6 +25,8 @@ import lombok.extern.slf4j.Slf4j;
 public class LoginController {
 
 	private final LoginService loginService;
+	private final EmailService emailService;
+	private String accessToken;
 	
 	
 	@PostMapping("/login")
@@ -44,9 +48,28 @@ public class LoginController {
 	@ResponseBody
 	public HashMap<String, Object> accessToken(@RequestParam("code") String code) {
 		log.info("엑세스코드 = {}", code);
-		String accessToken = kakaoApi.getAccessToken(code);
+		this.accessToken = kakaoApi.getAccessToken(code);
 		
 		HashMap<String, Object> userInfo = kakaoApi.getUserInfo(accessToken);
+		log.info("세션값 : {}", accessToken);
 		return userInfo;
+	}
+	
+	@PostMapping("/kakaoLogout")
+	@ResponseBody
+	public String logout() {
+		
+		kakaoApi.kakaoLogout(this.accessToken);
+		log.info("카카오 로그아웃 성공");
+		return "카카오 로그아웃 성공";
+				
+	}
+	@PostMapping("emailConfirm")
+	@ResponseBody
+	public String emailConfirm(@RequestParam("email") String email) throws Exception {
+
+	  String confirm = emailService.sendSimpleMessage(email);
+
+	  return confirm;
 	}
 }

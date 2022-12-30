@@ -21,9 +21,9 @@ public class UserFormRepository implements UserRepository{
 	}
 
 	@Override
-	public User selectByUserId(String userId) {
+	public User selectByUserEmail(String userEmail) {
 		for(User user : db) {
-			if(user.getUserId().equals(userId)) {
+			if(user.getUserEmail().equals(userEmail)) {
 				return user;
 			}
 		}

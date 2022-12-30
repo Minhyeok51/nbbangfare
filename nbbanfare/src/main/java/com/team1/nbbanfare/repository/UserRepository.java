@@ -7,7 +7,7 @@ import com.team1.nbbanfare.dto.User;
 public interface UserRepository {
 	public User insert(User user);
 	
-	public User selectByUserId(String userId);
+	public User selectByUserEmail(String userEmail);
 	
 
 //	public UserForm selectById(int id);
