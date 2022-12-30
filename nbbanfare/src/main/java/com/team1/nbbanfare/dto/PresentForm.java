@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 public class PresentForm {
-	private Integer presentId;
+	private Integer presentNo;
 	private String userName;
 	private String userBirth; 
 	private String userPhone;

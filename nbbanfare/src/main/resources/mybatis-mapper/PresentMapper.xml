@@ -10,17 +10,17 @@
 	</insert>
 	
 	<select id="selectByPresent" resultType="PresentForm">
-		select p.presentId presentId, u.user_name user_name, pr.productname productname, pr.productprice productprice, p.presentCount presentCount,TO_CHAR(p.presentDate, 'YYYY-MM-DD') presentDate
+		select p.presentid presentNo, u.user_name user_name, pr.productname productname, pr.productprice productprice, p.presentCount presentCount,TO_CHAR(p.presentDate, 'YYYY-MM-DD') presentDate
 		from present_test p, user_info u, product_test pr
 		where p.userNo = u.user_id and p.productno = pr.productno and u.user_id = #{userNo}
 	</select>
 	
 	<select id="selectByFriendPresent" resultType="presentForm">
-		select distinct(f.followerid) followerid, u.user_name username, u.user_birth userbirth, u.user_phone userphone, u.user_email useremail,
-        u.user_address useraddress, u.create_date createdate, p.presentId presentId, pr.productname productname,
-        (substr(pr.productimage, instr(pr.productimage, '(', 1, 1)+1, (instr(pr.productimage, ')', 1, 1)-instr(pr.productimage, '(', 1, 1)-1))) productimage, pr.productprice productprice,
-        p.presentCount presentCount, p.presentDate presentDate
-		from user_info u, friend_test f, present_test p, product_test pr
-		where u.user_id = f.followerid and p.userNo = u.user_id and p.productno = pr.productno and f.followerid = #{followerid} 
+		select distinct(p.presentId) presentno, f.followerid followerid, u.user_name username, u.user_birth userbirth, u.user_phone userphone, u.user_email useremail, 
+        u.user_address useraddress, u.create_date createdate, (substr(pr.productimage, instr(pr.productimage, '(', 1, 1)+1, (instr(pr.productimage, ')', 1, 1)-instr(pr.productimage, '(', 1, 1)-1))) productimage,
+        pr.productname productname, pr.productprice productprice, p.presentCount presentCount,TO_CHAR(p.presentDate, 'YYYY-MM-DD') presentDate
+		from present_test p, user_info u, product_test pr, friend_test f 
+		where p.userNo = u.user_id and p.productno = pr.productno and f.followerid = u.user_id and f.followerid = #{followerid}
+		order by presentid
 	</select>
 </mapper>

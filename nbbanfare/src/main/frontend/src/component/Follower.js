@@ -5,6 +5,8 @@ import axios from 'axios';
 import { useParams,useNavigate } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import MyVerticallyCenteredModal from './MyVerticallyCenteredModal';
+
 
 
 
@@ -15,6 +17,7 @@ function Follower() {
     let [productName, setProductName] = useState("");
     let [productPrice, setProductPrice] = useState("");
     let [productImage, setProductImage] = useState("");
+    let [presentId, setPresentId] = useState("");
     let {name} = useParams();
     const getData = async() => {
         const url = `/follow/${name}`;
@@ -72,7 +75,9 @@ function Follower() {
                                 setModalShow(true),
                                 setProductName(data.productName),
                                 setProductPrice(data.productPrice),
-                                setProductImage(data.productImage)
+                                setProductImage(data.productImage),
+                                setPresentId(data.presentNo),
+                                alert(`${presentId}`)
                               )
                             }}>펀딩하기</td>
                             </tr>   
@@ -85,75 +90,12 @@ function Follower() {
     name={productName}
     price={productPrice}
     image={productImage}
+    id={presentId}
+    site={name}
     onHide={() => setModalShow(false)}
     />
             </div>
         </div>
     )
-}
-
-function MyVerticallyCenteredModal(props) {
-  
-  function onClickPayment() {
-    const { IMP } = window;
-    IMP.init('imp87335268');
-
-    const data = {
-      pg: 'kakaopay',        
-      pay_method: 'kakaopay',               
-      merchant_uid: `mid_${new Date().getTime()}`, 
-      amount: '1000',                  
-      name: '아임포트 결제 데이터 분석',      
-      buyer_name: '홍길동',                 
-      buyer_tel: '01012341234',      
-      buyer_email: 'example@example',    
-      buyer_addr: '신사동 661-16',      
-      buyer_postcode: '06018',                     
-    };
-    IMP.request_pay(data, callback);
-  }
-  function callback(response) {
-    
-    const {
-      success,
-      merchant_uid,
-      amount,
-      buyer_name,
-      error_msg,
-    } = response;
-
-    if (success) {
-      alert(`결제 성공 ${response.amount}`);
-      window.location.reload();
-    } else {
-      alert(`결제 실패: ${error_msg}`);
-      window.location.reload();
-    }
-  }
-  return (
-    <Modal id='modalID'
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          상품화면
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <div className="modalcls">
-        <img src={props.image} style={{width:"250px", height:"250px"}}/>
-          <p>{props.name}</p>
-          <p>{props.price}</p>
-        </div>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="outline-primary" onClick={onClickPayment}>구매</Button>
-        <Button variant="outline-primary" onClick={props.onHide}>취소</Button>
-      </Modal.Footer>
-    </Modal>
-  );
 }
 export default Follower;
