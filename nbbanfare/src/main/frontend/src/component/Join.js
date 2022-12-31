@@ -5,6 +5,7 @@ import Post from "./Post";
 import requests from "../api/requests";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
+import { faLariSign } from "@fortawesome/free-solid-svg-icons";
 
 function Join() {
   let navigate = useNavigate();
@@ -19,6 +20,7 @@ function Join() {
   const [birth, setBirth] = useState("");
   const [address, setAddress] = useState({ address: "" });
   const [detailAddress, setDetailAddress] = useState("");
+  const [authCode, setAuthCode ] = useState("")
 
   // 오류메세지 상태 저장
   const [emailMessage, setEmailMessage] = useState("");
@@ -27,6 +29,7 @@ function Join() {
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
   const [phoneMessage, setPhoneMessage] = useState("");
   const [birthMessage, setBirthMessage] = useState("");
+  const [emailAuthMessage, setEmailAuthMessage] = useState("");
 
   // 유효성 검사
   const [isEmail, setIsEmail] = useState(false);
@@ -35,6 +38,8 @@ function Join() {
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
   const [isPhone, setIsPhone] = useState(false);
   const [isBirth, setIsBirth] = useState(false);
+  const [emailAuthBtn , setEmailAuthBtn] = useState(false);
+  const [verifiedEmail, setVerifiedEmail] = useState(false);
 
   const onChangeEmail = (e) => {
     const currentEmail = e.target.value.trim();
@@ -104,7 +109,7 @@ function Join() {
       setIsPhone(true);
     }
   };
-
+ 
   const addHyphen = (e) => {
     const currentNumber = e.target.value;
     setPhone(currentNumber);
@@ -122,9 +127,18 @@ function Join() {
     setIsBirth(true);
   };
 
+  const onChangeAuthCode = (e) =>{
+    const code = e.target.value
+    setAuthCode(code)
+  }
+
   const handleSubmit = async (e) => {
     if (isEmail == false) {
       alert("이메일 형식에 맞게 입력해주세요");
+      e.preventDefault();
+      return;
+    } else if(verifiedEmail == false){
+      alert("이메일을 인증해주세요");
       e.preventDefault();
       return;
     } else if (isName == false) {
@@ -193,11 +207,32 @@ function Join() {
       })
       .then((res) => {
         console.log(res.data);
+        if(res.data === 1 ){
+          alert("이미 가입된 이메일입니다.")
+        }else{
+          emailAuthConfirm(res.data)
+          alert("인증코드가 전송되었습니다.")
+        }
       })
       .catch((e) => {
         console.log(e);
+        if(e !== null){
+          alert("인증코드 전송 실패하였습니다.")
+        }
       });
   };
+
+  function emailAuthConfirm(data){
+    setEmailAuthBtn(true) // 버튼 눌리고 가입되지 않은 이메일 이면 다음단계로 진행될 수 있게하기
+    if(data === authCode){
+      setEmailAuthMessage("코드가 일치합니다")
+      setVerifiedEmail(true) //인증코드로 넘어온 값과 입력값이 일치하지 않을때 가입시키는거 방지 
+      //이메일 인증 완료됐으면 가입시키기
+    }else{
+      setEmailAuthMessage("코드가 일치하지 않습니다.")
+    }
+  }
+
   //주소검색
   const datailAddressInput = (e) => {
     setDetailAddress(e.target.value);
@@ -220,57 +255,65 @@ function Join() {
       <form action="" method="post">
         <div className="form">
           <div className="form-el">
-            <label htmlFor="email">Email</label> <br />
             <input
               id="email"
+              className="inputs"
               name="name"
               value={email}
               onChange={onChangeEmail}
+              placeholder="이메일을 입력해주세요"
             />
             <p className="message">{emailMessage}</p>
             <button type="button" onClick={emailAuth}>
               이메일인증
             </button>
+            {emailAuthBtn ? 
+            <>
+            <input type="text" className="authCode" onChange={onChangeAuthCode} placeholder="인증코드를 입력해주세요" autoFocus/> 
+            <p>{emailAuthMessage}</p>
+            </>
+            : null } 
           </div>
 
           <div className="form-el">
-            <label htmlFor="name">Name</label> <br />
-            <input id="name" name="name" value={name} onChange={onChangeName} />
+            <input id="name" className="inputs" name="name" placeholder="이름을 입력해주세요" value={name} onChange={onChangeName} />
             <p className="message">{nameMessage}</p>
           </div>
           <div className="form-el">
-            <label htmlFor="password">Password</label> <br />
             <input
               type="password"
               id="password"
+              className="inputs"
               name="password"
               value={password}
               onChange={onChangePassword}
+              placeholder="비밀번호를 입력해주세요"
             />
             <p className="message">{passwordMessage}</p>
           </div>
           <div className="form-el">
-            <label htmlFor="passwordConfirm">Password Confirm</label> <br />
             <input
               type="password"
               id="passwordConfirm"
+              className="inputs"
               name="passwordConfirm"
               value={passwordConfirm}
               onChange={onChangePasswordConfirm}
+              placeholder="비밀번호 확인"
             />
             <p className="message">{passwordConfirmMessage}</p>
           </div>
 
           <div className="form-el">
-            <label htmlFor="phone">Phone</label> <br />
-            <input id="phone" name="phone" value={phone} onChange={addHyphen} />
+            <input id="phone" className="inputs" name="phone" value={phone} onChange={addHyphen} placeholder="핸드폰번호를 입력해주세요(번호만 입력)"/>
             <p className="message">{phoneMessage}</p>
           </div>
           <div className="form-el">
-            <label htmlFor="birth">Birth</label> <br />
+            <label htmlFor="birth">생년월일</label> <br />
             <input
               type="date"
               id="birth"
+              className="inputs"
               name="birth"
               value={birth}
               max={today}
@@ -279,8 +322,7 @@ function Join() {
             <p className="message">{birthMessage}</p>
           </div>
           <div className="form-el">
-            <label htmlFor="birth">Address</label> <br />
-            <input type="text" id="postcode" placeholder="우편번호" />
+            <input type="text" id="postcode" className="inputs" placeholder="주소를 입력해주세요" />
             <input
               type="button"
               onClick={handleComplete}
@@ -288,15 +330,16 @@ function Join() {
               value="우편번호 찾기"
             />
             <br />
-            <input type="text" id="address" placeholder="주소" />
+            <input type="text" id="address" placeholder="주소" className="inputs"/>
             <br />
             <input
               type="text"
               id="detailAddress"
+              className="inputs" 
               onChange={datailAddressInput}
-              placeholder="상세주소"
+              placeholder="상세 주소를 입력해주세요"
             />
-            <input type="text" id="extraAddress" placeholder="참고항목" />
+            <input type="text" id="extraAddress" className="inputs" placeholder="참고항목" />
           </div>
           {popup && <Post company={address} setcompany={setAddress}></Post>}
           <br />

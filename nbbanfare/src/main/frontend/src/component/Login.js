@@ -39,21 +39,21 @@ function Login() {
    
     await axios
       .post(requests.loginPath,null,{params: {
-        userId:inputId,
+        userEmail:inputId,
         userPassword:inputPw,
         userName:inputName
     }})
       .then((res) => {
         console.log("res.data.userName :: ", res.data.userName);
-        if (res.data.userId === undefined || null) {
+        if (res.data.userEmail === undefined || null) {
           // id 일치하지 않는 경우 userId = undefined, msg = '입력하신 id 가 일치하지 않습니다.'
-          console.log(res.data.userId)
+          console.log(res.data.userEmail)
           alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
           // window.location.reload()
          } else
          if (res.data.userPassword === undefined || null) {
           // id 일치하지 않는 경우 userId = undefined, msg = '입력하신 id 가 일치하지 않습니다.'
-          console.log(res.data.userId)
+          console.log(res.data.userEmail)
           alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
           // window.location.reload()
          } else
@@ -62,7 +62,7 @@ function Login() {
           // id는 있지만, pw 는 다른 경우 userId = null , msg = undefined
           alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
          } else
-         if(res.data.userId === inputId && res.data.userPassword === inputPw) {
+         if(res.data.userEmail === inputId && res.data.userPassword === inputPw) {
           // id, pw 모두 일치 userId = userId1, msg = undefined
           alert("로그인성공")
           sessionStorage.setItem("user_id", inputId); // sessionStorage에 id를 user_id라는 key 값으로 저장

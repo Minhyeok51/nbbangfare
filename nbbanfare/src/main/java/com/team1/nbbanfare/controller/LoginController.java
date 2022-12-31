@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.team1.nbbanfare.api.KakaoAPI;
 import com.team1.nbbanfare.dto.User;
 import com.team1.nbbanfare.form.LoginForm;
+import com.team1.nbbanfare.repository.UserRepository;
 import com.team1.nbbanfare.service.EmailService;
 import com.team1.nbbanfare.service.LoginService;
 
@@ -25,6 +26,7 @@ public class LoginController {
 
 	private final LoginService loginService;
 	private final EmailService emailService;
+	private final UserRepository userRepository;
 	private String accessToken;
 	
 	
@@ -32,7 +34,7 @@ public class LoginController {
 	@ResponseBody
 	public User doLogin(@ModelAttribute LoginForm loginForm) {
 		log.info("로그인폼 : {}",loginForm.getUserPassword());
-		User user = loginService.login(loginForm.getUserId(), loginForm.getUserPassword());
+		User user = loginService.login(loginForm.getUserEmail(), loginForm.getUserPassword());
 		
 		if(user == null) { //계정정보가 없거나, 비밀번호가 안맞거나 로그인 실패
 			log.info("안됨");
@@ -66,7 +68,10 @@ public class LoginController {
 	@PostMapping("/emailConfirm")
 	@ResponseBody
 	public String emailConfirm(@RequestParam("email") String email) throws Exception {
-
+		User user = userRepository.selectByUserEmail(email);
+		if(user != null) {
+			return "1"; 
+		}
 	  String confirm = emailService.sendSimpleMessage(email);
 
 	  return confirm;

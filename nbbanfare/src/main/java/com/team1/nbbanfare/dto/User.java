@@ -14,6 +14,6 @@ public class User {
 	private String userBirth;
 	private String userPhone;
 	private String userAddress;
-	private boolean active;
+	private boolean isActive;
 	
 }
