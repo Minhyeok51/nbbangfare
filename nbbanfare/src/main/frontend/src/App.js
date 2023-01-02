@@ -14,6 +14,8 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import CategoryItem from './component/CategoryItem';
 import Follower from './component/Follower';
+import PayList from './component/PayList';
+import WishProduct from './component/WishProduct';
 
 function App() {
   const [product, setProduct] = useState([])
@@ -98,7 +100,10 @@ function App() {
           }
         ></Route>
         <Route path="/login" element={<Login />}></Route>
-        <Route path="/mypage" element={<Mypage/>}></Route>
+        <Route path="/mypage" element={<Mypage/>}>
+          <Route path="/mypage/wishproduct" element={<WishProduct/>}></Route>
+          <Route path="/mypage/paylist" element={<PayList/>}></Route>
+        </Route>
         <Route path="follow/:name" element={<Follower/>}></Route>
         <Route path="/Join" element={<Join/>}></Route>
         <Route path="ItemDetail/:id" element={<ItemDetail/>}> </Route>

@@ -31,7 +31,7 @@ public class PresentController {
 		return "success";
 	}
 
-	@GetMapping("/mypage/{userNo}")
+	@GetMapping("/mypage/wishproduct/{userNo}")
 	public List<PresentForm> presentSelectById(@ModelAttribute PresentForm present, @PathVariable("userNo") String userNo) {
 		List<PresentForm> printPresentList = presentRepository.selectByPresent(present);
 		log.info("presentPage Print : {}", printPresentList);

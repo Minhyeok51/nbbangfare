@@ -1,5 +1,7 @@
 package com.team1.nbbanfare.repository.mybatis;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.team1.nbbanfare.dto.FundingForm;
@@ -19,5 +21,11 @@ public class MybatisFundingRepository implements FundingRepository{
 		// TODO Auto-generated method stub
 		fundingMapper.insertFunding(fundingForm);
 		return fundingForm;
+	}
+
+	@Override
+	public List<FundingForm> selectFunding(FundingForm fundingForm) {
+		List<FundingForm> fundingList = fundingMapper.selectFunding(fundingForm);
+		return fundingList;
 	}
 }

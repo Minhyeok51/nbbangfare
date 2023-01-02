@@ -4,10 +4,11 @@ import lombok.Data;
 
 @Data
 public class FundingForm {
-	private String fundingId;
-	private String userId;
-	private String presentId;
+	private String merchantUid;
+	private String productName;
+	private String userNo;
 	private String followerId;
+	private String userName;
 	private String fundingPrice;
 	private Integer fundingResult;
 }

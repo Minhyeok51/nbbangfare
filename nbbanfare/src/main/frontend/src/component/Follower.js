@@ -13,11 +13,11 @@ import MyVerticallyCenteredModal from './MyVerticallyCenteredModal';
 function Follower() {
     const [friendPresent, setFriendPresent] = useState([]);
     const [modalShow, setModalShow] = useState(false);
-    
     let [productName, setProductName] = useState("");
     let [productPrice, setProductPrice] = useState("");
     let [productImage, setProductImage] = useState("");
     let [presentId, setPresentId] = useState("");
+    let [resultPrice, setResultPrice] = useState(0);
     let {name} = useParams();
     const getData = async() => {
         const url = `/follow/${name}`;
@@ -57,7 +57,7 @@ function Follower() {
                 <table className="presentTable">
                 <thead>
                     <tr>
-                        <th>상품명</th><th>찜한 날짜</th><th>수량</th><th>적립된/남은 금액</th><th>상품 가격</th><th>펀딩</th>
+                        <th>상품명</th><th>찜한 날짜</th><th>수량</th><th>적립된 금액/상품 가격</th><th>남은 가격</th><th>펀딩</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -68,18 +68,24 @@ function Follower() {
                             <td>{data.productName}</td>
                             <td>{data.presentDate}</td>
                             <td>{data.presentCount}</td>
-                            <td>0원/{data.productPrice}</td>
-                            <td>{data.productPrice}</td>    
+                            <td>{data.fundingPrice}원/{data.productPrice}</td>
+                            <td>{data.calculate}원</td>  
+                            {
+                              data.calculate === 0 
+                              ? <td style={{color:'blue', backgroundColor:'white'}}>펀딩완료</td>
+                              :
+                             
                             <td style={{cursor:'pointer'}} onClick={() => {
                               return(
                                 setModalShow(true),
                                 setProductName(data.productName),
                                 setProductPrice(data.productPrice),
+                                setResultPrice(data.calculate),
                                 setProductImage(data.productImage),
-                                setPresentId(data.presentNo),
-                                alert(`${presentId}`)
+                                setPresentId(data.presentNo)
                               )
                             }}>펀딩하기</td>
+                          }
                             </tr>   
                 )
             })}    
@@ -89,6 +95,7 @@ function Follower() {
     show={modalShow}
     name={productName}
     price={productPrice}
+    rstPrice={resultPrice}
     image={productImage}
     id={presentId}
     site={name}

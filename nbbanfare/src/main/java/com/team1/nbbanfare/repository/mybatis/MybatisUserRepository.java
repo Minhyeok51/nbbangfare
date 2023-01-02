@@ -19,13 +19,13 @@ public class MybatisUserRepository implements UserRepository{
 	public User insert(User user) {
 
 		userMapper.insert(user);
-		return user ;
+		return user;
 	}
 	@Override
 	public User selectByUserId(String userId) {
 		log.info(userId);
 		User user = userMapper.selectByUserId(userId);
-		Log.info("유저 안담기냐 왜 {}", user);
+		log.info("유저 안담기냐 왜 {}", user);
 		return user;
 	}
 	

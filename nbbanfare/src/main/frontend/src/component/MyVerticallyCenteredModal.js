@@ -8,8 +8,16 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 function MyVerticallyCenteredModal(props) {
+  let [inputPrice, setInputPrice] = useState(0);
+  function onClickPayment(e) {
+    if(props.rstPrice < inputPrice) {
+      alert("오류 발생 금액 많음")
+      e.preventDefault();
+      return
+    }
+    else {
 
-  function onClickPayment() {
+    
     const { IMP } = window;
     IMP.init('imp87335268');
 
@@ -17,7 +25,7 @@ function MyVerticallyCenteredModal(props) {
       pg: 'kakaopay',        
       pay_method: 'kakaopay',               
       merchant_uid: `mid_${new Date().getTime()}`, 
-      amount: '1000',                  
+      amount: `${inputPrice}`,                  
       name: `${props.id}`,
       buyer_name: `${props.site}`,                 
       buyer_tel: "01000000000",      
@@ -44,6 +52,7 @@ function MyVerticallyCenteredModal(props) {
       axios
       .post(url,null,{params: {
           fundingId:imp_uid,
+          merchantUid:merchant_uid,
           userId:sessionStorage.getItem("user_id"),
           presentId:buyer_email,
           followerId:buyer_name,
@@ -59,12 +68,13 @@ function MyVerticallyCenteredModal(props) {
           console.log(error.response);
           alert("서버 전송 실패")
       });
-      // window.location.reload();
+      window.location.reload();
     } else {
       alert(`결제 실패: ${error_msg}`);
-      // window.location.reload();
+      window.location.reload();
     }
   }
+}
   return (
     <Modal id='modalID'
       {...props}
@@ -81,10 +91,13 @@ function MyVerticallyCenteredModal(props) {
         <div className="modalcls">
         <img src={props.image} style={{width:"250px", height:"250px"}}/>
           <p>{props.name}</p>
-          <p>{props.price}</p>
+          <p>{props.rstPrice}원</p>
         </div>
       </Modal.Body>
       <Modal.Footer>
+        <input type='number' id='price' value={inputPrice} onChange={(e)=>{
+          setInputPrice(e.target.value);
+        }}/>
         <Button variant="outline-primary" onClick={onClickPayment}>구매</Button>
         <Button variant="outline-primary" onClick={props.onHide}>취소</Button>
       </Modal.Footer>

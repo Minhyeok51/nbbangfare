@@ -20,8 +20,8 @@ public class PresentForm {
 	private String productImage;
 	private Integer presentCount;
 	private String presentDate;
-	private Integer productNo;
-	private String userNo;
+	private Integer fundingPrice;
+	private Integer calculate;
 	private String followerid;
-
+	private String userNo;
 }

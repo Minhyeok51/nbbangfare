@@ -1,8 +1,9 @@
 package com.team1.nbbanfare.controller;
 
 import java.io.IOException;
+import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,5 +31,12 @@ public class FundingController {
 		log.info("{}", fundingForm);
 		fundingRepository.insertFunding(fundingForm);
 		return "sucess";
+	}
+	
+	@GetMapping("/mypage/paylist/{userNo}")
+	public List<FundingForm> fundingSelect(@ModelAttribute FundingForm funding, @PathVariable("userNo") String userNo) {
+		log.info("결제 리스트 {}", funding);
+		List<FundingForm> fundingList = fundingRepository.selectFunding(funding);
+		return fundingList;
 	}
 }

@@ -57,7 +57,7 @@ function Header({session,setSession}) {
               {sessionStorage.getItem("name")}님 환영합니다.
               </li>
               <li>
-                <a onClick={()=>{navigate(`/mypage`)}}>마이페이지</a>
+                <a onClick={()=>{navigate(`/mypage/wishproduct`)}}>마이페이지</a>
               </li>
               <li>
                 <a onClick={()=>{
