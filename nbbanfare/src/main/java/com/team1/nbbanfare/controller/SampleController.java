@@ -55,8 +55,8 @@ public class SampleController {
 	
 	@PostMapping("/join")
 	public String register2(@ModelAttribute User userForm) {
-		User idCheck =userRepository.selectByUserId(userForm.getUserId());
-		log.info("userForm :{}", userForm);
+		User idCheck =userRepository.selectByUserEmail(userForm.getUserEmail());
+//		log.info("userForm :{}", userForm);
 		
 		if(idCheck == null) {
 			userRepository.insert(userForm);

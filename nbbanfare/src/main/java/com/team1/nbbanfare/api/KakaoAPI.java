@@ -116,7 +116,7 @@ public class KakaoAPI {
 			conn.setRequestProperty("Authorization", "Bearer " + accessToken);
 			int responseCode = conn.getResponseCode();
 			System.out.println("responseCode = " + responseCode);
-			
+			Log.info("카카오 로그아웃");
 			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			
 			String result = "";

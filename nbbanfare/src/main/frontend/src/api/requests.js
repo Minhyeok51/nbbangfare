@@ -9,6 +9,9 @@ const requests = {
     idCheckPath:"/idCheck",
     followPath:"/follow",
     searchPath:"/Search",
-				kakaoLoginPath:"/oauth/kakao",
+	kakaoLoginPath:"/oauth/kakao",
+    kakaoLogoutPath:"/kakaoLogout",
+    emailConfirmPath:"/emailConfirm"
+
 }
 export default requests;

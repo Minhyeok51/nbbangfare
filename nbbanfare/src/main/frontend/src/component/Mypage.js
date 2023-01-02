@@ -33,7 +33,7 @@ function Mypage({session,setSession}) {
             }
                 
                 <div className="textplc">
-                    <p>사용자 이름: {sessionStorage.getItem("nickname")}</p>
+                    <p>사용자 이름: {sessionStorage.getItem("name")}</p>
                     <p>가입일: </p>
                 </div>
 
@@ -63,8 +63,6 @@ function Mypage({session,setSession}) {
                             <td>{data.productPrice}</td>
                             <td style={{cursor:'pointer'}}>구매하기</td>
                         </tr>   
- 
-
                 )
             })}    
   

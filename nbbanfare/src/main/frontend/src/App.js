@@ -18,6 +18,7 @@ import Search from './component/Search';
 import KakaoLogin from '/component/KakaoLogin';
 
 
+
 function App() {
   const [product, setProduct] = useState([])
   const [isLogin, setIsLogin] = useState(false); //로그인 관리
