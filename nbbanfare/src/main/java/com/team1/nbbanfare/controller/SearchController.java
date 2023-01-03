@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.team1.nbbanfare.dto.ProductForm;
 import com.team1.nbbanfare.dto.User;
 import com.team1.nbbanfare.repository.ProductRepository;
-import com.team1.nbbanfare.repository.UserFormRepository;
+import com.team1.nbbanfare.repository.mybatis.MybatisUserRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,11 +21,12 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class SearchController {
 	@Autowired
-	private UserFormRepository userFormRepository;
+	private MybatisUserRepository mybatisUserRepository;
 	
 	@GetMapping("/Search/{word}")
 	public List<User> userSearchName(@PathVariable("word") String word) {
-		List<User> userSearchList = userFormRepository.searchUser(word);
+		List<User> userSearchList = mybatisUserRepository.searchUser(word);
+		log.info("search controller{}",userSearchList);
 		return userSearchList;
 	}	
 }

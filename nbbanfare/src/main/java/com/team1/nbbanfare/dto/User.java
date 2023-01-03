@@ -15,5 +15,4 @@ public class User {
 	private String userPhone;
 	private String userAddress;
 	private boolean active;
-	
 }
