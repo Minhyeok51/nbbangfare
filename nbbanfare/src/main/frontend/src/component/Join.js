@@ -28,7 +28,6 @@ function Join() {
   const [passwordMessage, setPasswordMessage] = useState("");
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
   const [phoneMessage, setPhoneMessage] = useState("");
-  const [birthMessage, setBirthMessage] = useState("");
   const [emailAuthMessage, setEmailAuthMessage] = useState("");
 
   // 유효성 검사
@@ -127,10 +126,14 @@ function Join() {
     setIsBirth(true);
   };
 
-  const onChangeAuthCode = (e) =>{
-    const code = e.target.value
-    setAuthCode(code)
-  }
+  // const onChangeAuthCode = (e) =>{
+  //   const code = e.target.value
+  //   console.log(code)
+  //   setAuthCode(code)
+  //   console.log("어스코드: "+ authCode)
+    
+  // }
+
 
   const handleSubmit = async (e) => {
     if (isEmail == false) {
@@ -210,7 +213,8 @@ function Join() {
         if(res.data === 1 ){
           alert("이미 가입된 이메일입니다.")
         }else{
-          emailAuthConfirm(res.data)
+          setEmailAuthBtn(true) // 버튼 눌리고 가입되지 않은 이메일 이면 다음단계로 진행될 수 있게하기
+          setAuthCode(res.data)
           alert("인증코드가 전송되었습니다.")
         }
       })
@@ -222,9 +226,9 @@ function Join() {
       });
   };
 
-  function emailAuthConfirm(data){
-    setEmailAuthBtn(true) // 버튼 눌리고 가입되지 않은 이메일 이면 다음단계로 진행될 수 있게하기
-    if(data === authCode){
+  function emailAuthConfirm(e){
+    console.log("어스코드:"+authCode)
+    if(e.target.value === authCode){
       setEmailAuthMessage("코드가 일치합니다")
       setVerifiedEmail(true) //인증코드로 넘어온 값과 입력값이 일치하지 않을때 가입시키는거 방지 
       //이메일 인증 완료됐으면 가입시키기
@@ -262,6 +266,7 @@ function Join() {
               value={email}
               onChange={onChangeEmail}
               placeholder="이메일을 입력해주세요"
+              autoFocus
             />
             <p className="message">{emailMessage}</p>
             <button type="button" onClick={emailAuth}>
@@ -269,7 +274,7 @@ function Join() {
             </button>
             {emailAuthBtn ? 
             <>
-            <input type="text" className="authCode" onChange={onChangeAuthCode} placeholder="인증코드를 입력해주세요" autoFocus/> 
+            <input type="text" className="authCode" onChange={emailAuthConfirm} placeholder="인증코드를 입력해주세요" autoFocus/> 
             <p>{emailAuthMessage}</p>
             </>
             : null } 
@@ -319,7 +324,6 @@ function Join() {
               max={today}
               onChange={onChangeBirth}
             />
-            <p className="message">{birthMessage}</p>
           </div>
           <div className="form-el">
             <input type="text" id="postcode" className="inputs" placeholder="주소를 입력해주세요" />

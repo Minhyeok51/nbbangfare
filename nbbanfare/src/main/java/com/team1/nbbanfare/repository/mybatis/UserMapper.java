@@ -3,6 +3,7 @@ package com.team1.nbbanfare.repository.mybatis;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.team1.nbbanfare.dto.User;
 
@@ -15,4 +16,7 @@ public interface UserMapper {
 	
 	public List<User> searchUser(String word);
 	
+	public void updateUserPassword(@Param("userEmail") String userEmail
+			,@Param("userName") String userName
+			,@Param("userPassword") String userPassword);
 }

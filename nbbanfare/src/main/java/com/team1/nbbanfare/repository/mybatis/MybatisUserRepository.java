@@ -39,6 +39,16 @@ public class MybatisUserRepository implements UserRepository{
 		return searchUserList;
 		
 	}
-	
-
+	@Override
+	public boolean updateUserPassword(String userEmail, String userName, String userPassword) {
+		// TODO Auto-generated method stub
+		boolean result = false;
+		try {
+			 userMapper.updateUserPassword(userEmail, userName, userPassword);
+			 result = true;
+		}catch(Exception e) {
+			log.error("비밀번호 변경 Update Error {} {} {}",userEmail,userName,userPassword);
+		}
+		return result;
+	}
 }

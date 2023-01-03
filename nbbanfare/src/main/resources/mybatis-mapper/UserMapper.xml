@@ -6,10 +6,10 @@
 <mapper namespace="com.team1.nbbanfare.repository.mybatis.UserMapper">
 
 <insert id="insert" parameterType="User">
-	insert into user_info(user_no , user_email, user_password, user_name, user_birth, user_phone, user_address, is_active)
+	insert into user_info(user_no , user_email, user_password, user_name, user_birth, user_phone, user_address,user_image, is_active)
 		values(userPK.nextVal,
 		  #{userEmail}, #{userPassword}, #{userName}, #{userBirth},
-		  #{userPhone}, #{userAddress}, 1)
+		  #{userPhone},#{userAddress}, #{userImage} , 1)
 </insert>
 
 <select id="selectByUserEmail" resultType="User">
@@ -22,5 +22,12 @@
 	select * from user_info
 	where user_name like '%' || #{word} || '%'
 </select>
+
+<update id="updateUserPassword" parameterType="User">
+	update user_info
+	set user_password = #{userPassword}
+	where user_email = #{userEmail}
+	and user_name = #{userName}
+</update>
 
 </mapper>

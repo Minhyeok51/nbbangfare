@@ -13,6 +13,8 @@ public interface UserRepository {
 	
 	public List<User> searchUser(String word);
 	
+	public boolean updateUserPassword(String userEmail, String userName, String tempPassword);
+	
 
 //	public UserForm selectById(int id);
 

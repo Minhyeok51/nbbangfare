@@ -109,11 +109,11 @@ function Login() {
         <button type="submit" onClick={onClickLogin} className="loginButton">
           확인
         </button>
+      </form>
         <ul>
           <li><a onClick={()=>{navigate("/join")}}>회원이 아니신가요?</a></li>
-          <li><a>비밀번호 찾기</a></li>
+          <li><a onClick={()=>{navigate("/forgotPassword")}}>비밀번호 찾기</a></li>
         </ul>
-      </form>
         <a href={KAKAO_AUTH_URI}><img className="kakaoBtn" src="https://asp.pointpark.com/PlusPointMember/resources/images/mobileHomePage/btn_kakao.png"/></a>
     </div>
   );
