@@ -1,19 +1,29 @@
 .userBar {
+    margin: 0 auto;
     width: 100%;
-    height: 350px;
-    display: flex;
-    flex-direction: row;
-}
-.textplc {
+    height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    padding-left: 10px;
+    text-align: center;
+    flex-flow: wrap;
+}
+.textplc {
+    flex-direction: column;
+    align-items: baseline;
+    justify-content: baseline;
+    width: 50%;
+
 }
 .followplc {
-    display: flex;
-    margin-left: 90vh;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    width: 50%;
+}
+.mypageList{
+    cursor: pointer;
+    border-bottom: 1px solid black;
 }
 .purchaseList {
     

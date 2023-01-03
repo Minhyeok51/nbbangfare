@@ -18,6 +18,7 @@ import Search from './component/Search';
 import KakaoLogin from './component/KakaoLogin';
 import JoinWithKakao from'./component/JoinWithKakao'
 import ForgotPassword from './component/ForgotPassword';
+import Modify from './component/Modify';
 
 function App() {
   const [product, setProduct] = useState([])
@@ -105,6 +106,8 @@ function App() {
         <Route path="/forgotPassword" element={<ForgotPassword/>}/> 
         
         <Route path="/mypage" element={<Mypage session={isLogin} setSession={setIsLogin}/>}></Route>
+        <Route path="/modify" element={<Modify/>}></Route>
+        
         <Route path="follow/:name" element={<Follower/>}></Route>
         <Route path="/join" element={<Join/>}></Route>
         <Route path="/joinWithKakao" element={<JoinWithKakao/>}></Route>

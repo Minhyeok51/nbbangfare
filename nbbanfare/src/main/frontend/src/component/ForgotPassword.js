@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import requests from '../api/requests';
 import '../css/forgotPassword.css'
-
+import mainLogo from '../img/mainLogo.png'
 function ForgotPassword(){
     const [forgotEmail, setForgotEmail] = useState("");
     const [forgotName, setForgotName] = useState("");
@@ -49,7 +49,7 @@ function ForgotPassword(){
       
         <div className='find-pw-container'>
           <form className="find-pw-form">
-            <h1 className='title'>N빵빠레</h1>
+            <a href='/'><img className='logo' src={mainLogo}/></a>
             <input type="email" className='find-inputs' onChange={onChangeEmail} value={forgotEmail} placeholder="이메일을 입력해주세요" />
             <input type="text" className='find-inputs' onChange={onChangeName} value={forgotName} placeholder="이름을 입력해주세요" />
             <button type="submit" className="findButton" onClick={find}>비밀번호 찾기</button>
