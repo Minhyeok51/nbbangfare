@@ -1,0 +1,12 @@
+.modify{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+.modifyform{
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+    width: 100%;
+}

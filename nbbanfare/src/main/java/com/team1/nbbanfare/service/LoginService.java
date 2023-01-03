@@ -18,7 +18,7 @@ public class LoginService {
 	public User login(String userEmail, String userPw) {
 		log.info("아이디 비번 나와라 {} {}",userEmail,userPw);
 		User user = userRepository.selectByUserEmail(userEmail);
-		log.info("유저 안담김? {} ", user);
+//		log.info("유저 안담김? {} ", user);
 		if(user != null) {
 
 			if(user.getUserPassword().equals(userPw)) {
@@ -26,6 +26,19 @@ public class LoginService {
 			}
 		}
 
+		return null;
+	}
+	
+	public User findPw(String userEmail, String userName) {
+		log.info("아이디 비번 나와라2 {} {}",userEmail,userName);
+		User user = userRepository.selectByUserEmail(userEmail);
+//		log.info("유저 안담김? {} ", user);
+		if(user != null) {
+
+			if(user.getUserName().equals(userName)) {
+				return user;
+			}
+		}
 		return null;
 	}
 }

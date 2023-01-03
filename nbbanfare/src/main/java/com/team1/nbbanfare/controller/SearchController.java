@@ -4,14 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team1.nbbanfare.dto.ProductForm;
 import com.team1.nbbanfare.dto.User;
-import com.team1.nbbanfare.repository.ProductRepository;
-import com.team1.nbbanfare.repository.mybatis.MybatisUserRepository;
+import com.team1.nbbanfare.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,12 +18,11 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class SearchController {
 	@Autowired
-	private MybatisUserRepository mybatisUserRepository;
+	private UserRepository userRepository;
 	
 	@GetMapping("/Search/{word}")
 	public List<User> userSearchName(@PathVariable("word") String word) {
-		List<User> userSearchList = mybatisUserRepository.searchUser(word);
-		log.info("search controller{}",userSearchList);
+		List<User> userSearchList = userRepository.searchUser(word);
 		return userSearchList;
 	}	
 }

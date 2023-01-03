@@ -12,17 +12,23 @@
 }
 .message{
     color: red;
+    font-size: 13px;
 }
-input{
-    /* width: 300px;
-    padding: 5px;
-    margin: 5px; */
+.inputs{
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 13px;
 }
 #userJoinInner{
     /* display: flex;
     align-items: center;
     flex-direction: column; */
 } 
+.authCode{
+    margin-top: 10px;
+    font-size: 13px;
+    padding: 10px;
+}
 
 .postmodal{
     background : rgba(0,0,0,0.25);

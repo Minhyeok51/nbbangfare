@@ -4,13 +4,11 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function KakaoLogin(){
-    const [kakaoEmail, setKakaoEmail] = ("")
  // 인가코드 받아오기
  const code = new URL(window.location.href).searchParams.get("code");
  console.log(code)
 
  // 로그인 성공시 MyPage로 이동시키기위해 useNavigate 사용
- const navigate = useNavigate();
  useEffect(() => {
     axios.get(requests.kakaoLoginPath,{
         params:{code}
@@ -20,12 +18,21 @@ function KakaoLogin(){
     console.log(res.data.email)
     console.log(res.data.nickname)
 
+    
+      console.log(res.data.newKakaoUser)
+    if(res.data.newKakaoUser === "iAmNew" ){
+      sessionStorage.setItem("basicEmail", res.data.basicInfo.userEmail)
+      sessionStorage.setItem("basicImage", res.data.basicInfo.userImage)
+      sessionStorage.setItem("basicName", res.data.basicInfo.userName)
+      alert("추가 정보를 입력해주세요~")
+      window.location.href="/joinWithKakao"
+    }else{
     sessionStorage.setItem("email", res.data.email)
     sessionStorage.setItem("image", res.data.image)
     sessionStorage.setItem("name", res.data.nickname)
     sessionStorage.setItem("id", res.data.id)
     window.location.href="/"
-
+  }
   // res에 포함된 토큰 받아서 원하는 로직을 하면된다.
 })
 }, [])

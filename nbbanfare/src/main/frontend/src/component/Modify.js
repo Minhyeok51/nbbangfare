@@ -1,14 +1,12 @@
-import axios from "../api/axios";
-import { useState } from "react";
-import "../css/join.css";
-import Post from "./Post";
-import requests from "../api/requests";
+import axios from "axios";
 import moment from "moment";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { faLariSign } from "@fortawesome/free-solid-svg-icons";
-
-function Join() {
-  let navigate = useNavigate();
+import requests from "../api/requests";
+import Post from "./Post";
+import '../css/modify.css'
+function Modify(){
+    let navigate = useNavigate();
   let today = moment().format("YYYY-MM-DD");
   const [popup, setPopup] = useState(false);
   // 초기값 세팅 - 아이디, 닉네임, 비밀번호, 비밀번호확인, 이메일, 전화번호, 생년월일, 주소
@@ -254,31 +252,19 @@ function Join() {
   };
 
   return (
-    <>
-      <h3>회원가입 페이지</h3>
-      <form action="" method="post">
-        <div className="form">
+    <div className="modify">
+      <h3>정보 수정하기</h3>
+      <form className="modifyform">
           <div className="form-el">
             <input
               id="email"
               className="inputs"
               name="name"
               value={email}
-              onChange={onChangeEmail}
               placeholder="이메일을 입력해주세요"
               autoFocus
             />
-            <p className="message">{emailMessage}</p>
-            <button type="button" onClick={emailAuth}>
-              이메일인증
-            </button>
-            {emailAuthBtn ? 
-            <>
-            <input type="text" className="authCode" onChange={emailAuthConfirm} placeholder="인증코드를 입력해주세요" autoFocus/> 
-            <p>{emailAuthMessage}</p>
-            </>
-            : null } 
-          </div>
+        </div>
 
           <div className="form-el">
             <input id="name" className="inputs" name="name" placeholder="이름을 입력해주세요" value={name} onChange={onChangeName} />
@@ -313,18 +299,7 @@ function Join() {
             <input id="phone" className="inputs" name="phone" value={phone} onChange={addHyphen} placeholder="핸드폰번호를 입력해주세요(번호만 입력)"/>
             <p className="message">{phoneMessage}</p>
           </div>
-          <div className="form-el">
-            <label htmlFor="birth">생년월일</label> <br />
-            <input
-              type="date"
-              id="birth"
-              className="inputs"
-              name="birth"
-              value={birth}
-              max={today}
-              onChange={onChangeBirth}
-            />
-          </div>
+          
           <div className="form-el">
             <input type="text" id="postcode" className="inputs" placeholder="주소를 입력해주세요" />
             <input
@@ -351,9 +326,8 @@ function Join() {
           <button type="submit" onClick={handleSubmit}>
             가입하기
           </button>
-        </div>
       </form>
-    </>
-  );
+    </div>
+  )
 }
-export default Join;
+export default Modify;

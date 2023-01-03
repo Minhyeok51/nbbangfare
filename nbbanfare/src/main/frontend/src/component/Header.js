@@ -11,6 +11,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import axios from 'axios';
+import mainLogo from '../img/mainLogo.png'
 
 function Header({session,setSession}) {
     let navigate = useNavigate();
@@ -38,9 +39,10 @@ function Header({session,setSession}) {
         <Container>
           <Row className="header">
             <Col>
-              <h1>
+              {/* <h1>
                 <a onClick={()=>{navigate('/')}}>N빵빠레</a>
-              </h1>
+              </h1> */}
+              <a onClick={()=>{navigate('/')}}><img className='mainLogo' src={mainLogo}/></a>
             </Col>
             <Col xs={5}>
               <form action="/" method="get">

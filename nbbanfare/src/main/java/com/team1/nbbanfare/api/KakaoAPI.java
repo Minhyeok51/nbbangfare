@@ -12,9 +12,17 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.python.jline.internal.Log;
 
+import com.team1.nbbanfare.dto.User;
+import com.team1.nbbanfare.repository.UserRepository;
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+
 
 public class KakaoAPI {
 
+	
 	public String getAccessToken(String code) {
 		String accessToken = "";
 		String refreshToken = "";

@@ -16,6 +16,9 @@ import CategoryItem from './component/CategoryItem';
 import Follower from './component/Follower';
 import Search from './component/Search';
 import KakaoLogin from './component/KakaoLogin';
+import JoinWithKakao from'./component/JoinWithKakao'
+import ForgotPassword from './component/ForgotPassword';
+import Modify from './component/Modify';
 
 
 
@@ -63,7 +66,7 @@ function App() {
 
     
   return (
-    <div>
+    <>
        <Header session={isLogin} setSession={setIsLogin}/>
       <Routes>
         <Route
@@ -102,9 +105,15 @@ function App() {
           }
         ></Route>
         <Route path="/login" element={<Login />}></Route>
+        <Route path="/forgotPassword" element={<ForgotPassword/>}/> 
+        
         <Route path="/mypage" element={<Mypage session={isLogin} setSession={setIsLogin}/>}></Route>
+        <Route path="/modify" element={<Modify/>}></Route>
+        
         <Route path="follow/:name" element={<Follower/>}></Route>
-        <Route path="/Join" element={<Join/>}></Route>
+        <Route path="/join" element={<Join/>}></Route>
+        <Route path="/joinWithKakao" element={<JoinWithKakao/>}></Route>
+        
         <Route path="ItemDetail/:id" element={<ItemDetail/>}> </Route>
         <Route path="*" element={<div>404 Not Found</div>} />
         <Route path="/:productKind" element={<CategoryItem/>} />
@@ -113,7 +122,7 @@ function App() {
       
       </Routes>
       <Footer />
-    </div>
+    </>
   );
 }
 

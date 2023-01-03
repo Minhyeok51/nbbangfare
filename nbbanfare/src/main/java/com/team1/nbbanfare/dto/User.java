@@ -7,12 +7,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class User {
 
-	private Integer userNo;
+	private String userNo;
 	private String userEmail;
 	private String userPassword;
 	private String userName;
 	private String userBirth;
 	private String userPhone;
 	private String userAddress;
-	private boolean active;
+	private String userImage;
+	private boolean isActive;
 }
