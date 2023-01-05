@@ -34,6 +34,34 @@ public class LoginController {
 	KakaoAPI kakaoApi = new KakaoAPI();
 	private String accessToken;
 	
+	@PostMapping("/join")
+	@ResponseBody
+	public String register2(@ModelAttribute User userForm) {
+		User idCheck =userRepository.selectByUserEmail(userForm.getUserEmail());
+//		log.info("userForm :{}", userForm);
+		
+		if(idCheck == null) {
+			userRepository.insert(userForm);
+		}else {
+			return "0";
+		}
+			return "1";
+		}
+	
+	@PostMapping("/joinWithKakao")
+	@ResponseBody
+	public String kakaoJoin(@ModelAttribute User userForm) {
+		User idCheck =userRepository.selectByUserEmail(userForm.getUserEmail());
+//		log.info("userForm :{}", userForm);
+		
+		if(idCheck == null) {
+			userRepository.insertKakaoUser(userForm);
+		}else {
+			return "0";
+		}
+			return "1";
+		}
+	
 	@PostMapping("/login")
 	@ResponseBody
 	public User doLogin(@ModelAttribute LoginForm loginForm) {
@@ -57,18 +85,21 @@ public class LoginController {
 		
 		HashMap<String, Object> userInfo = kakaoApi.getUserInfo(accessToken);
 		User kakaoUser = new User();
-		kakaoUser.setUserNo(userInfo.get("id").toString());
 		kakaoUser.setUserName(userInfo.get("nickname").toString());
 		kakaoUser.setUserEmail(userInfo.get("email").toString());
 		kakaoUser.setUserImage(userInfo.get("image").toString());
 		if(userRepository.selectByUserEmail(userInfo.get("email").toString()) == null) {
-//			userRepository.insert(kakaoUser);
-			HashMap<String, Object> newKakaoUser = new HashMap<String, Object>();
-			newKakaoUser.put("newKakaoUser", "iAmNew");
-			newKakaoUser.put("basicInfo", kakaoUser);
-			return newKakaoUser;
+//			userRepository.insertKakaoUser(kakaoUser); 불필요한거같음
+			HashMap<String, Object> newKakaoUserMap = new HashMap<String, Object>();
+			newKakaoUserMap.put("newKakaoUser", "iAmNew");
+			newKakaoUserMap.put("basicInfo", kakaoUser);
+			return newKakaoUserMap;
+		}else {
+			User ourKakaoUser = userRepository.selectByUserEmail(userInfo.get("email").toString());
+			HashMap<String, Object> ourKakaoUserMap = new HashMap<String, Object>();
+			ourKakaoUserMap.put("kakaoUser", ourKakaoUser);
+			return ourKakaoUserMap;
 		}
-		return userInfo;
 	}
 	
 	@PostMapping("/kakaoLogout")
@@ -115,7 +146,7 @@ public class LoginController {
 	@GetMapping("/updateUserInfo/{userEmail}")
 	@ResponseBody
 	public User updateUserInfo(@PathVariable String userEmail) {
-		log.info("user {} ",userEmail);
+		log.info("수정페이지user {} ",userEmail);
 		User user = userRepository.selectByUserEmail(userEmail);
 		return user;
 	}
@@ -131,13 +162,13 @@ public class LoginController {
 	
 	@PostMapping("/deleteUser/{userEmail}")
 	@ResponseBody
-	public String deleteUser(@PathVariable String userEmail, @RequestParam("a") String a) {
+	public boolean deleteUser(@PathVariable String userEmail, @RequestParam("a") String a) {
 		System.out.println(a);
 		System.out.println(userEmail);
 		boolean result = false;
 		result = userRepository.updateUserActive(userEmail);
 		
-		return "1";
+		return result;
 	}
 	
 }

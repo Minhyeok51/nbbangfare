@@ -65,6 +65,7 @@ function Login() {
           alert("로그인성공")
           sessionStorage.setItem("user_id", inputId); // sessionStorage에 id를 user_id라는 key 값으로 저장
           sessionStorage.setItem("name", res.data.userName); // sessionStorage에 id를 user_id라는 key 값으로 저장
+          sessionStorage.setItem("kakaoUser",res.data.kakaoUser)
           window.location.reload()
           document.location.href = "/";
         }

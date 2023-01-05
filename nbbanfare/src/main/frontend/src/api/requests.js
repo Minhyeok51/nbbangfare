@@ -3,6 +3,7 @@ const requests = {
     rest2Path: "/rest2",
     foodListPath: "/food/list",
     joinPath :"/join",
+    joinWithKakaoPath:"/joinWithKakao",
     mainPath : "/main",
     ItemDetailPath: "/ItemDetail",
     loginPath:"/login",

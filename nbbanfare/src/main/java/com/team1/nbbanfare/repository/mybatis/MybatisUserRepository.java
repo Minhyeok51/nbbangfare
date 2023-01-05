@@ -24,6 +24,12 @@ public class MybatisUserRepository implements UserRepository{
 		userMapper.insert(user);
 		return user;
 	}
+	
+	@Override
+	public User insertKakaoUser(User user) {
+		userMapper.insertKakaoUser(user);
+		return user;
+	}
 	@Override
 	public User selectByUserEmail(String userEmail) {
 		log.info(userEmail);
@@ -74,4 +80,5 @@ public class MybatisUserRepository implements UserRepository{
 			log.info("회원탈퇴에러 {}",userEmail);
 		}
 		return result;	}
+	
 }

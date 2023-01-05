@@ -81,7 +81,9 @@ function Mypage() {
                 <li className="mypageList" onClick={()=>{
                     navigate('/modify')
                 }}>회원정보 수정하기</li>
-                <li className="mypageList" onClick={deleteUser}>회원 탈퇴</li>
+                {sessionStorage.getItem("kakaoUser") === "true" ? null 
+                :<li className="mypageList" onClick={deleteUser}>회원 탈퇴</li> }
+                
             </ul>
           </div>
         </div>
