@@ -19,7 +19,7 @@ function KakaoLogin(){
     console.log(res.data.nickname)
 
     
-      console.log(res.data.newKakaoUser)
+      // console.log(res.data.newKakaoUser)
     if(res.data.newKakaoUser === "iAmNew" ){
       sessionStorage.setItem("user_id", res.data.basicInfo.userEmail)
       sessionStorage.setItem("image", res.data.basicInfo.userImage)
@@ -27,10 +27,11 @@ function KakaoLogin(){
       alert("추가 정보를 입력해주세요~")
       window.location.href="/joinWithKakao"
     }else{
-    sessionStorage.setItem("user_id", res.data.email)
-    sessionStorage.setItem("image", res.data.image)
-    sessionStorage.setItem("name", res.data.nickname)
-    sessionStorage.setItem("id", res.data.id)
+      console.log(res.data)
+    sessionStorage.setItem("user_id", res.data.kakaoUser.userEmail)
+    sessionStorage.setItem("image", res.data.kakaoUser.userImage)
+    sessionStorage.setItem("name", res.data.kakaoUser.userName)
+    sessionStorage.setItem("kakaoUser",res.data.kakaoUser.kakaoUser)
     window.location.href="/"
   }
   // res에 포함된 토큰 받아서 원하는 로직을 하면된다.

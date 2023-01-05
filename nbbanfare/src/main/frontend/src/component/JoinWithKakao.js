@@ -72,14 +72,14 @@ function JoinWithKakao(){
     e.preventDefault();
 
     await axios
-      .post(requests.joinPath, null, {
+      .post(requests.joinWithKakaoPath, null, {
         params: {
-          userEmail: sessionStorage.getItem("basicEmail"),
-          userName: sessionStorage.getItem("basicName"),
+          userEmail: sessionStorage.getItem("user_id"),
+          userName: sessionStorage.getItem("name"),
           userPhone: phone,
           userBirth: birth,
           userAddress: `${address.address} ${detailAddress}`,
-          userImage: sessionStorage.getItem("basicImage")
+          userImage: sessionStorage.getItem("image")
         },
       })
       .then((response) => {
@@ -90,7 +90,7 @@ function JoinWithKakao(){
         }
         if (response.data == "1") {
           alert("회원가입 성공");
-          navigate("/login");
+          navigate("/");
         }
       })
       .catch((error) => {
@@ -124,7 +124,7 @@ function JoinWithKakao(){
                 id="email"
                 className="inputs"
                 name="name"
-                value={sessionStorage.getItem("basicEmail")}
+                value={sessionStorage.getItem("user_id")}
                 readOnly
               />
             </div>
@@ -134,7 +134,7 @@ function JoinWithKakao(){
                 id="name"
                 className="inputs"
                 name="name"
-                value={sessionStorage.getItem("basicName")}
+                value={sessionStorage.getItem("name")}
                 readOnly
               />
             </div>

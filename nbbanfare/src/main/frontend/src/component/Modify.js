@@ -9,7 +9,6 @@ function Modify() {
   const navigate = useNavigate();
   const [popup, setPopup] = useState(false);
   // 초기값 세팅 - 아이디, 닉네임, 비밀번호, 비밀번호확인, 이메일, 전화번호, 생년월일, 주소
-  const [userNo, setUserNo] = useState("");
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -20,6 +19,8 @@ function Modify() {
   const [detailAddress, setDetailAddress] = useState("");
   const [isActive, setIsActive] = useState(false);
   const [image, setImage] = useState("");
+  const [kakaoUser, setKakaoUser] = useState("")  
+
   // const [resPw , setResPw] = useState("") //카카오 유저는 비밀번호 설정 못하게
 
   // 오류메세지 상태 저장
@@ -115,7 +116,6 @@ function Modify() {
       e.preventDefault();
       return;
     }
-
     // else if (address.address == "" || null || undefined || 0 || NaN) {
     //   alert("주소를 입력해주세요");
     //   e.preventDefault();
@@ -126,16 +126,13 @@ function Modify() {
       e.preventDefault();
       return;
     }
-
     e.preventDefault();
-
     await axios
       .post(
         `${requests.updateUserInfoPath}/${sessionStorage.getItem("user_id")}`,
         null,
         {
           params: {
-            userNo: userNo,
             userEmail: email,
             userName: name,
             userPassword: password,
@@ -144,6 +141,7 @@ function Modify() {
             userAddress: `${address.address} ${detailAddress}`,
             active: isActive,
             userImage: image,
+            kakaoUser : kakaoUser
           },
         }
       )
@@ -151,11 +149,11 @@ function Modify() {
         console.log(res.data);
         console.log(res.status);
         sessionStorage.setItem("name", name);
-        window.location.reload();
+        alert("회원정보가 수정되었습니다")
+        document.location.href = "/mypage"
       })
       .catch((error) => {
         console.log(error.response);
-        alert("가입실패! 아마 서버에러?");
       });
   };
 
@@ -180,7 +178,6 @@ function Modify() {
       .get(url)
       .then((res) => {
         console.log(res.data);
-        setUserNo(res.data.userNo);
         setPassword(res.data.userPassword);
         setPasswordConfirm(res.data.userPassword);
         setEmail(res.data.userEmail);
@@ -190,6 +187,7 @@ function Modify() {
         setBirth(res.data.userBirth);
         setIsActive(res.data.active);
         setImage(res.data.userImage);
+        setKakaoUser(res.data.kakaoUser)
         
         // sessionStorage.setItem("user_address", res.data.userAddress)
         let arr = res.data.userAddress.split(" ");

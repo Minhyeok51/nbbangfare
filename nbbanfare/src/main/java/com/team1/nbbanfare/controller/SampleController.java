@@ -25,7 +25,6 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequiredArgsConstructor
 public class SampleController {
-	private final UserRepository userRepository;
 	private static PythonInterpreter interpreter;
 	private final ProductRepository productRepository;
 
@@ -53,18 +52,7 @@ public class SampleController {
 	}
 	
 	
-	@PostMapping("/join")
-	public String register2(@ModelAttribute User userForm) {
-		User idCheck =userRepository.selectByUserEmail(userForm.getUserEmail());
-//		log.info("userForm :{}", userForm);
-		
-		if(idCheck == null) {
-			userRepository.insert(userForm);
-		}else {
-			return "0";
-		}
-			return "1";
-		}
+
 	
 	
 
