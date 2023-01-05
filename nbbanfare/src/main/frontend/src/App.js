@@ -19,8 +19,9 @@ import KakaoLogin from './component/KakaoLogin';
 import JoinWithKakao from'./component/JoinWithKakao'
 import ForgotPassword from './component/ForgotPassword';
 import Modify from './component/Modify';
-
-
+import PayList from './component/PayList';
+import WishProduct from './component/WishProduct';
+import Purlist from './component/Purlist';
 
 function App() {
   const [product, setProduct] = useState([])
@@ -66,7 +67,7 @@ function App() {
 
     
   return (
-    <>
+    <div>
        <Header session={isLogin} setSession={setIsLogin}/>
       <Routes>
         <Route
@@ -107,7 +108,11 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/forgotPassword" element={<ForgotPassword/>}/> 
         
-        <Route path="/mypage" element={<Mypage/>}></Route>
+        <Route path="/mypage" element={<Mypage/>}>
+          <Route path="/mypage/wishproduct" element={<WishProduct/>}></Route>
+          <Route path="/mypage/paylist" element={<PayList/>}></Route>
+          <Route path="/mypage/purlist" element={<Purlist/>}></Route>
+        </Route>
         <Route path="/modify" element={<Modify/>}></Route>
         
         <Route path="follow/:name" element={<Follower/>}></Route>
@@ -122,7 +127,7 @@ function App() {
       
       </Routes>
       <Footer />
-    </>
+    </div>
   );
 }
 

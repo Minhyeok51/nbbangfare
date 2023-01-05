@@ -38,8 +38,19 @@ public class MybatisPresentRepository implements PresentRepository{
 		log.info("repository {}", selFriendPreList);
 		return selFriendPreList;
 	}
-	
-	
 
+	@Override
+	@Transactional
+	public void updatePresent(PresentForm presentForm) {
+		log.info("present Repository{}",presentForm);
+		presentMapper.updatePresent(presentForm);
+	}
 
+	@Override
+	@Transactional
+	public void updateToPurchase(PresentForm presentForm) {
+		// TODO Auto-generated method stub
+		presentMapper.updateToPurchase(presentForm);
+		
+	}
 }

@@ -8,8 +8,13 @@
 <insert id="insert" parameterType="User">
 	insert into user_info(user_no , user_email, user_password, user_name, user_birth, user_phone, user_address, user_image, is_active)
 		values(userPK.nextVal,
+<<<<<<< HEAD
 		  #{userEmail}, #{userPassword}, #{userName}, #{userBirth},
 		  #{userPhone},#{userAddress}, #{userImage}, 1)
+=======
+		 #{userId}, #{userPassword}, #{userName}, #{userBirth},
+		  #{userPhone}, #{userEmail}, #{userAddress})
+>>>>>>> refs/heads/ksmdvp
 </insert>
 
 <select id="selectByUserEmail" resultType="User">

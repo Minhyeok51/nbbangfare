@@ -14,4 +14,9 @@ public interface PresentMapper {
 	public List<PresentForm> selectByPresent(PresentForm userNo);
 	
 	public List<PresentForm> selectByFriendPresent(PresentForm followerid);
+	
+	public void updatePresent(PresentForm presentForm);
+	
+	public void updateToPurchase(PresentForm presentForm);
+
 }

@@ -6,10 +6,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+//import org.json.simple.JSONArray;
+//import org.json.simple.JSONObject;
+//import org.json.simple.parser.JSONParser;
+//import org.json.simple.parser.ParseException;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -46,47 +46,47 @@ public class ProductController {
 	}	
 	
 	//				  초 분 시 일 월 요일
-	@Scheduled(cron = "0 12 17 * * *" , zone = "Asia/Seoul")
-	public void insertInit() throws IOException, ParseException {
-		ArrayList<ProductForm> array = null;
-		JSONParser parser = new JSONParser();
-		FileReader reader = new FileReader("C:\\Users\\User\\git\\nbbangfare\\nbbanfare\\src\\main\\test.json");
-		
-		array = new ArrayList<ProductForm>();  
-		
-		JSONArray jsonArray = (JSONArray)parser.parse(reader);
-
-		for(int i=0; i<jsonArray.size(); i++) {
-			JSONObject jsonObject = (JSONObject)jsonArray.get(i);
-			String productName = (String)jsonObject.get("productName");
-			String productPrice = (String)jsonObject.get("productPrice");
-			String productImage = (String)jsonObject.get("productImage");
-			String productKind = (String)jsonObject.get("productKind");
-			ProductForm product = new ProductForm();
-			product.setProductName(productName);
-			product.setProductPrice(productPrice);
-			product.setProductImage(productImage);
-			product.setProductKind(productKind);
-			array.add(product);
-		}
-		System.out.println(array);
-		
-		//크롤링 상태 -> 일자, 결과
-		// 12/28 , 완료
-		productRepository.deleteAll();
-		//select 12/28 완료된게 있나?
-		
-		//없으면
-		for(ProductForm product : array) {
-			productRepository.insertProduct(product);
-		}
-		
-		productRepository.mergeProduct();
-		
-		//있으면 패스
-		
-		
-	}
+//	@Scheduled(cron = "0 12 17 * * *" , zone = "Asia/Seoul")
+//	public void insertInit() throws IOException, ParseException {
+//		ArrayList<ProductForm> array = null;
+//		JSONParser parser = new JSONParser();
+//		FileReader reader = new FileReader("C:\\Users\\User\\git\\nbbangfare\\nbbanfare\\src\\main\\test.json");
+//		
+//		array = new ArrayList<ProductForm>();  
+//		
+//		JSONArray jsonArray = (JSONArray)parser.parse(reader);
+//
+//		for(int i=0; i<jsonArray.size(); i++) {
+//			JSONObject jsonObject = (JSONObject)jsonArray.get(i);
+//			String productName = (String)jsonObject.get("productName");
+//			String productPrice = (String)jsonObject.get("productPrice");
+//			String productImage = (String)jsonObject.get("productImage");
+//			String productKind = (String)jsonObject.get("productKind");
+//			ProductForm product = new ProductForm();
+//			product.setProductName(productName);
+//			product.setProductPrice(productPrice);
+//			product.setProductImage(productImage);
+//			product.setProductKind(productKind);
+//			array.add(product);
+//		}
+//		System.out.println(array);
+//		
+//		//크롤링 상태 -> 일자, 결과
+//		// 12/28 , 완료
+//		productRepository.deleteAll();
+//		//select 12/28 완료된게 있나?
+//		
+//		//없으면
+//		for(ProductForm product : array) {
+//			productRepository.insertProduct(product);
+//		}
+//		
+//		productRepository.mergeProduct();
+//		
+//		//있으면 패스
+//		
+//		
+//	}
 	
 //	@GetMapping("/search")
 //	public void getSearchProducts(@RequestParam(value="search") String search) {

@@ -9,6 +9,7 @@ import lombok.Data;
 @Data
 public class PresentForm {
 	private Integer presentNo;
+	private Integer productNo;
 	private String userName;
 	private String userBirth; 
 	private String userPhone;
@@ -20,8 +21,11 @@ public class PresentForm {
 	private String productImage;
 	private Integer presentCount;
 	private String presentDate;
-	private Integer productNo;
-	private String userNo;
+	private Integer fundingPrice;
+	private Integer calculate;
 	private String followerid;
-
+	private String userNo;
+	private String fundingid;
+	private Integer presentresult;
+	private Integer reqCnt;
 }

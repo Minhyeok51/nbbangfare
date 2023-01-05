@@ -1,5 +1,8 @@
 import "../css/Mypage.css"
 import noImg from "../img/noimg.jpg"
+import Breadcrumb from 'react-bootstrap/Breadcrumb';
+import { Outlet } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
@@ -103,33 +106,12 @@ function Mypage() {
           </div>
         </div>
         <div className="purchaseList">
-          <h4 className="Retxt">찜한 상품</h4>
-          <table className="presentTable">
-            <thead>
-              <tr>
-                <th>상품명</th>
-                <th>찜한 날짜</th>
-                <th>수량</th>
-                <th>적립된/남은 금액</th>
-                <th>상품 가격</th>
-                <th>구매확정</th>
-              </tr>
-            </thead>
-            <tbody>
-              {present.map((data, i) => {
-                return (
-                  <tr>
-                    <td>{data.productName}</td>
-                    <td>{data.presentDate}</td>
-                    <td>{data.presentCount}</td>
-                    <td>0원/{data.productPrice}</td>
-                    <td>{data.productPrice}</td>
-                    <td style={{ cursor: "pointer" }}>구매하기</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          <Breadcrumb className="Retxt">
+            <Breadcrumb.Item href="/mypage/wishproduct">찜한상품</Breadcrumb.Item>
+            <Breadcrumb.Item href="/mypage/paylist">펀딩목록</Breadcrumb.Item>
+            <Breadcrumb.Item href="/mypage/purlist">구매목록</Breadcrumb.Item>
+          </Breadcrumb>
+          <Outlet/>
         </div>
       </>
     );
