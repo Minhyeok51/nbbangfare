@@ -2,8 +2,10 @@ import "../css/Mypage.css"
 import noImg from "../img/noimg.jpg"
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { Outlet } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 
 function Mypage() {
+    let navigate = useNavigate();
 
     return(
         <div>
@@ -25,6 +27,7 @@ function Mypage() {
                 <Breadcrumb className="Retxt">
                     <Breadcrumb.Item href="/mypage/wishproduct">찜한상품</Breadcrumb.Item>
                     <Breadcrumb.Item href="/mypage/paylist">펀딩목록</Breadcrumb.Item>
+                    <Breadcrumb.Item href="/mypage/purlist">구매목록</Breadcrumb.Item>
                 </Breadcrumb>
                 <Outlet/>
             </div>

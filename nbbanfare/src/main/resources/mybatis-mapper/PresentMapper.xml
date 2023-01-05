@@ -10,27 +10,40 @@
 	</insert>
 	
 	<select id="selectByPresent" resultType="PresentForm">
-		select p.presentid presentNo, u.user_name user_name, pr.productname productname, pr.productprice productprice, nvl(fd.fundingprice,0) fundingprice,
+		select p.presentid presentNo, u.user_name user_name, pr.productno productno, pr.productname productname, pr.productprice productprice, nvl(fd.fundingprice,0) fundingprice,
         	nvl(to_number(substr(productprice, 1, instr(productprice, '원', 1, 1)-1)-fd.fundingprice),(to_number(substr(productprice, 1, instr(productprice, '원', 1, 1)-1)))) calculate,
-        	p.presentCount presentCount,TO_CHAR(p.presentDate, 'YYYY-MM-DD') presentDate
+        	p.presentCount presentCount,TO_CHAR(p.presentDate, 'YYYY-MM-DD') presentDate, p.userno userno, p.presentresult presentresult
 		from present_test p join user_info u on p.userNo = u.user_id
-                    		join product_test pr on p.productno = pr.productno 
-                    		left outer join (select presentid, sum(fundingprice) fundingprice from funding_test group by presentid) fd on fd.presentid = p.presentid
-        where u.user_id = #{userNo}
+       		join product_test pr on p.productno = pr.productno 
+       		left outer join (select presentid, sum(fundingprice) fundingprice from funding_test where fundingresult = 1 group by presentid, fundingresult) fd on fd.presentid = p.presentid
+        where u.user_id = #{userNo} and presentresult = 1
         order by p.presentid
 	</select>
 	
 	<select id="selectByFriendPresent" resultType="PresentForm">
-		select distinct(p.presentId) presentno, f.followerid followerid, u.user_name username, u.user_birth userbirth, u.user_phone userphone, u.user_email useremail, 
-	        u.user_address useraddress, u.create_date createdate, (substr(pr.productimage, instr(pr.productimage, '(', 1, 1)+1, (instr(pr.productimage, ')', 1, 1)-instr(pr.productimage, '(', 1, 1)-1))) productimage,
-	        pr.productname productname, pr.productprice productprice, nvl(fd.fundingprice, 0) fundingprice,
-	        nvl(to_number(substr(productprice, 1, instr(productprice, '원', 1, 1)-1)-fd.fundingprice),(to_number(substr(productprice, 1, instr(productprice, '원', 1, 1)-1)))) calculate,
-	        p.presentCount presentCount,TO_CHAR(p.presentDate, 'YYYY-MM-DD') presentDate
-		from present_test p join user_info u on p.userNo = u.user_id
-		                    join product_test pr on p.productno = pr.productno
-		                    join friend_test f on f.followerid = u.user_id
-		                    left outer join (select presentid, sum(fundingprice) fundingprice from funding_test group by presentid) fd on fd.presentid = p.presentid
-		where f.followerid = #{followerid}
-		order by p.presentid
+	select distinct(p.presentId) presentno, f.followerid followerid, u.user_name username, u.user_birth userbirth, u.user_phone userphone, u.user_email useremail, 
+	    u.user_address useraddress, u.create_date createdate, (substr(pr.productimage, instr(pr.productimage, '(', 1, 1)+1, (instr(pr.productimage, ')', 1, 1)-instr(pr.productimage, '(', 1, 1)-1))) productimage,
+	    pr.productname productname, pr.productprice productprice, nvl(fd.fundingprice, 0) fundingprice,
+	    nvl(to_number(substr(productprice, 1, instr(productprice, '원', 1, 1)-1)-fd.fundingprice),(to_number(substr(productprice, 1, instr(productprice, '원', 1, 1)-1)))) calculate,
+	    p.presentCount presentCount,TO_CHAR(p.presentDate, 'YYYY-MM-DD') presentDate, p.presentresult presentresult
+	from present_test p join user_info u on p.userNo = u.user_id
+        join product_test pr on p.productno = pr.productno
+        join friend_test f on f.followerid = u.user_id
+        left outer join funding_test fd1 on fd1.presentid = p.presentid
+        left outer join (select presentid, sum(fundingprice) fundingprice from funding_test where fundingresult = 1 group by presentid, fundingresult) fd on fd.presentid = p.presentid
+	where f.followerid = #{followerid} and p.presentresult = 1
+	order by p.presentid
 	</select>
+	
+	<update id="updatePresent" parameterType="PresentForm">
+		update present_test
+		set presentresult = 2
+		where presentid = #{presentNo} and userno = #{userNo}
+	</update>
+	
+	<update id="updateToPurchase" parameterType="PresentForm">
+		update present_test
+		set presentresult = 3
+		where presentid = #{presentNo}
+	</update>
 </mapper>

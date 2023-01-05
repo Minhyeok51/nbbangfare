@@ -16,7 +16,6 @@ function MyVerticallyCenteredModal(props) {
       return
     }
     else {
-
     
     const { IMP } = window;
     IMP.init('imp87335268');
@@ -26,7 +25,7 @@ function MyVerticallyCenteredModal(props) {
       pay_method: 'kakaopay',               
       merchant_uid: `mid_${new Date().getTime()}`, 
       amount: `${inputPrice}`,                  
-      name: `${props.id}`,
+      name: `${props.name}`,
       buyer_name: `${props.site}`,                 
       buyer_tel: "01000000000",      
       buyer_email: `${props.id}`,    
@@ -36,7 +35,7 @@ function MyVerticallyCenteredModal(props) {
     IMP.request_pay(data, callback);
   }
   function callback(response) {
-    const url = `/follow/${props.site}`
+    
     const {
       imp_uid,
       success,
@@ -45,36 +44,45 @@ function MyVerticallyCenteredModal(props) {
       paid_amount,
       buyer_name,
       error_msg,
+      status
     } = response;
 
+    const url = `/follow/${imp_uid}`
+
     if (success) {
-      alert(`결제 성공 ${imp_uid} ${merchant_uid} ${paid_amount} ${buyer_name} ${buyer_email}`);
+      alert(`결제 성공`);
       axios
-      .post(url,null,{params: {
-          fundingId:imp_uid,
-          merchantUid:merchant_uid,
-          userId:sessionStorage.getItem("user_id"),
-          presentId:buyer_email,
-          followerId:buyer_name,
-          fundingPrice:paid_amount,
-          fundingResult:1
-      }})
-      .then((response) => {
-          console.log(response.data)
-          console.log(response.status)
-          alert("서버 전송 성공")
-      })
+        .post(url,null,{params: {
+            fundingid:imp_uid,
+            merchantUid:merchant_uid,
+            userNo:sessionStorage.getItem("user_id"),
+            presentId:buyer_email,
+            followerId:buyer_name,
+            fundingPrice:paid_amount,
+            fundingResult:1,
+            status: status
+        }})
+        .then((response) => {
+              console.log(response.data.resultCode)
+              console.log(response.data.resultStatus)
+              console.log(response.data.resultMsg)
+              alert("서버 전송 성공") 
+              window.location.reload();
+
+          }
+        )
       .catch((error) => {
           console.log(error.response);
           alert("서버 전송 실패")
+          window.location.reload();
       });
-      window.location.reload();
-    } else {
+       
+       } else {
       alert(`결제 실패: ${error_msg}`);
       window.location.reload();
     }
   }
-}
+} 
   return (
     <Modal id='modalID'
       {...props}
@@ -104,4 +112,5 @@ function MyVerticallyCenteredModal(props) {
     </Modal>
   );
 }
+
 export default MyVerticallyCenteredModal;
