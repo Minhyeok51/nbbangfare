@@ -185,7 +185,6 @@ function Join() {
           userAddress: `${address.address} ${detailAddress}`,
         },
       })
-  e.preventDefault();
   
       .then((response) => {
         console.log(response.data);
