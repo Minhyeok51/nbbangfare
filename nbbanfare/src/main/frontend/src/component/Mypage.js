@@ -15,25 +15,6 @@ function Mypage() {
       navigate('/login')
     }
   },[])
-    const [present, setPresent] = useState([]);
-    
-    const getData = async() => {
-        const url = `/mypage/${sessionStorage.getItem('user_id')}`;
-        axios
-          .get(url)
-          .then((response) => {
-            setPresent(response.data);
-            console.log(present)
-            console.log("성공");
-          })
-          .catch((Error) => {
-            console.log(Error);
-          });
-  
-      };
-      useEffect(() => {
-        getData();
-      }, [])  
 
       const deleteUser = () =>{
         var q = prompt(`회원탈퇴 하시겠습니까?
@@ -100,7 +81,9 @@ function Mypage() {
                 <li className="mypageList" onClick={()=>{
                     navigate('/modify')
                 }}>회원정보 수정하기</li>
-                <li className="mypageList" onClick={deleteUser}>회원 탈퇴</li>
+                {sessionStorage.getItem("kakaoUser") === "true" ? null 
+                :<li className="mypageList" onClick={deleteUser}>회원 탈퇴</li> }
+                
             </ul>
           </div>
         </div>

@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class User {
 
-	private String userNo;
 	private String userEmail;
 	private String userPassword;
 	private String userName;
@@ -16,4 +15,5 @@ public class User {
 	private String userAddress;
 	private String userImage;
 	private boolean isActive;
+	private boolean kakaoUser;
 }

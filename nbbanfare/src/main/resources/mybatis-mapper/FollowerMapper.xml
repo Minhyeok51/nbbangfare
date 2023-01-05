@@ -5,17 +5,17 @@
         
 <mapper namespace="com.team1.nbbanfare.repository.mybatis.FollowerMapper">
 	<insert id="insertFollower" parameterType="FollowerForm">
-		insert into friend_test(userId, followerId)
-		values(#{userId}, #{followerId})
+		insert into friend
+		values(#{userId}, #{followerId}, sysdate)
 	</insert>
 	
 	<select id="selectFollowerById" parameterType="FollowerForm" resultType="FollowerForm">
-		select userId, followerId from friend_test where userId = #{userId} and followerId = #{followerId}
+		select user_email, follower_email from friend where user_email = #{userId} and follower_email = #{followerId}
 	</select>	
 	
 	<delete id="deleteFollowerById" parameterType="FollowerForm">
-		delete from friend_test
-		where userId = #{userId} and followerId = #{followerId}
+		delete from friend
+		where user_email = #{userId} and follower_email = #{followerId}
 	</delete>
 	
 	<select id = "selectFollower"  parameterType="FollowerForm" resultType="java.util.map">

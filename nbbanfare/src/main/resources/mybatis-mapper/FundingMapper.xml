@@ -5,44 +5,44 @@
         
 <mapper namespace="com.team1.nbbanfare.repository.mybatis.FundingMapper">
 	<insert id="insertFunding" parameterType="FundingForm">
-		insert into funding_test(fundingid, merchantuid, userid, presentid, followerid, fundingprice, fundingresult)
-		values(#{fundingid}, #{merchantUid}, #{userNo}, #{presentId}, #{followerId}, #{fundingPrice}, #{fundingResult})
+		insert into funding
+		values(#{fundingid}, #{merchantUid}, #{userNo}, #{presentId}, #{followerId}, #{fundingPrice}, sysdate, #{fundingResult})
 	</insert>
 	
 	<select id="selectFunding" resultType="FundingForm">
-		select distinct(fd.merchantuid) merchantuid, fd.fundingid fundingid, fd.userid userid, fd.presentid presentid, pr.productname productname, fd.followerid followerid, u.user_name user_name, fd.fundingprice fundingprice, fd.fundingresult fundingresult 
-		from funding_test fd, friend_test f, user_info u, present_test p, product_test pr
-		where fd.followerid = f.followerid and f.followerid = u.user_id and p.presentid = fd.presentid and p.productno = pr.productno and fd.userid = #{userNo}
-		order by fd.merchantuid
+		select distinct(fd.merchant_uid) merchantuid, fd.funding_no fundingid, fd.user_email userid, fd.present_no presentid, pr.product_name productname, fd.follower_email followerid, u.user_name username, fd.funding_price fundingprice, fd.funding_result fundingresult 
+		from funding fd, friend f, user_info u, present p, product_real pr
+		where fd.follower_email = f.follower_email and f.follower_email = u.user_email and p.present_no = fd.present_no and p.product_no = pr.product_no and fd.user_email = #{userNo}
+		order by fd.merchant_uid
 	</select>
 	
 	<update id="refundFunding" parameterType="FundingForm">
-		update funding_test
-		set fundingresult = 2
-		where fundingid = #{fundingid} and userid = #{userNo}
+		update funding
+		set funding_result = 2
+		where funding_no = #{fundingid} and user_email = #{userNo}
 	</update>
 	
 	<select id="selectPresentNoSearch" resultType="PresentForm">
-		select fundingid from funding_test
-		where presentid = #{presentNo}
+		select funding_no from funding
+		where present_no = #{presentNo}
 	</select>
 	
 	<update id="refundPresentFunding" parameterType="PresentForm">
-		update funding_test
-		set fundingresult = 2
-		where presentid = #{presentNo}
+		update funding
+		set funding_result = 2
+		where present_no = #{presentNo}
 	</update>
 	
 	<select id="selectPresentFundingFriendName" resultType="PresentForm">
-		select fd.userid userno, u.user_name username, fd.fundingprice fundingprice
-		from funding_test fd, user_info u
-		where u.user_id = fd.userid and fd.presentid = #{presentNo} and fd.fundingresult = 1
+		select fd.user_email userno, u.user_name username, fd.funding_price fundingprice
+		from funding fd, user_info u
+		where u.user_email = fd.user_email and fd.present_no = #{presentNo} and fd.funding_result = 1
 	</select>
 	
 	<update id="puchaseUpdate" parameterType="PurchaseForm">
-		update funding_test
-		set fundingresult = 3
-		where presentid = #{presentNo} and fundingresult = 1
+		update funding
+		set funding_result = 3
+		where present_no = #{presentNo} and funding_result = 1
 	</update>
 	
 	

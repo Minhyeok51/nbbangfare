@@ -115,11 +115,11 @@ function App() {
         </Route>
         <Route path="/modify" element={<Modify/>}></Route>
         
-        <Route path="follow/:name" element={<Follower/>}></Route>
+        <Route path="follow" element={<Follower/>}></Route>
         <Route path="/join" element={<Join/>}></Route>
         <Route path="/joinWithKakao" element={<JoinWithKakao/>}></Route>
         
-        <Route path="ItemDetail/:id" element={<ItemDetail/>}> </Route>
+        <Route path="/ItemDetail/:id" element={<ItemDetail/>}> </Route>
         <Route path="*" element={<div>404 Not Found</div>} />
         <Route path="/:productKind" element={<CategoryItem/>} />
         <Route path='/oauth/kakao' element={<KakaoLogin/>}/>

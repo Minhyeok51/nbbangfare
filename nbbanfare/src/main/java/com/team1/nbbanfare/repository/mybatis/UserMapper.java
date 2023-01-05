@@ -12,6 +12,8 @@ public interface UserMapper {
 
 	public Integer insert(User user);
 	
+	public Integer insertKakaoUser(User user);
+	
 	public User selectByUserEmail(String userEmail);
 	
 	public List<User> searchUser(String word);

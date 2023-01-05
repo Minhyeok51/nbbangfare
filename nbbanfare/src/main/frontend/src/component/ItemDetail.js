@@ -17,7 +17,7 @@ function ItemDetail(){
     const getData = async() => {
         const url = `/ItemDetail/${id}`;
         axios
-          .get(url)
+          .get(`${requests.ItemDetailPath}/${id}`)
           .then((response) => {
             setProduct(response.data);
             console.log(product)

@@ -10,6 +10,8 @@ import com.team1.nbbanfare.dto.User;
 public interface UserRepository {
 	public User insert(User user);
 	
+	public User insertKakaoUser(User user);
+	
 	public User selectByUserEmail(String userEmail);
 	
 	public List<User> searchUser(String word);
