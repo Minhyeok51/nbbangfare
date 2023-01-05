@@ -15,25 +15,6 @@ function Mypage() {
       navigate('/login')
     }
   },[])
-    const [present, setPresent] = useState([]);
-    
-    const getData = async() => {
-        const url = `/mypage/${sessionStorage.getItem('user_id')}`;
-        axios
-          .get(url)
-          .then((response) => {
-            setPresent(response.data);
-            console.log(present)
-            console.log("성공");
-          })
-          .catch((Error) => {
-            console.log(Error);
-          });
-  
-      };
-      useEffect(() => {
-        getData();
-      }, [])  
 
       const deleteUser = () =>{
         var q = prompt(`회원탈퇴 하시겠습니까?
