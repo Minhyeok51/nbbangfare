@@ -25,19 +25,10 @@ public class MybatisUserRepository implements UserRepository{
 		return user;
 	}
 	@Override
-<<<<<<< HEAD
-
 	public User selectByUserEmail(String userEmail) {
 		log.info(userEmail);
 		User user = userMapper.selectByUserEmail(userEmail);
 //		Log.info("유저 안담기냐 왜 {}", user);
-
-=======
-	public User selectByUserId(String userId) {
-		log.info(userId);
-		User user = userMapper.selectByUserId(userId);
-		log.info("유저 안담기냐 왜 {}", user);
->>>>>>> refs/heads/ksmdvp
 		return user;
 	}
 	
