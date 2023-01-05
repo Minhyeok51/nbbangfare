@@ -8,4 +8,13 @@
 		insert into friend_test(userId, followerId)
 		values(#{userId}, #{followerId})
 	</insert>
+	
+	<select id="selectFollowerById" parameterType="FollowerForm" resultType="FollowerForm">
+		select userId, followerId from friend_test where userId = #{userId} and followerId = #{followerId}
+	</select>	
+	
+	<delete id="deleteFollowerById" parameterType="FollowerForm">
+		delete from friend_test
+		where userId = #{userId} and followerId = #{followerId}
+	</delete>
 </mapper>

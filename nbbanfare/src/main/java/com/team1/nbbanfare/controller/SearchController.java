@@ -22,6 +22,8 @@ public class SearchController {
 	
 	@GetMapping("/Search/{word}")
 	public List<User> userSearchName(@PathVariable("word") String word) {
+		
+	
 		List<User> userSearchList = userRepository.searchUser(word);
 		return userSearchList;
 	}	

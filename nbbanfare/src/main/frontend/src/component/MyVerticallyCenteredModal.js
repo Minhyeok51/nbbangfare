@@ -87,6 +87,7 @@ function MyVerticallyCenteredModal(props) {
       <Modal.Footer>
         <Button variant="outline-primary" onClick={onClickPayment}>구매</Button>
         <Button variant="outline-primary" onClick={props.onHide}>취소</Button>
+        
       </Modal.Footer>
     </Modal>
   );
