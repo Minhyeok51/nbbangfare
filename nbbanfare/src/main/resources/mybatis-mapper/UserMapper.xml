@@ -6,10 +6,10 @@
 <mapper namespace="com.team1.nbbanfare.repository.mybatis.UserMapper">
 
 <insert id="insert" parameterType="User">
-	insert into user_info(user_no , user_email, user_password, user_name, user_birth, user_phone, user_address,user_image, is_active)
+	insert into user_info(user_no , user_email, user_password, user_name, user_birth, user_phone, user_address, user_image, is_active)
 		values(userPK.nextVal,
 		  #{userEmail}, #{userPassword}, #{userName}, #{userBirth},
-		  #{userPhone},#{userAddress}, #{userImage} , 1)
+		  #{userPhone},#{userAddress}, #{userImage}, 1)
 </insert>
 
 <select id="selectByUserEmail" resultType="User">

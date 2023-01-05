@@ -17,7 +17,20 @@ public class MybatisFollowerRepository implements FollowerRepository{
 
 	@Override
 	@Transactional
-	public void insertFollower(FollowerForm follwerForm) {
-		followerMapper.insertFollower(follwerForm);
+	public void insertFollower(FollowerForm followerForm) {
+		followerMapper.insertFollower(followerForm);
+	}
+	
+	@Override
+	@Transactional
+	public FollowerForm selectFollowerById(FollowerForm followerForm) {
+		FollowerForm fb = followerMapper.selectFollowerById(followerForm);
+		return fb;
+	}
+	
+	@Override
+	@Transactional
+	public void deleteFollowerById(FollowerForm followerForm) {
+		followerMapper.deleteFollowerById(followerForm);
 	}
 }
