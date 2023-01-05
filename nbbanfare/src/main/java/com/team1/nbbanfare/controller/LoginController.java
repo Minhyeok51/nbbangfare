@@ -2,10 +2,13 @@ package com.team1.nbbanfare.controller;
 
 import java.util.HashMap;
 
+import org.python.antlr.runtime.Parser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -37,7 +40,7 @@ public class LoginController {
 		log.info("로그인폼 : {}",loginForm.getUserPassword());
 		User user = loginService.login(loginForm.getUserEmail(), loginForm.getUserPassword());
 		
-		if(user == null) { //계정정보가 없거나, 비밀번호가 안맞거나 로그인 실패
+		if(user == null) { //계정정보가 없거나, 비밀번호가 안맞거나 로그인 실패, 탈퇴했거나
 			log.info("안됨");
 	 		return null;
 	 	}
@@ -108,4 +111,33 @@ public class LoginController {
 		log.info("바뀐user {} 결과{} ",result);
 		return user;
 	}
+	
+	@GetMapping("/updateUserInfo/{userEmail}")
+	@ResponseBody
+	public User updateUserInfo(@PathVariable String userEmail) {
+		log.info("user {} ",userEmail);
+		User user = userRepository.selectByUserEmail(userEmail);
+		return user;
+	}
+	@PostMapping("/updateUserInfo/{userEmail}")
+	@ResponseBody
+	public boolean updateUser(@ModelAttribute User user,@PathVariable String userEmail) {
+		log.info("수정된user {} ",user);
+		log.info("패스변수 이메일 {} ",userEmail);
+		boolean result = false;
+		result = userRepository.updateUserInfo( user);
+		return result;
+	}
+	
+	@PostMapping("/deleteUser/{userEmail}")
+	@ResponseBody
+	public String deleteUser(@PathVariable String userEmail, @RequestParam("a") String a) {
+		System.out.println(a);
+		System.out.println(userEmail);
+		boolean result = false;
+		result = userRepository.updateUserActive(userEmail);
+		
+		return "1";
+	}
+	
 }

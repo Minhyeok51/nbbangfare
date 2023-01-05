@@ -6,6 +6,7 @@ import java.util.List;
 import com.team1.nbbanfare.dto.User;
 
 
+
 public interface UserRepository {
 	public User insert(User user);
 	
@@ -15,6 +16,9 @@ public interface UserRepository {
 	
 	public boolean updateUserPassword(String userEmail, String userName, String tempPassword);
 	
+	public boolean updateUserInfo(User user);
+	
+	public boolean updateUserActive(String userEmail);
 
 //	public UserForm selectById(int id);
 

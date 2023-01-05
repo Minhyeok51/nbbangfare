@@ -3,10 +3,18 @@ import noImg from "../img/noimg.jpg"
 import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import requests from "../api/requests";
 
-function Mypage({session,setSession}) {
+function Mypage() {
+  const navigate = useNavigate()
+  useEffect(()=>{
+    if(sessionStorage.getItem("user_id") == null){
+      alert('로그인이 필요한 서비스입니다.')
+      navigate('/login')
+    }
+  },[])
     const [present, setPresent] = useState([]);
-    const navigate = useNavigate()
+    
     const getData = async() => {
         const url = `/mypage/${sessionStorage.getItem('user_id')}`;
         axios
@@ -24,6 +32,35 @@ function Mypage({session,setSession}) {
       useEffect(() => {
         getData();
       }, [])  
+
+      const deleteUser = () =>{
+        var q = prompt(`회원탈퇴 하시겠습니까?
+        "${sessionStorage.getItem("user_id")}/탈퇴"
+        를 입력해주세요` ,"")
+        var a = q
+        if(a === sessionStorage.getItem("user_id")+"/탈퇴"){
+          // alert("탈퇴됨")
+          axios.post(`${requests.deleteUserPath}/${sessionStorage.getItem('user_id')}`,null,{
+            params : {
+              a : a
+            }
+          })
+          .then(res =>{
+            console.log(res.data)
+            if(res.data === true){
+              sessionStorage.clear()
+              alert("회원탈퇴가 정상적으로 처리되었습니다.")
+            }
+            document.location.href = "/"
+          })
+          .catch(e =>{
+            console.log(e)
+          })
+        }else{
+          alert("입력값이 올바르지 않습니다.")
+        }
+        console.log(a)
+      }
     return (
       <>
         <div className="userBar">
@@ -61,6 +98,7 @@ function Mypage({session,setSession}) {
                 <li className="mypageList" onClick={()=>{
                     navigate('/modify')
                 }}>회원정보 수정하기</li>
+                <li className="mypageList" onClick={deleteUser}>회원 탈퇴</li>
             </ul>
           </div>
         </div>

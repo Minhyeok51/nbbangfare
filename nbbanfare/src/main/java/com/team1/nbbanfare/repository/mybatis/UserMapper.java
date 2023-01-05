@@ -19,4 +19,9 @@ public interface UserMapper {
 	public void updateUserPassword(@Param("userEmail") String userEmail
 			,@Param("userName") String userName
 			,@Param("userPassword") String userPassword);
-}
+	
+	public void updateUserInfo( User user); 
+	
+	public void updateUserActive(String userEmail);
+	
+	}

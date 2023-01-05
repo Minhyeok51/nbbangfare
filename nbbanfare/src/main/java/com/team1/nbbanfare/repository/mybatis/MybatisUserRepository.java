@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.python.jline.internal.Log;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.team1.nbbanfare.dto.User;
 import com.team1.nbbanfare.repository.UserRepository;
@@ -51,4 +52,28 @@ public class MybatisUserRepository implements UserRepository{
 		}
 		return result;
 	}
+	@Override
+	@Transactional
+	public boolean updateUserInfo( User user) {
+		
+		boolean result = false;
+		try {
+			userMapper.updateUserInfo(user);
+			result = true;
+		}catch (Exception e) {
+			log.error("UserMapper Update Error {} {}",user);
+		}
+		return result;
+	}
+	@Override
+	@Transactional
+	public boolean updateUserActive(String userEmail) {
+		boolean result = false;
+		try {
+			userMapper.updateUserActive(userEmail);
+			result = true;
+		}catch (Exception e) {
+			log.info("회원탈퇴에러 {}",userEmail);
+		}
+		return result;	}
 }

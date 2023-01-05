@@ -12,6 +12,9 @@ const requests = {
 	kakaoLoginPath:"/oauth/kakao",
     kakaoLogoutPath:"/kakaoLogout",
     emailConfirmPath:"/emailConfirm",
-    findPwPath : "/forgotPassword"
+    findPwPath : "/forgotPassword",
+    updateUserInfoPath : "/updateUserInfo",
+    deleteUserPath : "/deleteUser"
+
 }
 export default requests;

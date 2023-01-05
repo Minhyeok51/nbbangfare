@@ -107,7 +107,7 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/forgotPassword" element={<ForgotPassword/>}/> 
         
-        <Route path="/mypage" element={<Mypage session={isLogin} setSession={setIsLogin}/>}></Route>
+        <Route path="/mypage" element={<Mypage/>}></Route>
         <Route path="/modify" element={<Modify/>}></Route>
         
         <Route path="follow/:name" element={<Follower/>}></Route>

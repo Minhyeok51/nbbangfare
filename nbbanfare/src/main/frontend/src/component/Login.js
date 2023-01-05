@@ -36,7 +36,7 @@ function Login() {
       e.preventDefault();
       return
     }
-   
+    e.preventDefault();
     await axios
       .post(requests.loginPath,null,{params: {
         userEmail:inputId,
@@ -44,7 +44,6 @@ function Login() {
         userName:inputName
     }})
       .then((res) => {
-        console.log("res.data.userName :: ", res.data.userName);
         if (res.data.userEmail === undefined || null) {
           // id 일치하지 않는 경우 userId = undefined, msg = '입력하신 id 가 일치하지 않습니다.'
           console.log(res.data.userEmail)
@@ -58,7 +57,6 @@ function Login() {
           // window.location.reload()
          } else
          if(res.data.userPassword !== inputPw ) {
-          console.log(res.data)
           // id는 있지만, pw 는 다른 경우 userId = null , msg = undefined
           alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
          } else
@@ -68,8 +66,8 @@ function Login() {
           sessionStorage.setItem("user_id", inputId); // sessionStorage에 id를 user_id라는 key 값으로 저장
           sessionStorage.setItem("name", res.data.userName); // sessionStorage에 id를 user_id라는 key 값으로 저장
           window.location.reload()
+          document.location.href = "/";
         }
-        document.location.href = "/";
         // 작업 완료 되면 페이지 이동(새로고침)
         // navigate("/") 네비게이트 쓰면 세션저장이 안됨
       })
@@ -88,7 +86,6 @@ function Login() {
         <div className="loginText">로그인</div>
         <input
           type="text"
-          // className="form-control"
           placeholder="아이디"
           name="input_id"
           value={inputId}
@@ -98,12 +95,12 @@ function Login() {
 
         <input
           type="password"
-          // className="form-control"
           placeholder="비밀번호"
           id="input_pw"
           name="input_pw"
           value={inputPw}
           onChange={handleInputPw}
+          // autoComplete
         />
 
         <button type="submit" onClick={onClickLogin} className="loginButton">

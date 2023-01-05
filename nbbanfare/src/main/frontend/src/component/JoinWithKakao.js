@@ -6,13 +6,6 @@ import requests from "../api/requests";
 import Post from "./Post";
 
 function JoinWithKakao(){
-
-    // useEffect(() =>{
-    //     sessionStorage.getItem("basicEmail")
-    //     sessionStorage.getItem("basicImage")
-    //     sessionStorage.getItem("basicName")
-    // },[])
-
   let navigate = useNavigate();
   let today = moment().format("YYYY-MM-DD");
   const [popup, setPopup] = useState(false);

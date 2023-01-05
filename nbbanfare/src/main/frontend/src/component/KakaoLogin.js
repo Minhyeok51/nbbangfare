@@ -21,13 +21,13 @@ function KakaoLogin(){
     
       console.log(res.data.newKakaoUser)
     if(res.data.newKakaoUser === "iAmNew" ){
-      sessionStorage.setItem("basicEmail", res.data.basicInfo.userEmail)
-      sessionStorage.setItem("basicImage", res.data.basicInfo.userImage)
-      sessionStorage.setItem("basicName", res.data.basicInfo.userName)
+      sessionStorage.setItem("user_id", res.data.basicInfo.userEmail)
+      sessionStorage.setItem("image", res.data.basicInfo.userImage)
+      sessionStorage.setItem("name", res.data.basicInfo.userName)
       alert("추가 정보를 입력해주세요~")
       window.location.href="/joinWithKakao"
     }else{
-    sessionStorage.setItem("email", res.data.email)
+    sessionStorage.setItem("user_id", res.data.email)
     sessionStorage.setItem("image", res.data.image)
     sessionStorage.setItem("name", res.data.nickname)
     sessionStorage.setItem("id", res.data.id)

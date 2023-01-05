@@ -81,11 +81,7 @@ function Header({session,setSession}) {
               <li>
                 <a onClick={()=>{
                   logOutFunc()
-                  sessionStorage.removeItem("name")
-                  sessionStorage.removeItem("user_id")
-                  sessionStorage.removeItem("image")
-                  sessionStorage.removeItem("id")
-                  sessionStorage.removeItem("email")
+                  sessionStorage.clear()
                   setSession(false)
                   window.location.href="/"
               }}>로그아웃</a>

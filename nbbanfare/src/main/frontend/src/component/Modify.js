@@ -1,15 +1,15 @@
 import axios from "axios";
-import moment from "moment";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import requests from "../api/requests";
 import Post from "./Post";
-import '../css/modify.css'
-function Modify(){
-    let navigate = useNavigate();
-  let today = moment().format("YYYY-MM-DD");
+import "../css/modify.css";
+
+function Modify() {
+  const navigate = useNavigate();
   const [popup, setPopup] = useState(false);
   // 초기값 세팅 - 아이디, 닉네임, 비밀번호, 비밀번호확인, 이메일, 전화번호, 생년월일, 주소
+  const [userNo, setUserNo] = useState("");
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -18,40 +18,21 @@ function Modify(){
   const [birth, setBirth] = useState("");
   const [address, setAddress] = useState({ address: "" });
   const [detailAddress, setDetailAddress] = useState("");
-  const [authCode, setAuthCode ] = useState("")
+  const [isActive, setIsActive] = useState(false);
+  const [image, setImage] = useState("");
+  // const [resPw , setResPw] = useState("") //카카오 유저는 비밀번호 설정 못하게
 
   // 오류메세지 상태 저장
-  const [emailMessage, setEmailMessage] = useState("");
   const [nameMessage, setNameMessage] = useState("");
   const [passwordMessage, setPasswordMessage] = useState("");
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
   const [phoneMessage, setPhoneMessage] = useState("");
-  const [emailAuthMessage, setEmailAuthMessage] = useState("");
 
   // 유효성 검사
-  const [isEmail, setIsEmail] = useState(false);
   const [isName, setIsName] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
   const [isPhone, setIsPhone] = useState(false);
-  const [isBirth, setIsBirth] = useState(false);
-  const [emailAuthBtn , setEmailAuthBtn] = useState(false);
-  const [verifiedEmail, setVerifiedEmail] = useState(false);
-
-  const onChangeEmail = (e) => {
-    const currentEmail = e.target.value.trim();
-    setEmail(currentEmail);
-    const emailRegExp =
-      /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
-
-    if (!emailRegExp.test(currentEmail)) {
-      setEmailMessage("이메일의 형식이 올바르지 않습니다!");
-      setIsEmail(false);
-    } else {
-      setEmailMessage("사용 가능한 이메일 입니다.");
-      setIsEmail(true);
-    }
-  };
 
   const onChangeName = (e) => {
     const currentName = e.target.value.trim();
@@ -106,7 +87,7 @@ function Modify(){
       setIsPhone(true);
     }
   };
- 
+
   const addHyphen = (e) => {
     const currentNumber = e.target.value;
     setPhone(currentNumber);
@@ -118,51 +99,28 @@ function Modify(){
     }
   };
 
-  const onChangeBirth = (e) => {
-    const currentBirth = e.target.value;
-    setBirth(currentBirth);
-    setIsBirth(true);
-  };
-
-  // const onChangeAuthCode = (e) =>{
-  //   const code = e.target.value
-  //   console.log(code)
-  //   setAuthCode(code)
-  //   console.log("어스코드: "+ authCode)
-    
-  // }
-
-
   const handleSubmit = async (e) => {
-    if (isEmail == false) {
-      alert("이메일 형식에 맞게 입력해주세요");
-      e.preventDefault();
-      return;
-    } else if(verifiedEmail == false){
-      alert("이메일을 인증해주세요");
-      e.preventDefault();
-      return;
-    } else if (isName == false) {
+    if (isName == false) {
       alert("올바른 이름을 입력해주세요");
       e.preventDefault();
       return;
-    } else if (isPassword == false) {
-      alert("비밀번호를 형식에 맞게 입력해주세요");
-      e.preventDefault();
-      return;
-    } else if (isPhone == false) {
+    }
+    // else if (isPassword == false) {
+    //   alert("비밀번호를 형식에 맞게 입력해주세요");
+    //   e.preventDefault();
+    //   return;
+    // }
+    else if (isPhone == false) {
       alert("전화번호 형식에 맞게 입력해주세요");
       e.preventDefault();
       return;
-    } else if (isBirth == false) {
-      alert("태어난 연도를 입력해주세요");
-      e.preventDefault();
-      return;
-    } else if (address.address == "" || null || undefined || 0 || NaN) {
-      alert("주소를 입력해주세요");
-      e.preventDefault();
-      return;
     }
+
+    // else if (address.address == "" || null || undefined || 0 || NaN) {
+    //   alert("주소를 입력해주세요");
+    //   e.preventDefault();
+    //   return;
+    // }
     if (password !== passwordConfirm) {
       alert("비밀번호가 달라요");
       e.preventDefault();
@@ -171,69 +129,35 @@ function Modify(){
 
     e.preventDefault();
 
-
     await axios
-      .post(requests.joinPath, null, {
-        params: {
-          userEmail: email,
-          userName: name,
-          userPassword: password,
-          userPhone: phone,
-          userBirth: birth,
-          userAddress: `${address.address} ${detailAddress}`,
-        },
-      })
-      .then((response) => {
-        console.log(response.data);
-        console.log(response.status);
-        if (response.data == "0") {
-          alert("이미 가입된 아이디입니다");
+      .post(
+        `${requests.updateUserInfoPath}/${sessionStorage.getItem("user_id")}`,
+        null,
+        {
+          params: {
+            userNo: userNo,
+            userEmail: email,
+            userName: name,
+            userPassword: password,
+            userPhone: phone,
+            userBirth: birth,
+            userAddress: `${address.address} ${detailAddress}`,
+            active: isActive,
+            userImage: image,
+          },
         }
-        if (response.data == "1") {
-          alert("회원가입 성공");
-          navigate("/login");
-        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        console.log(res.status);
+        sessionStorage.setItem("name", name);
+        window.location.reload();
       })
       .catch((error) => {
         console.log(error.response);
         alert("가입실패! 아마 서버에러?");
       });
   };
-  const emailAuth = () => {
-    axios
-      .post(requests.emailConfirmPath, null, {
-        params: {
-          email: email,
-        },
-      })
-      .then((res) => {
-        console.log(res.data);
-        if(res.data === 1 ){
-          alert("이미 가입된 이메일입니다.")
-        }else{
-          setEmailAuthBtn(true) // 버튼 눌리고 가입되지 않은 이메일 이면 다음단계로 진행될 수 있게하기
-          setAuthCode(res.data)
-          alert("인증코드가 전송되었습니다.")
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-        if(e !== null){
-          alert("인증코드 전송 실패하였습니다.")
-        }
-      });
-  };
-
-  function emailAuthConfirm(e){
-    console.log("어스코드:"+authCode)
-    if(e.target.value === authCode){
-      setEmailAuthMessage("코드가 일치합니다")
-      setVerifiedEmail(true) //인증코드로 넘어온 값과 입력값이 일치하지 않을때 가입시키는거 방지 
-      //이메일 인증 완료됐으면 가입시키기
-    }else{
-      setEmailAuthMessage("코드가 일치하지 않습니다.")
-    }
-  }
 
   //주소검색
   const datailAddressInput = (e) => {
@@ -250,58 +174,121 @@ function Modify(){
   const handleComplete = (data) => {
     setPopup(!popup);
   };
+  const getUserData = () => {
+    const url = `/updateUserInfo/${sessionStorage.getItem("user_id")}`;
+    axios
+      .get(url)
+      .then((res) => {
+        console.log(res.data);
+        setUserNo(res.data.userNo);
+        setPassword(res.data.userPassword);
+        setPasswordConfirm(res.data.userPassword);
+        setEmail(res.data.userEmail);
+        setName(res.data.userName);
+        setPhone(res.data.userPhone);
+        setAddress({ address: res.data.userAddress });
+        setBirth(res.data.userBirth);
+        setIsActive(res.data.active);
+        setImage(res.data.userImage);
+        
+        // sessionStorage.setItem("user_address", res.data.userAddress)
+        let arr = res.data.userAddress.split(" ");
+        let posetcode = (document.getElementById("postcode").value = arr[0]);
+        let restArr = "";
+        for (let i = 1; i < arr.length; i++) {
+          restArr += arr[i] + " ";
+        }
+        let resAddr = (document.getElementById("address").value = restArr);
+
+        setAddress({ address: posetcode + resAddr });
+      })
+      .catch((Error) => {
+        console.log(Error);
+      });
+  };
+
+  useEffect(() => {
+    getUserData();
+    // window.location.reload()
+
+    setIsName(true);
+    setIsPassword(true);
+    setIsPasswordConfirm(true);
+    setIsPhone(true);
+  }, []);
 
   return (
-    <div className="modify">
-      <h3>정보 수정하기</h3>
-      <form className="modifyform">
+    <div className="modify-container">
+      <div className="modify-user"></div>
+      <div className="modify">
+        <h3>정보 수정하기</h3>
+        <form className="modifyform">
           <div className="form-el">
             <input
               id="email"
               className="inputs"
               name="name"
               value={email}
-              placeholder="이메일을 입력해주세요"
-              autoFocus
+              readOnly
             />
-        </div>
-
-          <div className="form-el">
-            <input id="name" className="inputs" name="name" placeholder="이름을 입력해주세요" value={name} onChange={onChangeName} />
-            <p className="message">{nameMessage}</p>
           </div>
+          {password !== null ? (
+            <>
+              <div className="form-el">
+                <input
+                  id="name"
+                  className="inputs"
+                  name="name"
+                  value={name}
+                  onChange={onChangeName}
+                />
+                <p className="message">{nameMessage}</p>
+              </div>
+
+              <div className="form-el">
+                <input
+                  type="password"
+                  id="password"
+                  className="inputs"
+                  name="password"
+                  value={password}
+                  onChange={onChangePassword}
+                  placeholder="비밀번호를 입력해주세요"
+                />
+                <p className="message">{passwordMessage}</p>
+              </div>
+              <div className="form-el">
+                <input
+                  type="password"
+                  id="passwordConfirm"
+                  className="inputs"
+                  name="passwordConfirm"
+                  value={passwordConfirm}
+                  onChange={onChangePasswordConfirm}
+                  placeholder="비밀번호 확인"
+                />
+                <p className="message">{passwordConfirmMessage}</p>
+              </div>
+            </>
+          ) : null}
           <div className="form-el">
             <input
-              type="password"
-              id="password"
+              id="phone"
               className="inputs"
-              name="password"
-              value={password}
-              onChange={onChangePassword}
-              placeholder="비밀번호를 입력해주세요"
+              name="phone"
+              value={phone}
+              onChange={addHyphen}
             />
-            <p className="message">{passwordMessage}</p>
-          </div>
-          <div className="form-el">
-            <input
-              type="password"
-              id="passwordConfirm"
-              className="inputs"
-              name="passwordConfirm"
-              value={passwordConfirm}
-              onChange={onChangePasswordConfirm}
-              placeholder="비밀번호 확인"
-            />
-            <p className="message">{passwordConfirmMessage}</p>
-          </div>
-
-          <div className="form-el">
-            <input id="phone" className="inputs" name="phone" value={phone} onChange={addHyphen} placeholder="핸드폰번호를 입력해주세요(번호만 입력)"/>
             <p className="message">{phoneMessage}</p>
           </div>
-          
+
           <div className="form-el">
-            <input type="text" id="postcode" className="inputs" placeholder="주소를 입력해주세요" />
+            <input
+              type="text"
+              id="postcode"
+              className="inputs"
+              placeholder="주소를 입력해주세요"
+            />
             <input
               type="button"
               onClick={handleComplete}
@@ -309,25 +296,36 @@ function Modify(){
               value="우편번호 찾기"
             />
             <br />
-            <input type="text" id="address" placeholder="주소" className="inputs"/>
+            <input
+              type="text"
+              id="address"
+              placeholder="주소"
+              className="inputs"
+            />
             <br />
             <input
               type="text"
               id="detailAddress"
-              className="inputs" 
+              className="inputs"
               onChange={datailAddressInput}
               placeholder="상세 주소를 입력해주세요"
             />
-            <input type="text" id="extraAddress" className="inputs" placeholder="참고항목" />
+            <input
+              type="text"
+              id="extraAddress"
+              className="inputs"
+              placeholder="참고항목"
+            />
           </div>
           {popup && <Post company={address} setcompany={setAddress}></Post>}
           <br />
           <br />
           <button type="submit" onClick={handleSubmit}>
-            가입하기
+            수정하기
           </button>
-      </form>
+        </form>
+      </div>
     </div>
-  )
+  );
 }
 export default Modify;
