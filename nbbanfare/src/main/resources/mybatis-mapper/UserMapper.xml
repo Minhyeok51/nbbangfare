@@ -15,7 +15,7 @@
 <select id="selectByUserEmail" resultType="User">
 	select *
 	from user_info
-	where user_email = #{userEmail} and is_active = 1
+	where user_email = #{userEmail}
 </select>
 
 <select id="searchUser" resultType="User">
@@ -28,28 +28,6 @@
 	set user_password = #{userPassword}
 	where user_email = #{userEmail}
 	and user_name = #{userName}
-</update>
-
-<update id="updateUserInfo" parameterType="User">
-	update user_info
-	set 
-	user_no = #{userNo},
-	user_email = #{userEmail},
-	user_password = #{userPassword},
-	user_name = #{userName},
-	user_birth = #{userBirth},
-	user_phone = #{userPhone},
-	user_address = #{userAddress},
-	user_image = #{userImage},
-	is_active = #{isActive}
-	where user_email = #{userEmail}
-</update>
-
-<update id="updateUserActive" parameterType="User">
-	update user_info
-	set 
-	is_active = 0
-	where user_email = #{userEmail}
 </update>
 
 </mapper>

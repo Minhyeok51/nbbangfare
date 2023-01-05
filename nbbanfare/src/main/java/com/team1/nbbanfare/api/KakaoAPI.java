@@ -107,8 +107,7 @@ public class KakaoAPI {
 			userInfo.put("email", email);
 			userInfo.put("image", image);
 			
-			conn.disconnect();
-			br.close();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
