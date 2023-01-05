@@ -10,14 +10,16 @@ import Switchstate from "./Switchstate";
 function Search() {
     const [searchUser, setSearchUser] = useState([]);
     let {word} = useParams();
+    let user = sessionStorage.getItem("user_id")
     const [show, setShow] = useState(false);
+    const [followList, setFollowList] = useState([]);
     const [isCheck, setCheck] = useState(false);
     const arr = []
     const url = "http://localhost:8080/Search/"+ word;
     const getData = async() => {
         
         axios
-          .get(url)
+        .get(url)
           .then((response) => {
             console.log(response.data);
             setSearchUser(response.data);
@@ -27,6 +29,19 @@ function Search() {
           .catch((Error) => {
             console.log(Error);
           });
+
+
+          axios
+          .get(url + "/" +user)
+            .then((response) => {
+              console.log(response.data);
+              setFollowList(response.data);
+              console.log(followList);
+              console.log("성공");
+            })
+            .catch((Error) => {
+              console.log(Error);
+            });
   
       };
       useEffect(() => {
@@ -37,10 +52,10 @@ const follow = (i,email) =>{
   let btn  = document.getElementById(i+"button");
   console.log(btn.innerText)
   let userId = sessionStorage.getItem("user_id")
-if(userId == null) {
-  window.location.replace("/login")
-} else {
-if(btn.innerHTML==="팔로우하기"){
+  if(userId == null) {
+    window.location.replace("/login")
+  } else {
+  if(btn.innerHTML==="팔로우하기"){
   //여기서 db에 넣기
   axios
       .post(url,null,{params: {
@@ -112,7 +127,7 @@ if(btn.innerHTML==="팔로우하기"){
                   <td key={i}>
                   {/* {isCheck ? <button id={i+"button"} key={i} onClick={()=>{follow(i)}}>팔로우하기</button> : <button id={i+"button"} onClick={()=>{follow(i)}}>팔로우끊기</button>} */}
                   {/* {<button id={i+"button"} key={i} onClick={()=>{}}>팔로우하기</button>} */}
-                  {<button id={i+"button"} email = {data.userEmail} key={i} onClick={()=>{follow(i,`${data.userEmail}`)}}>팔로우하기</button>}
+                  {<button id={i+"button"} email = {data.userEmail} key = {i} onClick={()=>{follow(i,`${data.userEmail}`)}}>팔로우하기</button>}
                   </td>
                 </tr>
                 

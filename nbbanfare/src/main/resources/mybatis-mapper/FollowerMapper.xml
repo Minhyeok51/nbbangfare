@@ -17,4 +17,11 @@
 		delete from friend_test
 		where userId = #{userId} and followerId = #{followerId}
 	</delete>
+	
+	<select id = "selectFollower"  parameterType="FollowerForm" resultType="java.util.map">
+	select followerId 
+	from friend_test 
+	where userid = #{userId}
+	
+	</select>
 </mapper>

@@ -6,10 +6,19 @@
 <mapper namespace="com.team1.nbbanfare.repository.mybatis.UserMapper">
 
 <insert id="insert" parameterType="User">
-	insert into user_info(user_no , user_email, user_password, user_name, user_birth, user_phone, user_address, user_image, is_active)
-		values(userPK.nextVal,
+	insert into user_info(user_email, user_password
+	, user_name, user_birth, user_phone, user_address, user_image, is_active, kakao_user)
+		values(
 		  #{userEmail}, #{userPassword}, #{userName}, #{userBirth},
-		  #{userPhone},#{userAddress}, #{userImage}, 1)
+		  #{userPhone},#{userAddress}, #{userImage}, 1, 0)
+</insert>
+
+<insert id="insertKakaoUser" parameterType="User">
+	insert into user_info(user_email, user_password
+	, user_name, user_birth, user_phone, user_address, user_image, is_active, kakao_user)
+		values(
+		  #{userEmail}, #{userPassword}, #{userName}, #{userBirth},
+		  #{userPhone},#{userAddress}, #{userImage}, 1, 1)
 </insert>
 
 <select id="selectByUserEmail" resultType="User">
@@ -33,7 +42,6 @@
 <update id="updateUserInfo" parameterType="User">
 	update user_info
 	set 
-	user_no = #{userNo},
 	user_email = #{userEmail},
 	user_password = #{userPassword},
 	user_name = #{userName},
@@ -41,7 +49,8 @@
 	user_phone = #{userPhone},
 	user_address = #{userAddress},
 	user_image = #{userImage},
-	is_active = #{isActive}
+	is_active = #{isActive},
+	kakao_user = #{kakaoUser}
 	where user_email = #{userEmail}
 </update>
 
