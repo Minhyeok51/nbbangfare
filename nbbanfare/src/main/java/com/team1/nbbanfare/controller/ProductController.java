@@ -10,10 +10,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-//import org.json.simple.JSONArray;
-//import org.json.simple.JSONObject;
-//import org.json.simple.parser.JSONParser;
-//import org.json.simple.parser.ParseException;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -50,14 +46,13 @@ public class ProductController {
 	}	
 	
 					  //초 분 시 일 월 요일
-	@Scheduled(cron = "0 27 12 * * *" , zone = "Asia/Seoul")
+	@Scheduled(cron = "0 06 15 * * *" , zone = "Asia/Seoul")
 	public void insertInit() throws IOException, ParseException {
 		ArrayList<ProductForm> array = null;
 		JSONParser parser = new JSONParser();
-		FileReader reader = new FileReader("C:\\Users\\kwon\\git\\nbbangfare\\nbbanfare\\src\\main\\python\\test.json");
+		FileReader reader = new FileReader("C:\\Users\\User\\git\\nbbangfare\\nbbanfare\\src\\main\\python\\test.json");
 		
 		array = new ArrayList<ProductForm>();  
-		
 		JSONArray jsonArray = (JSONArray)parser.parse(reader);
 
 		for(int i=0; i<jsonArray.size(); i++) {

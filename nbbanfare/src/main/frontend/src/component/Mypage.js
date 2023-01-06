@@ -2,12 +2,15 @@ import "../css/Mypage.css"
 import noImg from "../img/noimg.jpg"
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import requests from "../api/requests";
-
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 function Mypage() {
   const navigate = useNavigate()
+  const [imgBase64, setImgBase64] = useState([]);
+  const [imgFile, setImgFile] = useState(null);
+  
   useEffect(()=>{
     if(sessionStorage.getItem("user_id") == null){
       alert('로그인이 필요한 서비스입니다.')
@@ -43,6 +46,18 @@ function Mypage() {
         }
         console.log(a)
       }
+      const fileInput = useRef()
+
+      const handleButtonClick = e =>{
+        fileInput.current.click()
+      }
+
+      const handleChange = e => {
+        console.log(e.target);
+        console.log(e.target.files);
+        console.log(e.target.files[0]);
+        console.log(e.target.files[0].name);
+      };
     return (
       <>
         <div className="userBar">
@@ -70,6 +85,10 @@ function Mypage() {
                 }}
               ></img>
             )}
+            
+            <button onClick={handleButtonClick} style={{background:"tansparent", border :0, outline:0}}><AddAPhotoIcon  type="button" style={{cursor:"pointer", border :0, outline:0}} >
+              </AddAPhotoIcon></button>
+              <input type="file" id="imgUpload" accept="image/*" ref={fileInput}  onChange={handleChange} hidden/>
           <p>사용자 이름: {sessionStorage.getItem("name")}</p>
           <p>가입일: </p>
           </div>
