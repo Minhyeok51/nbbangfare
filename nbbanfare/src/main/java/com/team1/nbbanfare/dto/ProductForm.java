@@ -10,6 +10,7 @@ public class ProductForm {
 	private String productPrice;
 	private String productImage;
 	private String productKind;
+	private String productContent;
 	private Integer productNo;
 	private Date creatDate;
 }

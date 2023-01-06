@@ -23,7 +23,7 @@
 
 <insert id="insertProduct" parameterType="ProductForm">
 	insert into product_test
-	values(#{productName}, #{productPrice}, #{productImage}, #{productKind}, productPK.NEXTVAL, sysdate)
+	values(productPK.NEXTVAL, #{productName}, #{productPrice}, #{productImage}, #{productKind}, #{productContent}, sysdate)
 </insert>
 
 <update id="mergeProduct">
@@ -33,8 +33,8 @@
 	when matched then
 	update set r.product_price = p.product_price
 	when not matched then
-	insert (r.product_name,r.product_price,r.product_image,r.product_kind)
-	values (p.product_name,p.product_price,p.product_image,p.product_kind)
+	insert (r.product_no,r.product_name,r.product_price,r.product_image,r.product_kind,r.product_content,r.create_date)
+	values (p.product_no,p.product_name,p.product_price,p.product_image,p.product_kind,p.product_content,p.create_date)
 </update>
 
 <delete id="deleteAll">
