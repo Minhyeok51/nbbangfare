@@ -170,5 +170,10 @@ public class LoginController {
 		
 		return result;
 	}
-	
+	@PostMapping("/image")
+	@ResponseBody
+	public String uploadImage(@RequestParam("image") String image) {
+		System.out.println(image);
+		return "왔다";
+	}
 }
