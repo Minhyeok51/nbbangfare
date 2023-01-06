@@ -1,6 +1,5 @@
 import React,{useEffect,useState} from 'react';
 import axios from 'axios';
-import requests from './api/requests';
 import Header from './component/Header';
 import Footer from './component/Footer';
 import Login from './component/Login';
@@ -8,7 +7,6 @@ import ItemDetail from './component/ItemDetail';
 import Mypage from './component/Mypage';
 import { Routes, Route, useNavigate} from "react-router-dom";
 import Join from './component/Join';
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -114,7 +112,6 @@ function App() {
           <Route path="/mypage/purlist" element={<Purlist/>}></Route>
         </Route>
         <Route path="/modify" element={<Modify/>}></Route>
-        
         <Route path="follow" element={<Follower/>}></Route>
         <Route path="/join" element={<Join/>}></Route>
         <Route path="/joinWithKakao" element={<JoinWithKakao/>}></Route>

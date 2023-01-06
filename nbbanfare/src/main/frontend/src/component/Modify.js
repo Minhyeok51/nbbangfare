@@ -216,9 +216,8 @@ function Modify() {
   }, []);
 
   return (
-    <div className="modify-container">
-      <div className="modify-user"></div>
-      <div className="modify">
+     <div className="modify-container">
+      {/* <div className="modify-user"></div> */}
         <h3>정보 수정하기</h3>
         <form className="modifyform">
           <div className="form-el">
@@ -323,7 +322,6 @@ function Modify() {
           </button>
         </form>
       </div>
-    </div>
   );
 }
 export default Modify;

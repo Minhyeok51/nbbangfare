@@ -7,6 +7,7 @@
     padding-left: 10px;
     text-align: center;
     flex-flow: wrap;
+    float: inline-start;
 }
 .textplc {
     flex-direction: column;
@@ -21,6 +22,8 @@
     align-items: center;
     width: 50%;
 }
+
+
 .mypageList{
     cursor: pointer;
     border-bottom: 1px solid black;
