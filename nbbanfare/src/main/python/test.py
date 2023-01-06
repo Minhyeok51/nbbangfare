@@ -9,7 +9,7 @@ import requests
 from itertools import repeat
 
 # import cx_Oracle
-import pandas as pd
+# import pandas as pd
 import json
 from collections import OrderedDict
 
@@ -41,6 +41,7 @@ for i in url_list:
             soup2 = BeautifulSoup(response.text, 'lxml')
             soup3 = BeautifulSoup(response.text, 'lxml')
             
+            
     
             for soup in soup.find_all('img', attrs={'class':'lazyload lazy'}):
                 title_list.append(soup['alt'])
@@ -54,15 +55,10 @@ for i in url_list:
             # print(j)
             for soup in soup3.find_all('a', attrs={'class':'img-block'}):
                 detail_list.append(soup['href'])
-            
-           
-            
-         
-        
+     
         except:
             print(start)
-            break
-    
+            break  
 # print(title_list)
 # print(src_list)
 # print(price_list)
@@ -103,7 +99,7 @@ for i in url_list:
 #     json.dump(data, make_file, indent="")
     
 
-list_all = ['productName', 'productPrice', 'productImage', 'productKind']
+list_all = ['productName', 'productPrice', 'productImage', 'productKind', 'productContent']
 
 dic_list = []
 
@@ -114,7 +110,7 @@ dic_list = []
 #                    ,zip('productImage',src_list[i]),zip('productKind',category_list[i]))
                        
 for i in range(len(title_list)):
-    dic_list.append({"productName":title_list[i], "productPrice":price_list[i], "productImage":src_list[i], "productKind":category_list[i]})            
+    dic_list.append({"productName":title_list[i], "productPrice":price_list[i], "productImage":src_list[i], "productKind":category_list[i], "productContent":detail_list[i]})            
 
 
 # with open("test.json", "w", encoding="utf-8-sig") as f:
