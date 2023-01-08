@@ -20,7 +20,7 @@ import Modify from './component/Modify';
 import PayList from './component/PayList';
 import WishProduct from './component/WishProduct';
 import Purlist from './component/Purlist';
-
+import ResponsiveAppBar from './component/ResponsiveAppBar';
 function App() {
   const [product, setProduct] = useState([])
   const [isLogin, setIsLogin] = useState(false); //로그인 관리
@@ -66,7 +66,8 @@ function App() {
     
   return (
     <>
-       <Header session={isLogin} setSession={setIsLogin}/>
+    <ResponsiveAppBar></ResponsiveAppBar>
+       {/* <Header session={isLogin} setSession={setIsLogin}/> */}
       <Routes>
         <Route
           path="/"

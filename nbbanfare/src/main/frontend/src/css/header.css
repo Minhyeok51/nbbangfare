@@ -1,21 +1,25 @@
 .header-container{
-    margin-left: 0;
-    padding-left: 0;
-    width: 100%;
+    /* margin-left: 0; */
+    /* padding-left: 0; */
+    width: 100vw;
     display: flex;
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
     flex-direction: column;
-    justify-content: baseline;
+    /* align-items: center; */
+    /* justify-items: center; */
     margin: 0;
 }
 .mainLogo{
-    width: 250px;
-    height: 100px;
+    width: 100px;
+    height: 80px;
     border-radius: 50%;
 }
 .header{
     /* margin: 0 auto; */
-    width: 100%;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 ul{
@@ -32,24 +36,66 @@ a{
     cursor: pointer;
 }
 
-.dropDown .dropDownMenu{
-    display: none;
-}
-.dropDown:hover .dropDownMenu{
-    display: block;
-    justify-content: center;
-    position: absolute;
-    top: 120px;
-    left: 0;
-    z-index: 50;
-    width: 100%;
-    height: 300px;
-    padding: 10px 0 30px;
-    text-align: left;
-    background-color: rgb(30, 159, 243);
-}
-.row {
+
+/* .row {
     --bs-gutter-x: 0;
     --bs-gutter-y: 0;
     
+} */
+
+
+
+.test-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    font-weight: 600;
+    width: 100vw;
+    border-bottom: 1px solid rgb(190, 190, 190);
+}
+.test-header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.header-nav{
+    display: flex;
+    width: 70%;
+}
+.header-utils{
+    display: flex;
+    justify-content: flex-end
+}
+.nav-list .home a,
+.nav-list .mypage a.active{
+    border-bottom: 3px solid rgb(255, 230, 0);
+}
+.search-box {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+.test-search{
+    background-color: #f5f6f7;
+    border-radius: 10px;
+}
+.search-box input{
+    width: 500px;
+    border: none;
+    background-color: #f5f6f7;
+    padding: 10px;
+}
+input:focus{ 
+  outline: none;
+}
+.search-box button{
+    border: none;
+    background: transparent;
+    margin: 5px;
+}
+.test-line {
+    border-bottom: 7px solid #f5f6f7;
+    ;
 }
