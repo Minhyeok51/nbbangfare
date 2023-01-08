@@ -26,4 +26,6 @@ public interface UserMapper {
 	
 	public void updateUserActive(String userEmail);
 	
+	public void uploadUserImage(User user);
+	
 	}

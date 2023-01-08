@@ -35,8 +35,7 @@ function Header({session,setSession}) {
     )
   }
   return (
-      <div className='container'>
-        <Container>
+        <Container className='header-container'>
           <Row className="header">
             <Col>
               {/* <h1>
@@ -76,7 +75,7 @@ function Header({session,setSession}) {
               {sessionStorage.getItem("name")}님 환영합니다.
               </li>
               <li>
-                <a onClick={()=>{navigate(`/mypage/wishproduct`)}}>마이페이지</a>
+                <a onClick={()=>{navigate(`/mypage`)}}>마이페이지</a>
               </li>
               <li>
                 <a onClick={()=>{
@@ -94,7 +93,7 @@ function Header({session,setSession}) {
           </Row>
 
           <Navbar bg="light" expand="lg">
-          <Container fluid>
+          <Container fluid  className='header-nav-container'>
         {/* <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" /> */}
         <Navbar.Collapse id="navbarScroll">
@@ -164,7 +163,6 @@ function Header({session,setSession}) {
             </Row> */}
           {/* </div> */}
         </Container>
-      </div>
   );
 }
 export default Header;

@@ -65,7 +65,7 @@ function App() {
 
     
   return (
-    <div>
+    <>
        <Header session={isLogin} setSession={setIsLogin}/>
       <Routes>
         <Route
@@ -124,7 +124,7 @@ function App() {
       
       </Routes>
       <Footer />
-    </div>
+    </>
   );
 }
 

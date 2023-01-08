@@ -90,7 +90,8 @@ function JoinWithKakao(){
         }
         if (response.data == "1") {
           alert("회원가입 성공");
-          navigate("/");
+          sessionStorage.clear()
+          window.location.href="/login";
         }
       })
       .catch((error) => {

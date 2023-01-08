@@ -46,11 +46,11 @@ public class ProductController {
 	}	
 	
 					  //초 분 시 일 월 요일
-	@Scheduled(cron = "0 06 15 * * *" , zone = "Asia/Seoul")
+	@Scheduled(cron = "0 12 22 * * *" , zone = "Asia/Seoul")
 	public void insertInit() throws IOException, ParseException {
 		ArrayList<ProductForm> array = null;
 		JSONParser parser = new JSONParser();
-		FileReader reader = new FileReader("C:\\Users\\User\\git\\nbbangfare\\nbbanfare\\src\\main\\python\\test.json");
+		FileReader reader = new FileReader("C:\\Users\\minhy\\git\\nbbangfare\\nbbanfare\\src\\main\\python\\test.json");
 		
 		array = new ArrayList<ProductForm>();  
 		JSONArray jsonArray = (JSONArray)parser.parse(reader);

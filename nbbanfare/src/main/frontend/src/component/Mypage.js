@@ -8,9 +8,6 @@ import requests from "../api/requests";
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 function Mypage() {
   const navigate = useNavigate()
-  const [imgBase64, setImgBase64] = useState([]);
-  const [imgFile, setImgFile] = useState(null);
-
   useEffect(()=>{
     if(sessionStorage.getItem("user_id") == null){
       alert('로그인이 필요한 서비스입니다.')
@@ -22,7 +19,10 @@ function Mypage() {
         var q = prompt(`회원탈퇴 하시겠습니까?
         "${sessionStorage.getItem("user_id")}/탈퇴"
         를 입력해주세요` ,"")
+        console.log(q)
         var a = q
+        console.log(a)
+
         if(a === sessionStorage.getItem("user_id")+"/탈퇴"){
           // alert("탈퇴됨")
           axios.post(`${requests.deleteUserPath}/${sessionStorage.getItem('user_id')}`,null,{
@@ -52,67 +52,42 @@ function Mypage() {
         fileInput.current.click()
       }
 
-      const handleChange = e => {
-        console.log(e.target);
+ 
+          //파일 미리볼 url을 저장해줄 state
+    const [fileImage, setFileImage] = useState("");
+    const [showfileImage, setShowFileImage] = useState("");
+    // 파일 저장
+    const saveFileImage = (e) => {
+        setFileImage(e.target.files);
         console.log(e.target.files);
-        console.log(e.target.files[0]);
-        console.log(e.target.files[0].name);
-      };
+        setShowFileImage(URL.createObjectURL(e.target.files[0]));
+    };
 
-      const handleChangeFile = (event) => {
-        console.log(event.target.files);
-        setImgFile(event.target.files);
-        setImgBase64([]);
-        for(let i=0 ; i<event.target.files.length ; i++) {
-            if(event.target.files[i]) {
-                let reader = new FileReader();
-                reader.readAsDataURL(event.target.files[i]);
-                reader.onloadend = () => {
-                    const base64 = reader.result; // 비트맵 데이터 리턴, 이 데이터를 통해 파일 미리보기가 가능함
-                    console.log(base64)
-                    if(base64) {
-                        let base64Sub = base64.toString()
-                        setImgBase64(imgBase64 => [...imgBase64, base64Sub]);
-                    }
-                }
-            }
+    function Send(){
+      alert("한글파일명은 안됨")
+      const fd = new FormData();
+      // 파일 데이터 저장
+      Object.values(fileImage).forEach((fileImage) => fd.append("fileOne", fileImage));
+  
+      axios.post(requests.imageUploadPath, fd, {
+        headers: {
+          "Content-Type": `multipart/form-data; `,
+        },
+        params:{
+          userEmail : sessionStorage.getItem("user_id")
         }
-      }
-
-        const WriteBoard = async () => {
-          const fd = new FormData();
-          for(let i=0 ; i<imgFile.length ; i++) {
-              fd.append("file", imgFile[i]);
-          }
-          // 안돌아감.
-          // Object.values(imgFile).forEach((file) => {
-          //     fd.append("file", file as Blob)
-          // });
-  
-          fd.append(
-              "comment",
-              "hello world"
-          );
-  
-          await axios.post(requests.imageUploadPath, null,{
-            params:{
-              image : fd
-            }
-          })
-          .then((response) => {
-              if(response.data) {
-                  console.log(response.data)
-                  // readImages();
-                  setImgFile(null);
-                  setImgBase64([]);
-                  alert("업로드 완료!");
-              }
-          })
-          .catch((error) => {
-              console.log(error)
-              alert("실패!");
-          })
-      }
+      })
+      .then((res) => {
+        console.log(res.data)
+        sessionStorage.setItem("image",res.data.userImage)
+        window.location.reload()
+      })
+      .catch((error) => {
+        // 예외 처리
+        console.log(error)
+      })
+    
+    }
     return (
       <>
         <div className="userBar">
@@ -140,28 +115,18 @@ function Mypage() {
                 }}
               ></img>
             )}
-            
             <button onClick={handleButtonClick} style={{background:"tansparent", border :0, outline:0}}><AddAPhotoIcon  type="button" style={{cursor:"pointer", border :0, outline:0}} >
               </AddAPhotoIcon></button>
-              <input type="file" id="imgUpload" accept="image/*" ref={fileInput}  onChange={handleChangeFile} hidden/>
-
+            <form encType="multipart/form-data">
+              <input type="file" id="imgUpload" accept="image/*" ref={fileInput}  onChange={saveFileImage} hidden/>
+                <button type = "button" onClick={Send}> 업로드</button>
+                </form>
               <h3>업로드 한 사진 미리보기</h3>
-            {imgBase64.map((item) => {
-                return (
-                    <img
-                        key={item}
-                        src={item}
-                        alt={"First slide"}
-                        style={{width:"200px", height:"150px"}}
-                    />
-                )
-            })}
+              <img src={showfileImage} alt="이미지"></img>
+              
           <p>사용자 이름: {sessionStorage.getItem("name")}</p>
           <p>가입일: </p>
           </div>
-                  {/* onClick={()=>{
-                     navigate('/modify')
-                 }} */}
           <div className="followplc">
             <ul>
                 <li className="mypageList">팔로워보기</li>
