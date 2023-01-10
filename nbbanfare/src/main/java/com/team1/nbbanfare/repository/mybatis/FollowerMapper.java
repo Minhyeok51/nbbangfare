@@ -16,4 +16,6 @@ public interface FollowerMapper {
 	public void deleteFollowerById(FollowerForm followerForm);
 	
 	public List<FollowerForm> selectFriend (String userNo);
+	
+	public List<String> selectFollower(String userId);
 }

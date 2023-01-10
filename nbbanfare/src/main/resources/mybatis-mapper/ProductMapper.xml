@@ -6,14 +6,8 @@
 <mapper namespace="com.team1.nbbanfare.repository.mybatis.ProductMapper">
 
 <select id="selectAll" resultType="ProductForm">
-<<<<<<< HEAD
 		select * from product_real where product_price != '0' and product_name is not null and product_image is not null 
 		order by product_no
-=======
-		select product_no productno, product_name productname, product_price productprice, product_image productimage, product_kind productkind
-		from product_real
-
->>>>>>> branch 'develop' of https://github.com/Minhyeok51/nbbangfare.git
 </select>
 
 <select id="selectById" resultType="ProductForm">
