@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.team1.nbbanfare.dto.FollowerForSearch;
 import com.team1.nbbanfare.dto.FollowerForm;
-import com.team1.nbbanfare.dto.PresentForm;
 
 @Mapper
 public interface FollowerMapper {

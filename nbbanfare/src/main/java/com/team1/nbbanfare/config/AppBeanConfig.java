@@ -1,5 +1,6 @@
 package com.team1.nbbanfare.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AppBeanConfig {
 
+	
+	@Autowired
 	private final UserMapper userMapper;
 	
 	@Bean

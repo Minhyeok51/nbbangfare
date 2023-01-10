@@ -23,4 +23,10 @@
 		from friend f, user_info u 
 		where f.follower_email = u.user_email and f.user_email = #{userId}
 	</select>
+	
+	<select id = "selectFollower" parameterType="list" resultType="String">
+		select follower_email 
+		from friend 
+		where user_email = #{userId}
+	</select>
 </mapper>
