@@ -7,6 +7,7 @@ import axios from "axios";
 import requests from "../api/requests";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import styled from "styled-components";
+import { CategoryButton } from "./Product";
 const MypageSample = () => {
   //파일 미리볼 url을 저장해줄 state
   const [fileImage, setFileImage] = useState("");
@@ -152,10 +153,11 @@ const MypageSample = () => {
         </div>
         {showImageUploadBtn ? 
         <div className="sample-mypage-imageSetting">
-          <button type="button" onClick={send}>
+          <img src={showfileImage} style={{borderRadius:"45px"}} width="100px" height="90px"></img>
+          <CategoryButton type="button" onClick={send}>
             저장
-          </button>
-          <button onClick={cancleUpload}>취소</button>
+          </CategoryButton>
+          <CategoryButton onClick={cancleUpload}>취소</CategoryButton>
         </div> : null}
         <div className="sample-mypage-list">
           <h4>마이페이지</h4>
@@ -165,7 +167,8 @@ const MypageSample = () => {
             <li><a href="/mypage/purlist">구매목록</a></li>
             <li>팔로워보기</li>
             <li><Link to="/mypage/modify">회원정보 수정하기</Link></li>
-            <li onClick={deleteUser}>회원탈퇴</li>
+            {sessionStorage.getItem("kakaoUser") === "true" ? null 
+                :<li className="mypageList" onClick={deleteUser}>회원 탈퇴</li> }
           </ul>
         </div>
       </div>

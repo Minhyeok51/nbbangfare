@@ -46,7 +46,7 @@ function App() {
 
   return (
     <Container>
-      <ResponsiveAppBar session={isLogin} setSession={setIsLogin}></ResponsiveAppBar>
+      <ResponsiveAppBar session={isLogin} setSession={setIsLogin}/>
       {/* <Header session={isLogin} setSession={setIsLogin}/> */}
       <Routes>
         <Route

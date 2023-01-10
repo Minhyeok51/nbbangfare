@@ -177,7 +177,6 @@ function Modify() {
     axios
       .get(url)
       .then((res) => {
-        console.log(res.data);
         setPassword(res.data.userPassword);
         setPasswordConfirm(res.data.userPassword);
         setEmail(res.data.userEmail);

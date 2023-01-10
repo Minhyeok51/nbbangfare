@@ -186,14 +186,11 @@ public class LoginController {
 		System.out.println("유저이메일: "+userEmail);
 		
 		try {
-			
-			
 			String realFileName = UUID.randomUUID().toString();
 			String fileExt =  file.getOriginalFilename().substring(file.getOriginalFilename().indexOf(".")+1);
-			System.out.println(fileExt);
 			String changedFileName =realFileName+"."+fileExt;
 			String reactPath = "/images/"+changedFileName;
-			String filePath ="C:\\Users\\User\\git\\nbbangfare\\nbbanfare\\src\\main\\frontend\\public\\images\\"+changedFileName;
+			String filePath ="C:\\Users\\minhy\\git\\nbbangfare\\nbbanfare\\src\\main\\frontend\\public\\images\\"+changedFileName;
 			file.transferTo(new File(filePath));
 			User user = userRepository.selectByUserEmail(userEmail);
 			user.setUserImage(reactPath);

@@ -3,7 +3,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import mainLogo from "../img/mainLogo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { useRef, useState } from "react";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
@@ -12,8 +13,14 @@ import axios from 'axios';
 function ResponsiveAppBar({session,setSession}) {
   let navigate = useNavigate();
   const settings = ['로그아웃'];
-  const [search, setSearch] = useState(false);
-  const [anchorElUser, setAnchorElUser] = useState();
+  const [search, setSearch] = useState(false); 
+  const [anchorElUser, setAnchorElUser] = useState(); //이름드롭다운
+  const [word, setWord] = useState([]) //검색어 세팅
+    
+  const onSubmit = async => {
+    // console.log("clicked")
+      window.location.href = "/Search/"  + word
+  }
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -47,7 +54,6 @@ function ResponsiveAppBar({session,setSession}) {
           <div className="header-nav">
             <ul className="nav-list">
               <li className="home">
-                {/* <a href="/">홈</a> */}
                 <NavLink to="/" className="active">홈</NavLink>
               </li>
               <li>
@@ -57,7 +63,6 @@ function ResponsiveAppBar({session,setSession}) {
                 <a>브랜드</a>
               </li>
               <li className="mypage">
-                {/* <a href="/mypage">선물함</a> */}
                 <NavLink to="/mypage/wishproduct" className="active">선물함</NavLink>
               </li>
             </ul>
@@ -75,7 +80,7 @@ function ResponsiveAppBar({session,setSession}) {
               </li>
               {
                 sessionStorage.getItem("name") !==null ? 
-                <li style={{cursor:"pointer"}} onClick={handleOpenUserMenu}>{sessionStorage.getItem("name")}님</li>
+                <li style={{cursor:"pointer"}} onClick={handleOpenUserMenu}>{sessionStorage.getItem("name")}님<FontAwesomeIcon icon={faCaretDown} style={{paddingLeft:"5px"}}/></li>
                 :
                 <li><a href="/login">로그인</a></li>
               }
@@ -97,12 +102,14 @@ function ResponsiveAppBar({session,setSession}) {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center"onClick={()=>{
+                  <Typography textAlign="center" onClick={()=>{
                   logOutFunc()
                   sessionStorage.clear()
                   setSession(false)
                   window.location.href="/"
-              }}>{setting}</Typography>
+              }}>{setting}
+              
+              </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -114,11 +121,9 @@ function ResponsiveAppBar({session,setSession}) {
         <>
         <div className="search-box">
           <div className="test-search">
-            <form>
-              <input type="search" placeholder="친구이름을 검색주세요 " />
-              <button type="submit" onClick={()=>{
-                navigate("/login")
-              }}>
+            <form action="/" method="get">
+              <input type="search" onChange={(e) => {setWord(e.target.value); console.log(word)}} placeholder="친구이름을 검색주세요 " />
+              <button type="button" onClick={() => {onSubmit()}}>
                 <FontAwesomeIcon icon={faMagnifyingGlass} style={{ cursor: "pointer" }}/>
               </button>
             </form>

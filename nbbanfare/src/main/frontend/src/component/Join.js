@@ -13,6 +13,7 @@ function Join() {
   const [popup, setPopup] = useState(false);
   // 초기값 세팅 - 아이디, 닉네임, 비밀번호, 비밀번호확인, 이메일, 전화번호, 생년월일, 주소
   const [email, setEmail] = useState("");
+  const [emailConfirm, setEmailConfirm] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
@@ -170,7 +171,11 @@ function Join() {
       e.preventDefault();
       return;
     }
-
+    if(email !== emailConfirm){
+      alert("하지마라")
+      e.preventDefault();
+      return;
+    }
     e.preventDefault();
 
 
@@ -216,6 +221,7 @@ function Join() {
         }else{
           setEmailAuthBtn(true) // 버튼 눌리고 가입되지 않은 이메일 이면 다음단계로 진행될 수 있게하기
           setAuthCode(res.data)
+          setEmailConfirm(email)
           alert("인증코드가 전송되었습니다.")
         }
       })

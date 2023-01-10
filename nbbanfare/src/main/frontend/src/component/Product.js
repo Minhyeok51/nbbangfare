@@ -38,7 +38,6 @@ const Product = () => {
           <CategoryButton
             onClick={() => {
               navigate("/");
-              window.location.reload();
             }}
           >
             전체보기
@@ -166,7 +165,7 @@ const ButtonSet = styled.div`
   justify-content: space-around;
   width: 60%;
 `;
-const CategoryButton = styled.button`
+export const CategoryButton = styled.button`
   border: 1px solid #999;
   border-radius: 20px;
   background-color: white;
