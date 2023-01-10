@@ -52,7 +52,7 @@ a{
     flex-wrap: wrap;
     font-weight: 600;
     width: 100vw;
-    border-bottom: 1px solid rgb(190, 190, 190);
+    border-bottom: 2px solid #eaedf2;
 }
 .test-header{
     display: flex;

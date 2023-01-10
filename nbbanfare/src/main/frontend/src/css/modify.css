@@ -2,7 +2,7 @@
 .modifyform{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: left;
     flex-flow: column;
     width: 100%;
 }
@@ -14,8 +14,7 @@
     flex-direction: column;
     text-align: center;
     align-items: center;
-    justify-content: center;
-    flex-flow: wrap;
+    justify-content: left;
 }
 /* .modify-user{
     flex-direction: column;
@@ -24,10 +23,3 @@
     text-align: center;
     width: 50%;
 } */
-.modify{
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid black;
-    width: 50%;
-}

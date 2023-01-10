@@ -3,6 +3,7 @@ package com.team1.nbbanfare.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.UUID;
 
 import org.python.antlr.runtime.Parser;
 import org.springframework.stereotype.Controller;
@@ -183,10 +184,17 @@ public class LoginController {
 		System.out.println("파일name :" + file.getName());
 		System.out.println("파일size :" + file.getSize());
 		System.out.println("유저이메일: "+userEmail);
-		String filePath ="C:\\Users\\minhy\\git\\nbbangfare\\nbbanfare\\src\\main\\frontend\\public\\images\\" + file.getOriginalFilename();
+		
 		try {
+			
+			
+			String realFileName = UUID.randomUUID().toString();
+			String fileExt =  file.getOriginalFilename().substring(file.getOriginalFilename().indexOf(".")+1);
+			System.out.println(fileExt);
+			String changedFileName =realFileName+"."+fileExt;
+			String reactPath = "/images/"+changedFileName;
+			String filePath ="C:\\Users\\User\\git\\nbbangfare\\nbbanfare\\src\\main\\frontend\\public\\images\\"+changedFileName;
 			file.transferTo(new File(filePath));
-			String reactPath = "/images/"+file.getOriginalFilename();
 			User user = userRepository.selectByUserEmail(userEmail);
 			user.setUserImage(reactPath);
 			userRepository.uploadUserImage(user);

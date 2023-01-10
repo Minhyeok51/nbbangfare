@@ -4,10 +4,34 @@ import mainLogo from "../img/mainLogo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-
-function ResponsiveAppBar() {
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Typography from '@mui/material/Typography';
+import requests from '../api/requests';
+import axios from 'axios';
+function ResponsiveAppBar({session,setSession}) {
   let navigate = useNavigate();
+  const settings = ['로그아웃'];
   const [search, setSearch] = useState(false);
+  const [anchorElUser, setAnchorElUser] = useState();
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+  const logOutFunc = ()=>{
+    axios.post(requests.kakaoLogoutPath     
+  ).then(res=>{
+    console.log(res.data)
+  })
+  .catch(error =>{
+    console.log(error)
+  })
+  .then(
+    console.log("카카오로그아웃")
+  )
+}
   return (
     <>
     <div className="test-container">
@@ -34,7 +58,7 @@ function ResponsiveAppBar() {
               </li>
               <li className="mypage">
                 {/* <a href="/mypage">선물함</a> */}
-                <NavLink to="/mypage" className="active">선물함</NavLink>
+                <NavLink to="/mypage/wishproduct" className="active">선물함</NavLink>
               </li>
             </ul>
           </div>
@@ -49,7 +73,39 @@ function ResponsiveAppBar() {
                   }}
                 />
               </li>
-              <li>{sessionStorage.getItem("name")}님</li>
+              {
+                sessionStorage.getItem("name") !==null ? 
+                <li style={{cursor:"pointer"}} onClick={handleOpenUserMenu}>{sessionStorage.getItem("name")}님</li>
+                :
+                <li><a href="/login">로그인</a></li>
+              }
+               <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {settings.map((setting) => (
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center"onClick={()=>{
+                  logOutFunc()
+                  sessionStorage.clear()
+                  setSession(false)
+                  window.location.href="/"
+              }}>{setting}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
             </ul>
           </div>
         </div>
@@ -75,3 +131,4 @@ function ResponsiveAppBar() {
   );
 }
 export default ResponsiveAppBar;
+
