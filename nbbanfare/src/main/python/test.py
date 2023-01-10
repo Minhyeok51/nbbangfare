@@ -63,10 +63,10 @@ for i in url_list:
             print(start)
             break
     
-# print(title_list)
-# print(src_list)
-# print(price_list)
-# print(detail_list)
+print(title_list)
+print(src_list)
+print(price_list)
+print(detail_list)
 # for i in range(len(title_list)) :
     
 #     sql = "insert into product_test values(:1, :2, :3, :4)"
@@ -113,14 +113,14 @@ dic_list = []
 #     dict_list=dict(zip('productName',title_list[i]),zip('productPrice',price_list[i])
 #                    ,zip('productImage',src_list[i]),zip('productKind',category_list[i]))
                        
-for i in range(len(title_list)):
-    dic_list.append({"productName":title_list[i], "productPrice":price_list[i], "productImage":src_list[i], "productKind":category_list[i]})            
+# for i in range(len(title_list)):
+#     dic_list.append({"productName":title_list[i], "productPrice":price_list[i], "productImage":src_list[i], "productKind":category_list[i]})            
 
 
 # with open("test.json", "w", encoding="utf-8-sig") as f:
 #     f.write(json.dumps(dic_list, ensure_ascii=False))
-with open("test.json", "w", encoding="utf-8") as f:
-    f.write(json.dumps(dic_list, ensure_ascii=False))
+# with open("test.json", "w", encoding="utf-8") as f:
+#     f.write(json.dumps(dic_list, ensure_ascii=False))
 
 # with open("test.json", "a", encoding="utf-8") as f:
 #     if f.tell() == 0:

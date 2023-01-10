@@ -18,10 +18,9 @@
 		where user_email = #{userId} and follower_email = #{followerId}
 	</delete>
 	
-	<select id = "selectFollower"  parameterType="FollowerForm" resultType="java.util.map">
-	select followerId 
-	from friend_test 
-	where userid = #{userId}
-	
+	<select id = "selectFollower" parameterType="list" resultType="String">
+		select follower_email 
+		from friend 
+		where user_email = #{userId}
 	</select>
 </mapper>

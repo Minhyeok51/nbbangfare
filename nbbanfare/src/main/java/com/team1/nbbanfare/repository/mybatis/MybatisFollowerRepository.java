@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.team1.nbbanfare.dto.FollowerForSearch;
 import com.team1.nbbanfare.dto.FollowerForm;
 import com.team1.nbbanfare.repository.FollowerRepository;
 
@@ -38,9 +39,10 @@ public class MybatisFollowerRepository implements FollowerRepository{
 
 	@Override
 	@Transactional
-	public List<FollowerForm> selectFollower(String userId) {
+	public List<String> selectFollower(String userId) {
 		// TODO Auto-generated method stub
-		List<FollowerForm> followerList = followerMapper.selectFollower(userId);
+		List<String> followerList = followerMapper.selectFollower(userId);
+		log.info("{}",followerList);
 		
 		return followerList;
 	}

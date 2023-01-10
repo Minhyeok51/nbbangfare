@@ -2,6 +2,7 @@ package com.team1.nbbanfare.repository;
 
 import java.util.List;
 
+import com.team1.nbbanfare.dto.FollowerForSearch;
 import com.team1.nbbanfare.dto.FollowerForm;
 
 
@@ -13,5 +14,5 @@ public interface FollowerRepository {
 	
 	public void deleteFollowerById(FollowerForm followerForm);
 	
-	public List<FollowerForm> selectFollower(String userId);
+	public List<String> selectFollower(String userId);
 }
