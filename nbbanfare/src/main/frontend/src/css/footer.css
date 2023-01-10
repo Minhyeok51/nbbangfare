@@ -1,6 +1,8 @@
 .footerContainer{
     height: 250px;
     width: 100%;
+    border-top: 1px solid #eaedf2;
+    
 }
 .footerStyle{
     /* background-color: rgb(30, 159, 243); */
@@ -12,11 +14,15 @@
     align-items: center;
     /* justify-content: center; */
 }
+.footer-left{
+    width: 20%;
+}
 .footerLogo{
     width: 150px;
     height: 100px;
 }
 .footerList {
+    /* width: 70%; */
     color: #999;
 }
 .footerList a{

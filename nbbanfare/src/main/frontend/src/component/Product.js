@@ -1,30 +1,22 @@
-import "../css/footer.css";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { Outlet, useParams } from "react-router-dom";
+import axios from "axios";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-// import CategoryItem from './component/CategoryItem';
 import Pagination from "react-js-pagination";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 
-function CategoryItem() {
-  let { productKind } = useParams();
-  let navigate = useNavigate();
+const Product = () => {
   const [product, setProduct] = useState([]);
-  const [page, setPage] = useState(1);
-  const [items, setItems] = useState(16);
-  const handlePageChange = (page) => {
-    setPage(page);
-  };
+  let navigate = useNavigate();
   const getData = async () => {
-    const url = "http://localhost:8080/" + productKind;
+    const url = "http://localhost:8080";
     axios
       .get(url)
       .then((response) => {
         setProduct(response.data);
+        console.log(product);
         console.log("성공");
       })
       .catch((Error) => {
@@ -34,19 +26,13 @@ function CategoryItem() {
   useEffect(() => {
     getData();
   }, []);
-
+  const [page, setPage] = useState(1);
+  const [items, setItems] = useState(16);
+  const handlePageChange = (page) => {
+    setPage(page);
+  };
   return (
     <>
-      <Banner>
-        <BannerBox>
-          <BannerText>
-            <strong>{sessionStorage.getItem("name")}</strong>
-            <br />
-            누구를 위한 선물인가요?
-          </BannerText>
-        </BannerBox>
-        <Image src="/images/giftbox.png" />
-      </Banner>
       <ButtonGroup>
         <ButtonSet>
           <CategoryButton
@@ -84,13 +70,17 @@ function CategoryItem() {
         </ButtonSet>
       </ButtonGroup>
       <Row xs={1} md={4} className="g-4">
-        {/* {Array.from({ length: 4 }).map((_, idx) => ( */}
         {product
           .slice(items * (page - 1), items * (page - 1) + items)
           .map((data, i) => {
             return (
               <Col>
-                <Card style={{ height: "33rem" }}>
+                <Card
+                  style={{ height: "33rem" }}
+                  onClick={() => {
+                    navigate(`/ItemDetail/${data.productNo}`);
+                  }}
+                >
                   <Card.Img
                     style={{ height: "360px" }}
                     variant="top"
@@ -117,8 +107,7 @@ function CategoryItem() {
       </PaginationBox>
     </>
   );
-}
-
+};
 const PaginationBox = styled.div`
   .pagination {
     display: flex;
@@ -190,32 +179,4 @@ const CategoryButton = styled.button`
     opacity: 0.6;
   }
 `;
-
-const Banner = styled.div`
-  height: 300px;
-  background-color: #f5f5f5;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  // border-bottom:1px solid #999;
-  // justify-content: center;
-`;
-
-const BannerBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 80%;
-`;
-const BannerText = styled.div`
-  height: 100px;
-  width: 80%;
-  font-size: 2rem;
-`;
-const Image = styled.img`
-  width: 100px;
-  height: 100px;
-  border-radius: 50px;
-`;
-
-export default CategoryItem;
+export default Product;

@@ -2,7 +2,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faFileWord, faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
 import "../css/header.css"
 import {useNavigate} from "react-router-dom";
 import requests from '../api/requests';
@@ -35,8 +35,7 @@ function Header({session,setSession}) {
     )
   }
   return (
-      <div className='container'>
-        <Container>
+        <Container className='header-container'>
           <Row className="header">
             <Col>
               {/* <h1>
@@ -73,10 +72,10 @@ function Header({session,setSession}) {
               <ul style={{ listStyle: "none" }}>
               <li>
 
-              {sessionStorage.getItem("name")}님 환영합니다.
+              {sessionStorage.getItem("name")}님
               </li>
               <li>
-                <a onClick={()=>{navigate(`/mypage/wishproduct`)}}>마이페이지</a>
+                <a onClick={()=>{navigate(`/mypage`)}}>마이페이지</a>
               </li>
               <li>
                 <a onClick={()=>{
@@ -94,7 +93,7 @@ function Header({session,setSession}) {
           </Row>
 
           <Navbar bg="light" expand="lg">
-          <Container fluid>
+          <Container fluid  className='header-nav-container'>
         {/* <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" /> */}
         <Navbar.Collapse id="navbarScroll">
@@ -129,42 +128,7 @@ function Header({session,setSession}) {
 
 
           </Navbar>
-          {/* <div  className='row'
-            style={{
-              background: "rgb(30, 159, 243)",
-              height: "50px",
-              paddingTop: "10px",
-              width: "100vw",
-              zIndex:"100"
-            }}
-          > */}
-            {/* <Row>
-              <Col>
-                <ul className='dropDownMenu'>
-                  <li className='dropDown'>
-                    <a href="/product-list">상품목록</a>
-                    <ul className='dropDownMenu'>
-                        <li><a href='hi'>무신사</a></li>
-                        <li><a>선물하기</a></li>
-                    </ul>
-                  </li>
-                  <li className='dropDown'>
-                    <a href="/wishlist">찜목록</a>
-                    <ul className='dropDownMenu'>
-                        <li><a>무신사2</a></li>
-                        <li><a>선물하기2</a></li>
-                    </ul>
-                  </li>
-                  <li>
-                    <a href="/nbbangfare">N빵빠레란?</a>
-                  </li>
-                </ul>
-              </Col>
-             
-            </Row> */}
-          {/* </div> */}
         </Container>
-      </div>
   );
 }
 export default Header;

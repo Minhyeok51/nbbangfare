@@ -21,7 +21,8 @@ public interface UserRepository {
 	public boolean updateUserInfo(User user);
 	
 	public boolean updateUserActive(String userEmail);
-
+	
+	public boolean uploadUserImage(User user);
 //	public UserForm selectById(int id);
 
 //	public UserForm selectByLoginId(String loginId);

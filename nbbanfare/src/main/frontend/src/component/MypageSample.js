@@ -5,24 +5,27 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import requests from "../api/requests";
-import FollowerList from "./FollowerList";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
-function Mypage() {
-  const navigate = useNavigate()
-  const [modalShow, setModalShow] = useState(false);
-  
-  useEffect(()=>{
-    if(sessionStorage.getItem("user_id") == null){
-      alert('로그인이 필요한 서비스입니다.')
-      navigate('/login')
+import styled from "styled-components";
+const MypageSample = () => {
+  //파일 미리볼 url을 저장해줄 state
+  const [fileImage, setFileImage] = useState("");
+  const [showfileImage, setShowFileImage] = useState("");
+
+  const [showImageUploadBtn, setShowImageUploadBtn] = useState(false);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (sessionStorage.getItem("user_id") == null) {
+      alert("로그인이 필요한 서비스입니다.");
+      navigate("/login");
     }
   }, []);
 
   const deleteUser = () => {
     var q = prompt(
       `회원탈퇴 하시겠습니까?
-        "${sessionStorage.getItem("user_id")}/탈퇴"
-        를 입력해주세요`,
+          "${sessionStorage.getItem("user_id")}/탈퇴"
+          를 입력해주세요`,
       ""
     );
     console.log(q);
@@ -58,23 +61,19 @@ function Mypage() {
     console.log(a);
   };
   const fileInput = useRef();
-
   const handleButtonClick = (e) => {
     fileInput.current.click();
   };
 
-  //파일 미리볼 url을 저장해줄 state
-  const [fileImage, setFileImage] = useState("");
-  const [showfileImage, setShowFileImage] = useState("");
   // 파일 저장
   const saveFileImage = (e) => {
     setFileImage(e.target.files);
     console.log(e.target.files);
     setShowFileImage(URL.createObjectURL(e.target.files[0]));
+    setShowImageUploadBtn(true)
   };
 
-  function Send() {
-    alert("한글파일명은 안됨");
+  function send() {
     const fd = new FormData();
     // 파일 데이터 저장
     Object.values(fileImage).forEach((fileImage) =>
@@ -100,18 +99,22 @@ function Mypage() {
         console.log(error);
       });
   }
+  const cancleUpload =()=>{
+    setShowFileImage("")
+    setShowImageUploadBtn(false)
+  }
   return (
-    <>
-      <div className="userBar">
-        <div className="textplc">
+    <div className="sample-mypage-container">
+      <div className="sample-mypage-nav">
+        <div className="sample-mypage-info">
           {sessionStorage.getItem("image") !== "null" ? (
             <img
               src={sessionStorage.getItem("image")}
               style={{
-                width: "200px",
-                height: "200px",
-                margin: "10vh",
-                borderRadius: "70%",
+                width: "100px",
+                height: "100px",
+                // margin: "10vh",
+                borderRadius: "45px",
                 overflow: "hidden",
               }}
             ></img>
@@ -119,18 +122,15 @@ function Mypage() {
             <img
               src={noImg}
               style={{
-                width: "200px",
-                height: "200px",
-                margin: "10vh",
-                borderRadius: "70%",
+                width: "100px",
+                height: "100px",
+                // margin: "10vh",
+                borderRadius: "45px",
                 overflow: "hidden",
               }}
             ></img>
           )}
-          <button
-            onClick={handleButtonClick}
-            style={{ background: "tansparent", border: 0, outline: 0 }}
-          >
+          <button onClick={handleButtonClick} className="uploadIcon">
             <AddAPhotoIcon
               type="button"
               style={{ cursor: "pointer", border: 0, outline: 0 }}
@@ -145,50 +145,35 @@ function Mypage() {
               onChange={saveFileImage}
               hidden
             />
-            <button type="button" onClick={Send}>
-              {" "}
-              업로드
-            </button>
           </form>
-          <h3>업로드 한 사진 미리보기</h3>
-          <img src={showfileImage} alt="이미지"></img>
-
-          <p>사용자 이름: {sessionStorage.getItem("name")}</p>
-          <p>가입일: </p>
-          </div>
-
-          <div className="followplc">
-            <ul>
-                <li className="mypageList">
-                
-                <Link to="/modify">
-                회원정보 수정하기</Link></li>
-                <li className="mypageList" onClick={()=>{
-                    return(
-                      setModalShow(true)
-                    )
-                }}>팔로워보기</li>
-                <li className="mypageList" onClick={()=>{
-                    navigate('/modify')
-                }}>회원정보 수정하기</li>
-                {sessionStorage.getItem("kakaoUser") === "true" ? null 
-                :<li className="mypageList" onClick={deleteUser}>회원 탈퇴</li> }
-            </ul>
-          </div>
+          <span style={{ fontSize: "1.7rem", fontWeight: "600" }}>
+            {sessionStorage.getItem("name")}
+          </span>
         </div>
-          <FollowerList
-            show={modalShow}
-            onHide={() => setModalShow(false)}
-         />
-      <div className="purchaseList">
-        <Breadcrumb className="Retxt">
-          <Breadcrumb.Item href="/mypage/wishproduct">찜한상품</Breadcrumb.Item>
-          <Breadcrumb.Item href="/mypage/paylist">펀딩목록</Breadcrumb.Item>
-          <Breadcrumb.Item href="/mypage/purlist">구매목록</Breadcrumb.Item>
-        </Breadcrumb>
-        <Outlet />
+        {showImageUploadBtn ? 
+        <div className="sample-mypage-imageSetting">
+          <button type="button" onClick={send}>
+            저장
+          </button>
+          <button onClick={cancleUpload}>취소</button>
+        </div> : null}
+        <div className="sample-mypage-list">
+          <h4>마이페이지</h4>
+          <ul>
+            <li><a href="/mypage/wishproduct">찜한상품</a></li>
+            <li><a href="/mypage/paylist">펀딩목록</a></li>
+            <li><a href="/mypage/purlist">구매목록</a></li>
+            <li>팔로워보기</li>
+            <li><Link to="/mypage/modify">회원정보 수정하기</Link></li>
+            <li onClick={deleteUser}>회원탈퇴</li>
+          </ul>
+        </div>
       </div>
-    </>
+      <div className="sample-mypage-content">
+          <Outlet></Outlet>
+      </div>
+    </div>
   );
-}
-export default Mypage;
+};
+
+export default MypageSample;

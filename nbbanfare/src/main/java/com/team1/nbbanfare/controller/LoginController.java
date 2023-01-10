@@ -1,6 +1,9 @@
 package com.team1.nbbanfare.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.UUID;
 
 import org.python.antlr.runtime.Parser;
 import org.springframework.stereotype.Controller;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.team1.nbbanfare.api.KakaoAPI;
 import com.team1.nbbanfare.dto.User;
@@ -170,5 +174,34 @@ public class LoginController {
 		
 		return result;
 	}
-	
+	@PostMapping("/image")
+	@ResponseBody
+	public User upload(@RequestParam(value="fileOne",required = false)  MultipartFile file,
+			@RequestParam("userEmail") String userEmail) {
+		System.out.println("파일 찍히냐 " + file);
+		System.out.println("파일contentType :" + file.getContentType());
+		System.out.println("파일originalFileNmae :" + file.getOriginalFilename());
+		System.out.println("파일name :" + file.getName());
+		System.out.println("파일size :" + file.getSize());
+		System.out.println("유저이메일: "+userEmail);
+		
+		try {
+			
+			
+			String realFileName = UUID.randomUUID().toString();
+			String fileExt =  file.getOriginalFilename().substring(file.getOriginalFilename().indexOf(".")+1);
+			System.out.println(fileExt);
+			String changedFileName =realFileName+"."+fileExt;
+			String reactPath = "/images/"+changedFileName;
+			String filePath ="C:\\Users\\User\\git\\nbbangfare\\nbbanfare\\src\\main\\frontend\\public\\images\\"+changedFileName;
+			file.transferTo(new File(filePath));
+			User user = userRepository.selectByUserEmail(userEmail);
+			user.setUserImage(reactPath);
+			userRepository.uploadUserImage(user);
+			return user;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

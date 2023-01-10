@@ -61,4 +61,11 @@
 	where user_email = #{userEmail}
 </update>
 
+<update id="uploadUserImage" parameterType="User">
+	update user_info
+	set 
+	user_image = #{userImage}
+	where user_email = #{userEmail}
+</update>
+
 </mapper>

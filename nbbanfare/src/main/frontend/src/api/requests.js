@@ -15,7 +15,7 @@ const requests = {
     emailConfirmPath:"/emailConfirm",
     findPwPath : "/forgotPassword",
     updateUserInfoPath : "/updateUserInfo",
-    deleteUserPath : "/deleteUser"
-
+    deleteUserPath : "/deleteUser",
+    imageUploadPath : "/image"
 }
 export default requests;

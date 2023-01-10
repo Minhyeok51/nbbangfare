@@ -82,5 +82,18 @@ public class MybatisUserRepository implements UserRepository{
 			log.info("회원탈퇴에러 {}",userEmail);
 		}
 		return result;	}
+
+	@Override
+	@Transactional
+	public boolean uploadUserImage(User user) {
+		boolean result = false;
+		try {
+			userMapper.uploadUserImage(user);
+			result = true;
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		return false;
+	}
 	
 }
