@@ -13,7 +13,7 @@ public interface PresentMapper {
 	
 	public List<PresentForm> selectByPresent(PresentForm userNo);
 	
-	public List<PresentForm> selectByFriendPresent(PresentForm followerid);
+	public List<PresentForm> selectByFriendPresent(String followerid);
 	
 	public void updatePresent(PresentForm presentForm);
 	

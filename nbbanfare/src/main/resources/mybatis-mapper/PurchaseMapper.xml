@@ -5,13 +5,13 @@
         
 <mapper namespace="com.team1.nbbanfare.repository.mybatis.PurchaseMapper">
 	<insert id="insertPurchase" parameterType="PurchaseForm">
-		insert into purchase(purchase_no, product_no, user_email)
-		values(purchasePK.nextval, #{productNo}, #{userId})
+		insert into purchase
+		values(purchasePK.nextval, #{productNo}, #{presentNo}, #{userId}, sysdate)
 	</insert>
 	
 	<select id="selectByPurchase" resultType="PurchaseForm">
-		select pu.purchase_no purchaseno, pr.product_name productname, p.present_count presentcount, pr.product_price productprice, TO_CHAR(pu.purchase_date, 'YYYY-MM-DD') purchasedate  
+		select pu.purchase_no purchaseno, pr.product_name productname, p.present_count presentcount, to_number(substr(product_price, 1, instr(product_price, '원', 1, 1)-1), 'FM999999') productprice, TO_CHAR(pu.purchase_date, 'YYYY-MM-DD') purchasedate  
 		from purchase pu, product_real pr, present p
-		where pu.product_no = pr.product_no and pu.present_no = p.present_no and pu.user_email = #{userId}
+		where pu.product_no = pr.product_no and pu.present_no = p.present_no  and pu.user_email = #{userId}
 	</select>
 </mapper>

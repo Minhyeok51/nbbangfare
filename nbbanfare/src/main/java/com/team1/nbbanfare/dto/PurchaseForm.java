@@ -12,6 +12,6 @@ public class PurchaseForm {
 	private Integer purchaseNo;
 	private String productName;
 	private Integer presentCount;
-	private String productPrice;
+	private Integer productPrice;
 	private String purchaseDate;
 }

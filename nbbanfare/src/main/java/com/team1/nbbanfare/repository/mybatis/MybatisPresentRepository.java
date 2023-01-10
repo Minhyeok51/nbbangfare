@@ -32,7 +32,7 @@ public class MybatisPresentRepository implements PresentRepository{
 	}
 
 	@Override
-	public List<PresentForm> selectByFriendPresent(PresentForm followerid) {
+	public List<PresentForm> selectByFriendPresent(String followerid) {
 		// TODO Auto-generated method stub
 		List<PresentForm> selFriendPreList = presentMapper.selectByFriendPresent(followerid);
 		log.info("repository {}", selFriendPreList);

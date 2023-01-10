@@ -17,4 +17,10 @@
 		delete from friend
 		where user_email = #{userId} and follower_email = #{followerId}
 	</delete>
+	
+	<select id="selectFriend"  resultType="FollowerForm">
+		select f.follower_email followerid, u.user_name username, to_char(f.follower_regdate, 'YY-MM-dd') followerRegdate, user_image userimage
+		from friend f, user_info u 
+		where f.follower_email = u.user_email and f.user_email = #{userId}
+	</select>
 </mapper>

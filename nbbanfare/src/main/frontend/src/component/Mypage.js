@@ -6,9 +6,12 @@ import {useNavigate } from "react-router-dom";
 import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 import requests from "../api/requests";
+import FollowerList from "./FollowerList";
 
 function Mypage() {
   const navigate = useNavigate()
+  const [modalShow, setModalShow] = useState(false);
+  
   useEffect(()=>{
     if(sessionStorage.getItem("user_id") == null){
       alert('로그인이 필요한 서비스입니다.')
@@ -77,7 +80,11 @@ function Mypage() {
 
           <div className="followplc">
             <ul>
-                <li className="mypageList">팔로워보기</li>
+                <li className="mypageList" onClick={()=>{
+                    return(
+                      setModalShow(true)
+                    )
+                }}>팔로워보기</li>
                 <li className="mypageList" onClick={()=>{
                     navigate('/modify')
                 }}>회원정보 수정하기</li>
@@ -94,6 +101,10 @@ function Mypage() {
             <Breadcrumb.Item href="/mypage/purlist">구매목록</Breadcrumb.Item>
           </Breadcrumb>
           <Outlet/>
+          <FollowerList
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+         />
         </div>
       </>
     );

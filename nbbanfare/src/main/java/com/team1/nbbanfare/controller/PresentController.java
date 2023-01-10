@@ -24,9 +24,11 @@ import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.request.CancelData;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
+import com.team1.nbbanfare.dto.FollowerForm;
 import com.team1.nbbanfare.dto.FundingForm;
 import com.team1.nbbanfare.dto.PresentForm;
 import com.team1.nbbanfare.dto.ProductForm;
+import com.team1.nbbanfare.repository.FollowerRepository;
 import com.team1.nbbanfare.repository.FundingRepository;
 import com.team1.nbbanfare.repository.PresentRepository;
 import com.team1.nbbanfare.repository.ProductRepository;
@@ -40,6 +42,7 @@ import lombok.extern.slf4j.Slf4j;
 public class PresentController {
 	private final PresentRepository presentRepository;
 	private final FundingRepository fundingRepository; 
+	private final FollowerRepository followerRepository; 
 	private IamportClient api = new IamportClient("8278766856734860", "6yvE5LfCfJqpjPtpaBncHgOKZYU8Hh5TySo3EcQVoMQqzGoGXDr5SWSOKH5rI7R06Skr2BGuFjWLhAiR");
 	@PostMapping("/ItemDetail/{productNo}")
 	public String presentInsert(@ModelAttribute PresentForm present, @PathVariable("productNo") int productNo) {
@@ -59,7 +62,8 @@ public class PresentController {
 			List<PresentForm> printFundingUserList = fundingRepository.selectPresentFundingFriendName(present);
 			log.info("펀딩유저들:{}",printFundingUserList);
 			return printFundingUserList;
-		} else {
+		} 
+		else {
 			return null;
 		}
 	}
@@ -67,8 +71,8 @@ public class PresentController {
 	
 	@GetMapping("/follow/{followerid}")
 	public List<PresentForm> selectByFriendPresent(@ModelAttribute PresentForm present, @PathVariable("followerid") String followerid) {
-		List<PresentForm> printFriendPreList = presentRepository.selectByFriendPresent(present);
-		log.info("fcon1{}",present);
+		List<PresentForm> printFriendPreList = presentRepository.selectByFriendPresent(followerid);
+		log.info("fcon1{}",followerid);
 		log.info("controller {}", printFriendPreList);
 		return printFriendPreList;
 	}
@@ -76,10 +80,11 @@ public class PresentController {
 		public IamportResponse<Payment> cancelPaymentByImpUid(@ModelAttribute PresentForm present, @PathVariable("userNo") String userNo) {
 			log.info("present:{}",present);
 			presentRepository.updatePresent(present);
-			List<String> strlist = fundingRepository.selectPresentNoSearch(present);
+			List<FundingForm> strlist = fundingRepository.selectPresentNoSearch(present);
+			log.info("파싱전:{}", strlist);
 			List<String> impList = new ArrayList<String>();
 			ObjectMapper mapper = new ObjectMapper();
-			String jsonStr = null;
+			String  jsonStr = null;
 			try {
 				jsonStr = mapper.writeValueAsString(strlist);
 				log.info("jsonStr:{}",jsonStr);

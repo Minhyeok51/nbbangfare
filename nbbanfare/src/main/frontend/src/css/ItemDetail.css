@@ -1,14 +1,14 @@
 .ItemDetail {
     display: flex;
-    justify-content: space-around;
-    
+    flex-direction: row;
 }
 .textStyle {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 70vh;
+    width: 50%;
+    /* width: 70vh; */
 }
 .btncss {
     float: right;
@@ -16,5 +16,6 @@
 }
 
 .imgcls {
-    width: 30vh;
+    width: 500px;
+    height: 500px;
 }

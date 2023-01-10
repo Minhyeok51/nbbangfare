@@ -67,7 +67,7 @@ function PayList() {
                             <td>{data.productName}</td>
                             <td>{data.followerId}</td>
                             <td>{data.userName}</td>
-                            <td>{data.fundingPrice}</td>
+                            <td>{data.fundingPrice}원</td>
                             {
                                 data.fundingResult === 1
                                 ? <td style={{backgroundColor:'white'}}><button onClick={()=>refundConfirm(`${data.fundingid}`, `${data.fundingPrice}`)}>결제취소하기</button></td>

@@ -28,4 +28,5 @@ public class PresentForm {
 	private String fundingid;
 	private Integer presentresult;
 	private Integer reqCnt;
+	private String followerRegDate;
 }

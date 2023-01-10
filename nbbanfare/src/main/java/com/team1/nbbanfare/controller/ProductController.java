@@ -50,7 +50,7 @@ public class ProductController {
 	}	
 	
 					  //초 분 시 일 월 요일
-	@Scheduled(cron = "0 27 12 * * *" , zone = "Asia/Seoul")
+//	@Scheduled(cron = "0 33 15 * * *" , zone = "Asia/Seoul")
 	public void insertInit() throws IOException, ParseException {
 		ArrayList<ProductForm> array = null;
 		JSONParser parser = new JSONParser();
