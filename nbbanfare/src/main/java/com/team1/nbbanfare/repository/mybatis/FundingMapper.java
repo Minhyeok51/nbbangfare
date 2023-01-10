@@ -16,7 +16,7 @@ public interface FundingMapper {
 	
 	public void refundFunding(FundingForm fundingForm);
 	
-	public List<String> selectPresentNoSearch(PresentForm present);
+	public List<FundingForm> selectPresentNoSearch(PresentForm present);
 	
 	public void refundPresentFunding (PresentForm present);
 	

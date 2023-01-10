@@ -30,6 +30,7 @@ function WishProduct() {
       const cancelButton = (presentNo, productNo) => {
         if(window.confirm("정말로 취소하시겠습니까?")) {
           alert("확인")
+          window.location.reload()
           axios
         .put(url,null,{params: {
           userNo:sessionStorage.getItem('user_id'),
@@ -38,14 +39,16 @@ function WishProduct() {
         .then((response) => {
             console.log(response.data)
             console.log(response.status)
-            // window.location.reload()
+            
         })
         .catch((error) => {
             console.log(error.response);
             alert("요청실패")
+            
         });
        }else {
           alert("취소")
+          window.location.reload()
        }
       }
   
@@ -53,16 +56,17 @@ function WishProduct() {
       const purchaseButton = (predata, purdata) => {
         if(window.confirm("구매를 확정하게 되면 환불이 불가합니다. 확정하시겠습니까?")) {
           alert("구매완료 구매해주셔서 감사합니다.")
+          window.location.reload()
           axios
         .post(url,null,{params: {
-          userid:sessionStorage.getItem('user_id'),
+          userId:sessionStorage.getItem('user_id'),
           presentNo:predata,
           productNo:purdata
         }})
         .then((response) => {
             console.log(response.data)
             console.log(response.status)
-            // window.location.reload()
+            
         })
         .catch((error) => {
             console.log(error.response);
@@ -70,6 +74,7 @@ function WishProduct() {
         });
        }else {
           alert("취소")
+          window.location.reload()
        }
       }
 
@@ -112,7 +117,7 @@ function WishProduct() {
                                 setModalShow(true),
                                 setPresentId(data.presentNo)
                               )
-                            }}>{data.fundingPrice}원/{data.productPrice}</td>
+                            }}>{data.fundingPrice}원/{data.productPrice}원</td>
                             <td>{data.calculate}원</td>
                             {
                                 data.calculate === 0

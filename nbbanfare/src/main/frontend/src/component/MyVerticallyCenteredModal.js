@@ -106,7 +106,7 @@ function MyVerticallyCenteredModal(props) {
         <input type='number' id='price' value={inputPrice} onChange={(e)=>{
           setInputPrice(e.target.value);
         }}/>
-        <Button variant="outline-primary" onClick={onClickPayment}>구매</Button>
+        <Button variant="outline-primary" onClick={onClickPayment}>펀딩</Button>
         <Button variant="outline-primary" onClick={props.onHide}>취소</Button>
         
       </Modal.Footer>

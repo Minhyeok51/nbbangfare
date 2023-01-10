@@ -7,9 +7,6 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import MyVerticallyCenteredModal from './MyVerticallyCenteredModal';
 
-
-
-
 function Follower() {
     const [friendPresent, setFriendPresent] = useState([]);
     const [modalShow, setModalShow] = useState(false);
@@ -68,7 +65,7 @@ function Follower() {
                             <td>{data.productName}</td>
                             <td>{data.presentDate}</td>
                             <td>{data.presentCount}</td>
-                            <td>{data.fundingPrice}원/{data.productPrice}</td>
+                            <td>{data.fundingPrice}원/{data.productPrice}원</td>
                             <td>{data.calculate}원</td>  
                             {
                               data.calculate === 0 

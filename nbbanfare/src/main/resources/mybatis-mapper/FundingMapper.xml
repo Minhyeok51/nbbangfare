@@ -22,8 +22,8 @@
 		where funding_no = #{fundingid} and user_email = #{userNo}
 	</update>
 	
-	<select id="selectPresentNoSearch" resultType="PresentForm">
-		select funding_no from funding
+	<select id="selectPresentNoSearch" resultType="FundingForm">
+		select funding_no fundingid from funding
 		where present_no = #{presentNo}
 	</select>
 	

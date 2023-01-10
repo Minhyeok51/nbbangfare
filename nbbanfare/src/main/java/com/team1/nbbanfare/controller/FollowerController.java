@@ -53,5 +53,12 @@ public class FollowerController {
 		log.info("삭제됨");
 	}
 	
+	@GetMapping("/mypage/{userNo}")
+	public List<FollowerForm> followerList(@ModelAttribute FollowerForm follower, @PathVariable("userNo") String userNo) {
+		List<FollowerForm> printFriend = followerRepository.selectFriend(userNo);
+		log.info("친구리스트 출력:{}",printFriend);
+		return printFriend;
+	}
+	
 	
 }

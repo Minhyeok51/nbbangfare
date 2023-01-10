@@ -1,8 +1,11 @@
 package com.team1.nbbanfare.repository.mybatis;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.team1.nbbanfare.dto.FollowerForSearch;
 import com.team1.nbbanfare.dto.FollowerForm;
 import com.team1.nbbanfare.repository.FollowerRepository;
 
@@ -32,5 +35,22 @@ public class MybatisFollowerRepository implements FollowerRepository{
 	@Transactional
 	public void deleteFollowerById(FollowerForm followerForm) {
 		followerMapper.deleteFollowerById(followerForm);
+	}
+
+	@Override
+	public List<FollowerForm> selectFriend(String userNo) {
+		// TODO Auto-generated method stub
+		List<FollowerForm> followerList = followerMapper.selectFriend(userNo);
+		return followerList;
+	}
+
+	@Override
+	@Transactional
+	public List<String> selectFollower(String userId) {
+		// TODO Auto-generated method stub
+		List<String> followerList = followerMapper.selectFollower(userId);
+		log.info("{}",followerList);
+		
+		return followerList;
 	}
 }

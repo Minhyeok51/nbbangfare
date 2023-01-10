@@ -36,9 +36,9 @@ function Purlist() {
                             <td>{data.productName}</td>
                             <td>{data.purchaseNo}</td>
                             <td>{data.presentCount}</td>
-                            <td>{data.productPrice}</td>
+                            <td>{data.productPrice}원</td>
                             <td>{data.purchaseDate}</td>
-                            <td>배송중</td>   
+                            <td>구매완료</td>   
                         </tr>   
                 )
               })}    

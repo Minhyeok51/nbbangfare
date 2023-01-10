@@ -6,4 +6,7 @@ import lombok.Data;
 public class FollowerForm {
 	private String userId;
 	private String followerId;
+	private String followerRegdate;
+	private String userName;
+	private String userimage;
 }

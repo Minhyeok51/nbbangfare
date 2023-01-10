@@ -2,12 +2,15 @@ import "../css/Mypage.css"
 import noImg from "../img/noimg.jpg"
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import axios from 'axios';
 import requests from "../api/requests";
+import FollowerList from "./FollowerList";
 
 function Mypage() {
   const navigate = useNavigate()
+  const [modalShow, setModalShow] = useState(false);
+  
   useEffect(()=>{
     if(sessionStorage.getItem("user_id") == null){
       alert('로그인이 필요한 서비스입니다.')
@@ -73,16 +76,21 @@ function Mypage() {
           <p>사용자 이름: {sessionStorage.getItem("name")}</p>
           <p>가입일: </p>
           </div>
-                  {/* onClick={()=>{
-                     navigate('/modify')
-                 }} */}
+
           <div className="followplc">
             <ul>
-                <li className="mypageList">팔로워보기</li>
                 <li className="mypageList">
                 
                 <Link to="/modify">
                 회원정보 수정하기</Link></li>
+                <li className="mypageList" onClick={()=>{
+                    return(
+                      setModalShow(true)
+                    )
+                }}>팔로워보기</li>
+                <li className="mypageList" onClick={()=>{
+                    navigate('/modify')
+                }}>회원정보 수정하기</li>
                 {sessionStorage.getItem("kakaoUser") === "true" ? null 
                 :<li className="mypageList" onClick={deleteUser}>회원 탈퇴</li> }
 
@@ -96,6 +104,10 @@ function Mypage() {
             <Breadcrumb.Item href="/mypage/purlist">구매목록</Breadcrumb.Item>
           </Breadcrumb>
           <Outlet/>
+          <FollowerList
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+         />
         </div>
       </>
     );

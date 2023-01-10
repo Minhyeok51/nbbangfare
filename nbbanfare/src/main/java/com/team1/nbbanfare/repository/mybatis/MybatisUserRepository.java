@@ -3,6 +3,7 @@ package com.team1.nbbanfare.repository.mybatis;
 import java.util.List;
 
 import org.python.jline.internal.Log;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,9 +17,10 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class MybatisUserRepository implements UserRepository{
 
+	@Autowired
 	private final UserMapper userMapper;
 
-	@Override
+
 	public User insert(User user) {
 
 		userMapper.insert(user);

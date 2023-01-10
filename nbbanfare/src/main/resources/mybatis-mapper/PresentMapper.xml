@@ -10,8 +10,8 @@
 	</insert>
 	
 	<select id="selectByPresent" resultType="PresentForm">
-		select p.present_no presentNo, u.user_name username, pr.product_no productno, pr.product_name productname, pr.product_price productprice, nvl(fd.fundingprice,0) fundingprice,
-        	nvl(to_number(substr(product_price, 1, instr(product_price, '원', 1, 1)-1)-fd.fundingprice),(to_number(substr(product_price, 1, instr(product_price, '원', 1, 1)-1)))) calculate,
+		select p.present_no presentNo, u.user_name username, pr.product_no productno, pr.product_name productname, to_number(substr(product_price, 1, instr(product_price, '원', 1, 1)-1), 'FM999999') productprice, nvl(fd.fundingprice,0) fundingprice,
+        	nvl(to_number(substr(product_price, 1, instr(product_price, '원', 1, 1)-1), 'FM999999')-fd.fundingprice,(to_number(substr(product_price, 1, instr(product_price, '원', 1, 1)-1), 'FM999999'))) calculate,
         	p.present_count presentCount,TO_CHAR(p.present_date, 'YYYY-MM-DD') presentDate, p.user_email userno, p.present_result presentresult
 		from present p join user_info u on p.user_email = u.user_email
        		join product_real pr on p.product_no = pr.product_no 
@@ -23,8 +23,8 @@
 	<select id="selectByFriendPresent" resultType="PresentForm">
 	select distinct(p.present_no) presentno, f.follower_email followerid, u.user_name username, u.user_birth userbirth, u.user_phone userphone, u.user_email useremail, 
 	    u.user_address useraddress, u.create_date createdate, pr.product_image productimage,
-	    pr.product_name productname, pr.product_price productprice, nvl(fd.fundingprice, 0) fundingprice,
-	    nvl(to_number(substr(product_price, 1, instr(product_price, '원', 1, 1)-1)-fd.fundingprice),(to_number(substr(product_price, 1, instr(product_price, '원', 1, 1)-1)))) calculate,
+	    pr.product_name productname, to_number(substr(product_price, 1, instr(product_price, '원', 1, 1)-1), 'FM999999') productprice, nvl(fd.fundingprice, 0) fundingprice,
+	   nvl(to_number(substr(product_price, 1, instr(product_price, '원', 1, 1)-1), 'FM999999')-fd.fundingprice,(to_number(substr(product_price, 1, instr(product_price, '원', 1, 1)-1), 'FM999999'))) calculate,
 	    p.present_count presentCount,TO_CHAR(p.present_date, 'YYYY-MM-DD') presentDate, p.present_result presentresult
 	from present p join user_info u on p.user_email = u.user_email
         join product_real pr on p.product_no = pr.product_no

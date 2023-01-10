@@ -38,8 +38,8 @@ public class MybatisFundingRepository implements FundingRepository{
 	}
 
 	@Override
-	public List<String> selectPresentNoSearch(PresentForm present) {
-		List<String> strList = fundingMapper.selectPresentNoSearch(present);
+	public List<FundingForm> selectPresentNoSearch(PresentForm present) {
+		List<FundingForm> strList = fundingMapper.selectPresentNoSearch(present);
 		return strList;
 	}
 
