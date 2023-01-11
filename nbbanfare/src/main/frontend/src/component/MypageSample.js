@@ -165,7 +165,7 @@ const MypageSample = () => {
             <li><a href="/mypage/wishproduct">찜한상품</a></li>
             <li><a href="/mypage/paylist">펀딩목록</a></li>
             <li><a href="/mypage/purlist">구매목록</a></li>
-            <li onClick={()=>{
+            <li className="mypageList" onClick={()=>{
                     return(
                       setModalShow(true)
                     )
@@ -180,6 +180,10 @@ const MypageSample = () => {
       <div className="sample-mypage-content">
           <Outlet></Outlet>
       </div>
+      <FollowerList
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+         />
     </div>
   );
 };
