@@ -7,12 +7,13 @@ import axios from "axios";
 import requests from "../api/requests";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import styled from "styled-components";
+import FollowerList from "./FollowerList";
 import { CategoryButton } from "./Product";
 const MypageSample = () => {
   //파일 미리볼 url을 저장해줄 state
   const [fileImage, setFileImage] = useState("");
   const [showfileImage, setShowFileImage] = useState("");
-
+  const [modalShow, setModalShow] = useState(false);
   const [showImageUploadBtn, setShowImageUploadBtn] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
@@ -165,7 +166,11 @@ const MypageSample = () => {
             <li><a href="/mypage/wishproduct">찜한상품</a></li>
             <li><a href="/mypage/paylist">펀딩목록</a></li>
             <li><a href="/mypage/purlist">구매목록</a></li>
-            <li>팔로워보기</li>
+            <li className="mypageList" onClick={()=>{
+                    return(
+                      setModalShow(true)
+                    )
+                }}>팔로워보기</li>
             <li><Link to="/mypage/modify">회원정보 수정하기</Link></li>
             {sessionStorage.getItem("kakaoUser") === "true" ? null 
                 :<li className="mypageList" onClick={deleteUser}>회원 탈퇴</li> }
@@ -175,6 +180,10 @@ const MypageSample = () => {
       <div className="sample-mypage-content">
           <Outlet></Outlet>
       </div>
+      <FollowerList
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+         />
     </div>
   );
 };

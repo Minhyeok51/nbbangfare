@@ -6,7 +6,7 @@ import Footer from "./component/Footer";
 import Login from "./component/Login";
 import ItemDetail from "./component/ItemDetail";
 import Mypage from "./component/Mypage";
-import { Routes, Route, useNavigate, Outlet } from "react-router-dom";
+import { Routes, Route, useNavigate, Outlet, Navigate } from "react-router-dom";
 import Join from "./component/Join";
 import CategoryItem from "./component/CategoryItem";
 import Follower from "./component/Follower";
@@ -79,7 +79,7 @@ function App() {
           <Route path="/mypage/modify" element={<Modify />}></Route>
         </Route>
 
-        <Route path="follow" element={<Follower />}></Route>
+        <Route path="/follow" element={<Follower/>}></Route>
         <Route path="/join" element={<Join />}></Route>
         <Route path="/joinWithKakao" element={<JoinWithKakao />}></Route>
 

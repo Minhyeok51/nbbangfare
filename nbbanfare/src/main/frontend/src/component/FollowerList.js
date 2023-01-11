@@ -2,11 +2,13 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {useNavigate} from "react-router-dom";
+import {useNavigate, Link} from "react-router-dom";
 import '../css/FollowerList.css';
+import { Navigation } from '@mui/icons-material';
 
 function FollowerList(props) {
     const [friend, setFriend] = useState([]);
+    const [fname, setFname] = useState("");
     const url = `/mypage/${sessionStorage.getItem("user_id")}`
     let navigate = useNavigate();
     const getData = async() => {
@@ -56,8 +58,8 @@ function FollowerList(props) {
                                 <td>{data.userName}</td>
                                 <td>{data.followerRegdate}</td>
                                 <td></td>
-                                <td><button onClick={()=>{
-                                    navigate(`/follow/${data.followerId}`);
+                                <td> <button onClick={()=>{
+                                    navigate(`/follow`, {state:`${data.followerId}`})
                                 }}>마이페이지</button></td>
                             </tr>
                         )

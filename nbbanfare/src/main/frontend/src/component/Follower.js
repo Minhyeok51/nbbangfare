@@ -2,7 +2,7 @@ import "../css/Mypage.css"
 import noImg from "../img/noimg.jpg"
 import React, { useState,useEffect } from 'react';
 import axios from 'axios';
-import { useParams,useNavigate } from "react-router-dom";
+import { useParams,useNavigate, useLocation } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import MyVerticallyCenteredModal from './MyVerticallyCenteredModal';
@@ -15,9 +15,10 @@ function Follower() {
     let [productImage, setProductImage] = useState("");
     let [presentId, setPresentId] = useState("");
     let [resultPrice, setResultPrice] = useState(0);
-    let {name} = useParams();
+    const {state} = useLocation();
     const getData = async() => {
-        const url = `/follow/${name}`;
+        const url = `/follow/${state}`;
+        console.log(state)
         axios
           .get(url)
           .then((response) => {
@@ -95,7 +96,7 @@ function Follower() {
     rstPrice={resultPrice}
     image={productImage}
     id={presentId}
-    site={name}
+    site={state}
     onHide={() => setModalShow(false)}
     />
             </div>
