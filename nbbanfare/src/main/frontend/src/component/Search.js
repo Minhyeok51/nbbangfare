@@ -128,7 +128,7 @@ const follow = (i,email) =>{
                 <div className="search-listbox">
                 <div className="search-card" key={i} >
                   {/* <td>{i+1}</td> */}
-                  <div ><img src={data.userImage} width="120px" height="120px"/></div>
+                  <div ><img className="search_img" src={data.userImage} width="120px" height="120px"/></div>
                   <div>{data.userName}</div>
                   <div>{data.userEmail}</div>
                   
