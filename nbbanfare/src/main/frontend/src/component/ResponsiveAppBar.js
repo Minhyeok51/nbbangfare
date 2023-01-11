@@ -16,9 +16,9 @@ function ResponsiveAppBar({session,setSession}) {
   const [search, setSearch] = useState(false); 
   const [anchorElUser, setAnchorElUser] = useState(); //이름드롭다운
   const [word, setWord] = useState([]) //검색어 세팅
-  
-  
-  const onSubmit = async (e)=> {
+    
+  const onSubmit = async => {
+    // console.log("clicked")
       window.location.href = "/Search/"  + word
   }
   const handleOpenUserMenu = (event) => {
@@ -56,6 +56,7 @@ function ResponsiveAppBar({session,setSession}) {
             <ul className="nav-list">
               <li>
                 <NavLink to="/" activeClassName="active">홈</NavLink>
+ 
               </li>
               <li>
                 <a>랭킹</a>
