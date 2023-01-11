@@ -54,7 +54,7 @@ function ResponsiveAppBar({session,setSession}) {
           <div className="header-nav">
             <ul className="nav-list">
               <li className="home">
-                <NavLink to="/" className="active">홈</NavLink>
+                <NavLink to="/" activeClassName="active">홈</NavLink>
               </li>
               <li>
                 <a>랭킹</a>
@@ -63,7 +63,7 @@ function ResponsiveAppBar({session,setSession}) {
                 <a>브랜드</a>
               </li>
               <li className="mypage">
-                <NavLink to="/mypage/wishproduct" className="active">선물함</NavLink>
+                <NavLink to="/mypage/wishproduct" activeClassName="active">선물함</NavLink>
               </li>
             </ul>
           </div>

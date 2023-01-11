@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState,useEffect } from 'react';
 import FundingUserListModal from './FundingUserListModal';
+import "../css/wishProduct.css";
 
 function WishProduct() {
     const [modalShow, setModalShow] = useState(false);
@@ -81,22 +82,23 @@ function WishProduct() {
     
 
     return(
-        <div>
-            <table className="presentTable">
-                <thead>
-                    <tr>
-                        <th>상품명</th><th>찜한 날짜</th><th>수량</th><th>적립된/상품 가격</th><th>남은 금액</th><th>구매확정</th><th>취소하기</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+        <div className='wishList-container'>
+            <div className='wishList-title'>
+              <div className='wshList'>{sessionStorage.getItem("name")}님의</div>
+              <span className='wishList_line'>찜한 목록</span>
+            </div>
+            
            
             {present.map((data,i) => {
                 return (
-                        <tr>  
-                            <td>{data.productName}</td>
-                            <td>{data.presentDate}</td>
-                            <td>{data.presentCount}</td>
-                            <td style={{cursor:'pointer'}} onClick={()=>{
+                      <div className='listbox'>
+                        <div className='wishlist-item-card'>
+                            <div className='wishlist-image'><img src={data.productImage} width="120px" /></div>
+                            <div className='wishlist-item-info'>
+                            <div>{data.productName}</div>
+                            <div>찜한 날짜: {data.presentDate}</div>
+                            <div>수량: {data.presentCount}</div>
+                            <div style={{cursor:'pointer'}} onClick={()=>{
 
                                   axios
                                   .get(url, { params: {
@@ -117,19 +119,19 @@ function WishProduct() {
                                 setModalShow(true),
                                 setPresentId(data.presentNo)
                               )
-                            }}>{data.fundingPrice}원/{data.productPrice}원</td>
-                            <td>{data.calculate}원</td>
+                            }}>펀딩 금액: {data.fundingPrice}원/{data.productPrice}원</div>
+                            <div>상품 가격: {data.calculate}원</div>
                             {
                                 data.calculate === 0
-                                ? <td style={{cursor:'pointer'}} onClick={()=>purchaseButton(`${data.presentNo}`,`${data.productNo}`)}>구매가능</td>
-                                : <td style={{color:'red', backgroundColor:'white'}}>구매불가</td>
+                                ? <div style={{cursor:'pointer'}} onClick={()=>purchaseButton(`${data.presentNo}`,`${data.productNo}`)}>구매가능</div>
+                                : <div style={{color:'red', backgroundColor:'white'}}>구매불가</div>
                             } 
-                            <td style={{cursor:'pointer'}} onClick={()=>cancelButton(`${data.presentNo}`, `${data.productNo}`)}>취소</td>   
-                        </tr>   
+                            <div style={{cursor:'pointer'}} onClick={()=>cancelButton(`${data.presentNo}`, `${data.productNo}`)}>취소</div>   
+                            </div>
+                            </div>
+                        </div>  
                 )
               })}    
-      </tbody>
-    </table>
     
     <FundingUserListModal
           show={modalShow}

@@ -12,7 +12,7 @@
 	<select id="selectByPresent" resultType="PresentForm">
 		select p.present_no presentNo, u.user_name username, pr.product_no productno, pr.product_name productname, to_number(substr(product_price, 1, instr(product_price, '원', 1, 1)-1), 'FM999999') productprice, nvl(fd.fundingprice,0) fundingprice,
         	nvl(to_number(substr(product_price, 1, instr(product_price, '원', 1, 1)-1), 'FM999999')-fd.fundingprice,(to_number(substr(product_price, 1, instr(product_price, '원', 1, 1)-1), 'FM999999'))) calculate,
-        	p.present_count presentCount,TO_CHAR(p.present_date, 'YYYY-MM-DD') presentDate, p.user_email userno, p.present_result presentresult
+        	p.present_count presentCount,TO_CHAR(p.present_date, 'YYYY-MM-DD') presentDate, p.user_email userno, p.present_result presentresult, pr.product_image productImage
 		from present p join user_info u on p.user_email = u.user_email
        		join product_real pr on p.product_no = pr.product_no 
        		left outer join (select present_no, sum(funding_price) fundingprice from funding where funding_result = 1 group by present_no, funding_result) fd on fd.present_no = p.present_no
