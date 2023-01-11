@@ -17,7 +17,9 @@
 </select>
 
 <select id="selectByKind" resultType="ProductForm">
-	select * from product_real where product_kind=#{productKind}
+	select * from product_real where product_price != '0' and product_name is not null and product_image is not null 
+	and product_kind=#{productKind}
+	order by product_no
 </select>
 
 <insert id="insertProduct" parameterType="ProductForm">

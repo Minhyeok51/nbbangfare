@@ -190,7 +190,7 @@ public class LoginController {
 			String fileExt =  file.getOriginalFilename().substring(file.getOriginalFilename().indexOf(".")+1);
 			String changedFileName =realFileName+"."+fileExt;
 			String reactPath = "/images/"+changedFileName;
-			String filePath ="C:\\Users\\minhy\\git\\nbbangfare\\nbbanfare\\src\\main\\frontend\\public\\images\\"+changedFileName;
+			String filePath ="C:\\Users\\User\\git\\nbbangfare\\nbbanfare\\src\\main\\frontend\\public\\images\\"+changedFileName;
 			file.transferTo(new File(filePath));
 			User user = userRepository.selectByUserEmail(userEmail);
 			user.setUserImage(reactPath);
