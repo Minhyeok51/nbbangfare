@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState,useEffect } from 'react';
 import FundingUserListModal from './FundingUserListModal';
 import "../css/wishProduct.css";
+import Button from 'react-bootstrap/Button';
 
 function WishProduct() {
     const [modalShow, setModalShow] = useState(false);

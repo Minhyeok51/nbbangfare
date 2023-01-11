@@ -4,6 +4,7 @@
 
 .wishList-title{
     height: 150px;
+    font-weight: 600;
 }
 
 .wshList {
@@ -16,7 +17,8 @@
 
 
 .wishList_line{
-    border-bottom: 3px solid rgb(255, 230, 0);
+    /* border-bottom: 3px solid rgb(255, 230, 0); */
+    background: linear-gradient(to top, rgb(251, 255, 0) 30%, transparent 30%);
     font-size: 32px;
     line-height: 42px;
     color: #111;

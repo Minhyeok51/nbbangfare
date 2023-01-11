@@ -4,7 +4,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {useNavigate, Link} from "react-router-dom";
 import '../css/FollowerList.css';
-import { Navigation } from '@mui/icons-material';
+import { faHouse } from "@fortawesome/free-solid-svg-icons";
+
+import { CategoryButton } from "./Product";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function FollowerList(props) {
     const [friend, setFriend] = useState([]);
@@ -58,9 +61,9 @@ function FollowerList(props) {
                                 <td>{data.userName}</td>
                                 <td>{data.followerRegdate}</td>
                                 <td></td>
-                                <td> <button onClick={()=>{
+                                <td> <CategoryButton style={{ border:"none", color:"black"}} onClick={()=>{
                                     navigate(`/follow`, {state:`${data.followerId}`})
-                                }}>마이페이지</button></td>
+                                }}><FontAwesomeIcon icon={ faHouse}/></CategoryButton></td>
                             </tr>
                         )
                     })}

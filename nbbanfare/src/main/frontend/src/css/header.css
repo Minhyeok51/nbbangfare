@@ -69,7 +69,7 @@ a{
     justify-content: flex-end
 }
 .nav-list a.active{
-    border-bottom: 3px solid rgb(255, 230, 0);
+    background: linear-gradient(to top, rgb(255, 230, 0) 30%, transparent 30%);
 }
 .search-box {
     display: flex;
