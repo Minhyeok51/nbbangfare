@@ -12,4 +12,6 @@ public interface PurchaseMapper {
 	public Integer insertPurchase(PurchaseForm purchaseForm);
 	
 	public List<PurchaseForm> selectByPurchase(String purchase);
+	
+	public List<PurchaseForm> selectPurchaseFundingFriendName(PurchaseForm purchaseForm);
 }

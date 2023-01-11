@@ -15,4 +15,6 @@ public class PurchaseForm {
 	private Integer productPrice;
 	private String purchaseDate;
 	private String productImage;
+	private Integer reqCnt;
+	private String fundingPrice;
 }

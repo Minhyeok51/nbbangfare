@@ -18,4 +18,6 @@ public interface FollowerRepository {
 	public List<FollowerForm> selectFriend (String userNo);
 	
 	public List<String> selectFollower(String userId);
+	
+	public List<PresentForm> selectFriendName(PresentForm presentForm);
 }

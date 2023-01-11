@@ -15,6 +15,7 @@ public class PresentForm {
 	private String userPhone;
 	private String userEmail;
 	private String userAddress;
+	private String userImage;
 	private Date createdate;
 	private String productName;
 	private String productPrice;

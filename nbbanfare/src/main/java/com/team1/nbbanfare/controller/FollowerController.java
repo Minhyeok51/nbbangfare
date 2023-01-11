@@ -59,6 +59,4 @@ public class FollowerController {
 		log.info("친구리스트 출력:{}",printFriend);
 		return printFriend;
 	}
-	
-	
 }

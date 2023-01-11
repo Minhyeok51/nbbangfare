@@ -32,4 +32,11 @@ public class MybatisPurchaseRepository implements PurchaseRepository{
 		log.info("여기?{}",purchase);
 		return printPurchase;
 	}
+
+	@Override
+	public List<PurchaseForm> selectPurchaseFundingFriendName(PurchaseForm purchaseForm) {
+		// TODO Auto-generated method stub
+		List<PurchaseForm> printPurchaseFriend = purchaseMapper.selectPurchaseFundingFriendName(purchaseForm);
+		return printPurchaseFriend;
+	}
 }

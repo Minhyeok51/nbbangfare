@@ -14,16 +14,19 @@ function Follower() {
     let [productPrice, setProductPrice] = useState("");
     let [productImage, setProductImage] = useState("");
     let [presentId, setPresentId] = useState("");
+    let [friendName, setFriendName] = useState([]);
     let [resultPrice, setResultPrice] = useState(0);
     const {state} = useLocation();
     const getData = async() => {
         const url = `/follow/${state}`;
         console.log(state)
         axios
-          .get(url)
+          .get(url, {params : {
+            reqCnt:1
+          }})
           .then((response) => {
             setFriendPresent(response.data);
-            console.log(friendPresent)
+            console.log(response.data)
             console.log("성공");
           })
           .catch((Error) => {
@@ -34,46 +37,83 @@ function Follower() {
       useEffect(() => {
         getData();
       }, [])  
+
+      const getFData = async() => {
+        const url = `/follow/${state}`;
+        console.log(state)
+        axios
+          .get(url, {params : {
+            reqCnt:2,
+            userNo:sessionStorage.getItem('user_id')
+          }})
+          .then((response) => {
+            setFriendName(response.data[0]);
+            console.log(response.data)
+            console.log("성공");
+          })
+          .catch((Error) => {
+            console.log(Error);
+          });
+  
+      };
+      useEffect(() => {
+        getFData();
+      }, [])
     return(
-        <div>
-            <div className="userBar">
-
-                <img src={noImg} style={{width:'200px', height:'200px', margin:'10vh', borderRadius:'70%', overflow:'hidden'}}></img>
-                <div className="textplc">
-                    <p>팔로워 이름: </p>
-                    <p>팔로우일: </p>
-                </div>
-
-                <div className="followplc">
-                    <p style={{cursor:'pointer'}} onClick={{
-                        
-                    }}>팔로워 보기</p>
-                </div>
+      <div className="sample-mypage-container">
+      <div className="sample-mypage-nav">
+        <div className="sample-mypage-info">
+          {friendName.userImage !== null ? (
+            <img
+              src={friendName.userImage}
+              style={{
+                width: "100px",
+                height: "100px",
+                // margin: "10vh",
+                borderRadius: "45px",
+                overflow: "hidden",
+              }}
+            ></img>
+          ) : (
+            <img
+              src={noImg}
+              style={{
+                width: "100px",
+                height: "100px",
+                // margin: "10vh",
+                borderRadius: "45px",
+                overflow: "hidden",
+              }}
+            ></img>
+          )}
+          <span style={{ fontSize: "1.7rem", fontWeight: "600" }}>
+          {friendName.userName}
+          </span>
+        </div>
+      </div>
+      <div className="sample-mypage-content">
+        <div className='wishList-container'>
+            <div className='wishList-title'>
+              <div className='wshList'>{friendName.userName}님의</div>
+              <span className='wishList_line'>찜한 목록</span>
             </div>
-            <div className="purchaseList">
-                <h4 className="Retxt">찜한 상품</h4>
-                <table className="presentTable">
-                <thead>
-                    <tr>
-                        <th>상품명</th><th>찜한 날짜</th><th>수량</th><th>적립된 금액/상품 가격</th><th>남은 가격</th><th>펀딩</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-           
             {friendPresent.map((data,i) => {
                 return (
-                        <tr>  
-                            <td>{data.productName}</td>
-                            <td>{data.presentDate}</td>
-                            <td>{data.presentCount}</td>
-                            <td>{data.fundingPrice}원/{data.productPrice}원</td>
-                            <td>{data.calculate}원</td>  
-                            {
+                 <div className='listbox'>
+                  <div className='wishlist-item-card'>
+                  <div className='wishlist-image'><img src={data.productImage} width="120px" /></div>
+                  <div className='wishlist-item-info'>
+                  <div>{data.productName}</div>
+                  <div>찜한 날짜: {data.presentDate}</div>
+                  <div>수량: {data.presentCount}</div>
+                  <div>{data.fundingPrice}원/{data.productPrice}원</div>
+                  <div>{data.calculate}원</div>
+                  {
                               data.calculate === 0 
                               ? <td style={{color:'blue', backgroundColor:'white'}}>펀딩완료</td>
                               :
                              
-                            <td style={{cursor:'pointer'}} onClick={() => {
+                            <div style={{cursor:'pointer'}} onClick={() => {
                               return(
                                 setModalShow(true),
                                 setProductName(data.productName),
@@ -82,13 +122,15 @@ function Follower() {
                                 setProductImage(data.productImage),
                                 setPresentId(data.presentNo)
                               )
-                            }}>펀딩하기</td>
-                          }
-                            </tr>   
-                )
-            })}    
-      </tbody>
-    </table>   
+                            }}>펀딩하기</div>
+                  }
+                  </div>
+            </div>
+            </div>
+          )
+        })} 
+            
+
     <MyVerticallyCenteredModal
     show={modalShow}
     name={productName}
@@ -99,8 +141,9 @@ function Follower() {
     site={state}
     onHide={() => setModalShow(false)}
     />
-            </div>
-        </div>
+    </div>
+    </div>
+    </div>
     )
 }
 export default Follower;

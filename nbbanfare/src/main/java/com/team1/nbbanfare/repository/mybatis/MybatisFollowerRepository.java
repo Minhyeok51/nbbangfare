@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.team1.nbbanfare.dto.FollowerForSearch;
 import com.team1.nbbanfare.dto.FollowerForm;
+import com.team1.nbbanfare.dto.PresentForm;
 import com.team1.nbbanfare.repository.FollowerRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -52,5 +53,12 @@ public class MybatisFollowerRepository implements FollowerRepository{
 		log.info("{}",followerList);
 		
 		return followerList;
+	}
+
+	@Override
+	public List<PresentForm> selectFriendName(PresentForm presentForm) {
+		// TODO Auto-generated method stub
+		List<PresentForm> printPresentForm = followerMapper.selectFriendName(presentForm);
+		return printPresentForm;
 	}
 }

@@ -38,8 +38,16 @@ public class PurchaseControlloer {
 	
 	@GetMapping("/mypage/purlist/{userNo}")
 	public List<PurchaseForm> selectByPurchase(@ModelAttribute PurchaseForm purchase, @PathVariable(value="userNo")String userNo) {
-		List<PurchaseForm> printPurchase = purchaseRepository.selectByPurchase(userNo);
-		log.info("controller여기?:{}",userNo);
-		return printPurchase;
+		if(purchase.getReqCnt() == 1) {
+			List<PurchaseForm> printPurchase = purchaseRepository.selectByPurchase(userNo);
+			log.info("controller여기?:{}",userNo);
+			return printPurchase;	
+		} else if(purchase.getReqCnt() == 2) {
+			List<PurchaseForm> printPurchaseFriend = purchaseRepository.selectPurchaseFundingFriendName(purchase);
+			log.info("들어옴?{}", purchase);
+			return printPurchaseFriend;
+		}
+		return null;
+		
 	}
 } 

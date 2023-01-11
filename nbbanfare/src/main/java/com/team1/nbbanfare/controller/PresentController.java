@@ -71,10 +71,17 @@ public class PresentController {
 	
 	@GetMapping("/follow/{followerid}")
 	public List<PresentForm> selectByFriendPresent(@ModelAttribute PresentForm present, @PathVariable("followerid") String followerid) {
-		List<PresentForm> printFriendPreList = presentRepository.selectByFriendPresent(followerid);
-		log.info("fcon1{}",followerid);
-		log.info("controller {}", printFriendPreList);
-		return printFriendPreList;
+		if(present.getReqCnt() == 1) {
+			List<PresentForm> printFriendPreList = presentRepository.selectByFriendPresent(followerid);
+			log.info("fcon1{}",followerid);
+			log.info("controller {}", printFriendPreList);
+			return printFriendPreList;	
+		} else if(present.getReqCnt() == 2) {
+			log.info("팔로우:{}",present);
+			List<PresentForm> printPresent = followerRepository.selectFriendName(present);
+			return printPresent;
+		}
+		return null;
 	}
 	@PutMapping("/mypage/wishproduct/{userNo}") 
 		public IamportResponse<Payment> cancelPaymentByImpUid(@ModelAttribute PresentForm present, @PathVariable("userNo") String userNo) {

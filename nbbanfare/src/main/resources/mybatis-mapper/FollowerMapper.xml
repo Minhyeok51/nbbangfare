@@ -29,4 +29,10 @@
 		from friend 
 		where user_email = #{userId}
 	</select>
+	
+	<select id="selectFriendName" resultType="PresentForm">
+		select f.follower_email followerid, u.user_name userName, u.user_image userImage 
+		from friend f, user_info u
+		where f.follower_email = u.user_email and f.user_email = #{userNo} and f.follower_email = #{followerid}
+	</select>
 </mapper>

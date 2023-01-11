@@ -57,7 +57,7 @@ function MyVerticallyCenteredModal(props) {
             merchantUid:merchant_uid,
             userNo:sessionStorage.getItem("user_id"),
             presentId:buyer_email,
-            followerId:buyer_name,
+            followerId:`${props.site}`,
             fundingPrice:paid_amount,
             fundingResult:1,
             status: status
@@ -67,7 +67,7 @@ function MyVerticallyCenteredModal(props) {
               console.log(response.data.resultStatus)
               console.log(response.data.resultMsg)
               alert("서버 전송 성공") 
-              window.location.reload();
+              // window.location.reload();
 
           }
         )

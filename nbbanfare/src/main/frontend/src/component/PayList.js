@@ -51,39 +51,38 @@ function PayList() {
     }
      
     return(
-        <div>
-            <table className="presentTable">
-                <thead>
-                    <tr>
-                        <th>주문번호</th><th>상품명</th><th>팔로워ID</th><th>팔로워 이름</th><th>결제금액</th><th>환불요청</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+            <div className='wishList-container'>
+                <div className='wishList-title'>
+                    <div className='wshList'>{sessionStorage.getItem("name")}님의</div>
+                    <span className='wishList_line'>펀딩 목록</span>
+                </div>
            
             {funding.map((data,i) => {
                 return (
-                        <tr>  
-                            <td>{data.merchantUid}</td>
-                            <td>{data.productName}</td>
-                            <td>{data.followerId}</td>
-                            <td>{data.userName}</td>
-                            <td>{data.fundingPrice}원</td>
+                    <div className='listbox'>
+                    <div className='wishlist-item-card'>
+                        <div className='wishlist-image'><img src={data.productImage} width="120px" /></div>
+                        <div className='wishlist-item-info'>
+                        <div>{data.productName}</div>
+                            <div>주문 번호: {data.merchantUid}</div>
+                            <div>팔로워이메일: {data.followerId}</div>
+                            <div>팔로워이름: {data.userName}</div>
+                            <div>펀딩금액: {data.fundingPrice}원</div>
                             {
                                 data.fundingResult === 1
-                                ? <td style={{backgroundColor:'white'}}><button onClick={()=>refundConfirm(`${data.fundingid}`, `${data.fundingPrice}`)}>결제취소하기</button></td>
+                                ? <div><p onClick={()=>refundConfirm(`${data.fundingid}`, `${data.fundingPrice}`)}>결제취소하기</p></div>
                                 : (
                                     data.fundingResult === 3
-                                    ? <td style={{color:'blue', backgroundColor:'white'}}>결제완료</td>
-                                    : <td style={{color:'red', backgroundColor:'white'}}>취소됨</td>
+                                    ? <div style={{color:'blue', backgroundColor:'white'}}>결제완료</div>
+                                    : <div style={{color:'red', backgroundColor:'white'}}>취소됨</div>
                                 ) 
                                 
                             }
-                        </tr>   
-                )
-            })}    
-      </tbody>
-    </table>
+                        </div>
+                        </div> 
+                        </div>
+                )})}
     </div>
     )
-}
+}                    
 export default PayList;

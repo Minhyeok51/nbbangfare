@@ -1,12 +1,18 @@
 import axios from 'axios';
 import React, { useState,useEffect } from 'react';
+import FundingUserListModal from './FundingUserListModal';
 
 function Purlist() {
     const [purchase, setPurchase] = useState([]);
+    const [modalShow, setModalShow] = useState(false);
+    const [presentId, setPresentId] = useState("");
+    const [users, setUsers] = useState([]);
     const url = `/mypage/purlist/${sessionStorage.getItem('user_id')}`;
     const getPreData = async() => {
         axios
-          .get(url)
+          .get(url, { params: {
+            reqCnt:1
+        }})
           .then((response) => {
             setPurchase(response.data);
             console.log(purchase)
@@ -22,29 +28,60 @@ function Purlist() {
       }, [])
     return (
         <div>
-                       <table className="presentTable">
-                <thead>
-                    <tr>
-                        <th>상품명</th><th>구매번호</th><th>수량</th><th>상품 가격</th><th>구매 날짜</th><th>상태</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+            <div className='wishList-container'>
+                <div className='wishList-title'>
+                    <div className='wshList'>{sessionStorage.getItem("name")}님의</div>
+                    <span className='wishList_line'>구매 목록</span>
+                </div>
            
             {purchase.map((data,i) => {
                 return (
-                        <tr>  
-                            <td>{data.productName}</td>
-                            <td>{data.purchaseNo}</td>
-                            <td>{data.presentCount}</td>
-                            <td>{data.productPrice}원</td>
-                            <td>{data.purchaseDate}</td>
-                            <td>구매완료</td>   
-                        </tr>   
-                )
-              })}    
-      </tbody>
-    </table>
+
+                  <div className='listbox'>
+                    <div className='wishlist-item-card'>
+                        <div className='wishlist-image'><img src={data.productImage} width="120px" /></div>
+                        <div className='wishlist-item-info'>
+                        <div>{data.productName}</div>
+                            <div>구매상품번호: {data.purchaseNo}</div>
+                            <div>수량: {data.presentCount}</div>
+                            <div style={{cursor:'pointer'}} onClick={()=>{
+
+                                  axios
+                                  .get(url, { params: {
+                                      presentNo:data.presentNo,
+                                      reqCnt:2
+                                  }})
+                                  .then((response) => {
+                                      setUsers(response.data);
+                                      console.log(users)
+                                      console.log("성공");
+                                  })
+                                  .catch((Error) => {
+                                      console.log(Error);
+                                  });
+                              
+
+                              return(
+                                setModalShow(true),
+                                setPresentId(data.presentNo)
+                              )
+                            }}>상품가격: {data.productPrice}원</div>
+                            <div>구매날짜: {data.purchaseDate}</div>
+              </div>
+              </div>
+              </div>
+            )})}
+          <FundingUserListModal
+            show={modalShow}
+            id={presentId}
+            user={users}
+            onHide={() => setModalShow(false)}
+          />
+          </div>
         </div>
     )
 }
+                
+                
+
 export default Purlist;
