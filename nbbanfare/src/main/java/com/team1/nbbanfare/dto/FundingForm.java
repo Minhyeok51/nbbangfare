@@ -17,4 +17,5 @@ public class FundingForm {
 	private Integer fundingResult;
 //	private HashMap<String, String> response;
 	private String status;
+	private String productImage;
 }
