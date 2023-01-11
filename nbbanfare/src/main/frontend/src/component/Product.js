@@ -94,7 +94,7 @@ const Product = () => {
             );
           })}
       </Row>
-
+{product.length === 0 ? null :
       <PaginationBox>
         <Pagination
           activePage={page}
@@ -104,10 +104,11 @@ const Product = () => {
           onChange={handlePageChange}
         ></Pagination>
       </PaginationBox>
+      }
     </>
   );
 };
-const PaginationBox = styled.div`
+export const PaginationBox = styled.div`
   .pagination {
     display: flex;
     justify-content: center;
@@ -150,7 +151,7 @@ const PaginationBox = styled.div`
   }
 `;
 
-const ButtonGroup = styled.div`
+export const ButtonGroup = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -159,7 +160,7 @@ const ButtonGroup = styled.div`
   border-top: 2px solid #eaedf2;
   border-bottom: 2px solid #eaedf2;
 `;
-const ButtonSet = styled.div`
+export const ButtonSet = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;

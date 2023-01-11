@@ -67,7 +67,7 @@ function MyVerticallyCenteredModal(props) {
               console.log(response.data.resultStatus)
               console.log(response.data.resultMsg)
               alert("서버 전송 성공") 
-              // window.location.reload();
+              window.location.reload();
 
           }
         )

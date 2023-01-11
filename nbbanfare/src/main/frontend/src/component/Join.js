@@ -261,10 +261,9 @@ function Join() {
   };
 
   return (
-    <>
-      <h3>회원가입 페이지</h3>
+    <div className="join-container">
       <form action="" method="post">
-        <div className="form">
+        <div className="join-form">
           <div className="form-el">
             <input
               id="email"
@@ -321,7 +320,7 @@ function Join() {
             <p className="message">{phoneMessage}</p>
           </div>
           <div className="form-el">
-            <label htmlFor="birth">생년월일</label> <br />
+            <label htmlFor="birth">생년월일</label>
             <input
               type="date"
               id="birth"
@@ -334,12 +333,14 @@ function Join() {
           </div>
           <div className="form-el">
             <input type="text" id="postcode" className="inputs" placeholder="주소를 입력해주세요" />
-            <input
+            <button
               type="button"
+              className="find-postcode"
               onClick={handleComplete}
               onChange={handleInput}
-              value="우편번호 찾기"
-            />
+            >
+              우편번호 찾기
+            </button>
             <br />
             <input type="text" id="address" placeholder="주소" className="inputs"/>
             <br />
@@ -360,7 +361,7 @@ function Join() {
           </button>
         </div>
       </form>
-    </>
+    </div>
   );
 }
 export default Join;

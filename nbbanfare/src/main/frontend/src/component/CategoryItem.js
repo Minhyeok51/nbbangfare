@@ -9,7 +9,14 @@ import Row from "react-bootstrap/Row";
 import Pagination from "react-js-pagination";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-
+import { PaginationBox } from "./Product";
+import { ButtonGroup } from "./Product";
+import { ButtonSet } from "./Product";
+import { CategoryButton } from "./Product";
+import { Banner } from "../App";
+import { BannerBox } from "../App";
+import { BannerText } from "../App";
+import { Image } from "../App";
 function CategoryItem() {
   let { productKind } = useParams();
   let navigate = useNavigate();
@@ -105,117 +112,19 @@ function CategoryItem() {
             );
           })}
       </Row>
-
-      <PaginationBox>
-        <Pagination
-          activePage={page}
-          itemsCountPerPage={items}
-          totalItemsCount={product.length - 1}
-          pageRangeDisplayed={20}
-          onChange={handlePageChange}
-        ></Pagination>
-      </PaginationBox>
+      {product.length === 0 ? null : (
+        <PaginationBox>
+          <Pagination
+            activePage={page}
+            itemsCountPerPage={items}
+            totalItemsCount={product.length - 1}
+            pageRangeDisplayed={20}
+            onChange={handlePageChange}
+          ></Pagination>
+        </PaginationBox>
+      )}
     </>
   );
 }
-
-const PaginationBox = styled.div`
-  .pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 15px;
-  }
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-  ul.pagination li {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    border: 1px solid #e2e2e2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1rem;
-  }
-  ul.pagination li:first-child {
-    border-radius: 5px 0 0 5px;
-  }
-  ul.pagination li:last-child {
-    border-radius: 0 5px 5px 0;
-  }
-  ul.pagination li a {
-    text-decoration: none;
-    color: #337ab7;
-    font-size: 1rem;
-  }
-  ul.pagination li.active a {
-    color: white;
-  }
-  ul.pagination li.active {
-    background-color: #337ab7;
-  }
-  ul.pagination li a:hover,
-  ul.pagination li a.active {
-    color: blue;
-  }
-`;
-
-const ButtonGroup = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100px;
-  border-top: 2px solid #eaedf2;
-  border-bottom: 2px solid #eaedf2;
-`;
-const ButtonSet = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  width: 60%;
-`;
-const CategoryButton = styled.button`
-  border: 1px solid #999;
-  border-radius: 20px;
-  background-color: white;
-  color: #999;
-  width: 100px;
-  height: 40px;
-  font-size: 20px;
-  font-weight: 600;
-  &:hover {
-    opacity: 0.6;
-  }
-`;
-
-const Banner = styled.div`
-  height: 300px;
-  background-color: #f5f5f5;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  // border-bottom:1px solid #999;
-  // justify-content: center;
-`;
-
-const BannerBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 80%;
-`;
-const BannerText = styled.div`
-  height: 100px;
-  width: 80%;
-  font-size: 2rem;
-`;
-const Image = styled.img`
-  width: 100px;
-  height: 100px;
-  border-radius: 50px;
-`;
 
 export default CategoryItem;

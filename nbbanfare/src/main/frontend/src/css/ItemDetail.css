@@ -1,3 +1,9 @@
+.ItemDetail-contianer{
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .ItemDetail {
     display: flex;
     flex-direction: row;

@@ -57,6 +57,7 @@ function FollowerList(props) {
                     {friend.map((data, i)=>{
                         return(
                             <tr>
+                                <td>💗</td>
                                 <td>{data.followerId}</td>
                                 <td>{data.userName}</td>
                                 <td>{data.followerRegdate}</td>

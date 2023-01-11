@@ -19,6 +19,7 @@ import WishProduct from "./component/WishProduct";
 import Purlist from "./component/Purlist";
 import styled from "styled-components";
 import Product from "./component/Product";
+import Nbbangfare from "./component/Nbbangfare";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false); //로그인 관리
@@ -63,6 +64,7 @@ function App() {
             </>
           }
         ></Route>
+        <Route path="/nbbangfare" element={<Nbbangfare />} />
         <Route path="/:productKind" element={<CategoryItem />} />
 
         <Route path="/login" element={<Login />}></Route>
@@ -101,7 +103,7 @@ const Container = styled.div`
   padding: 0;
 `;
 
-const Banner = styled.div`
+export const Banner = styled.div`
   height: 300px;
   background-color: #f5f5f5;
   display: flex;
@@ -111,18 +113,18 @@ const Banner = styled.div`
   // justify-content: center;
 `;
 
-const BannerBox = styled.div`
+export const BannerBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 80%;
 `;
-const BannerText = styled.div`
+export const BannerText = styled.div`
   height: 100px;
   width: 80%;
   font-size: 2rem;
 `;
-const Image = styled.img`
+export const Image = styled.img`
   width: 100px;
   height: 100px;
   border-radius: 50px;

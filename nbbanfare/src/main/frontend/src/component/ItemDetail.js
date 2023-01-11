@@ -6,7 +6,9 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import React, { useState,useEffect } from 'react';
 import { useParams } from "react-router-dom";
-
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import styled from "styled-components";
 function ItemDetail(){
     const [product, setProduct] = useState({})
     let {id} = useParams();
@@ -57,7 +59,7 @@ function ItemDetail(){
 
 
     return(
-        <div>
+        <div className="ItemDetail-contianer">
             <div className="ItemDetail">
                 <div className="imgcls">
                     <img src={product.productImage} style={{width:'400px', height:'400px'}}></img>
@@ -66,7 +68,8 @@ function ItemDetail(){
                     <h3>{product.productName}</h3>
                     <h3>{product.productPrice}</h3>
                     <a href={product.productContent} target="_black">상세설명은 여기로</a>    
-                    <button type="submit" onClick={ResItem}>찜하기</button>
+                    <HeartButton type="submit" onClick={ResItem} 
+                    ><FontAwesomeIcon icon={faHeart} style={{width:"200px",height:"30px"}}/></HeartButton>
                 </div> 
             </div>      
         </div>
@@ -74,3 +77,13 @@ function ItemDetail(){
     )
 }
 export default ItemDetail;
+
+const HeartButton = styled.button`
+border:none;
+background:transparent; 
+color:red;
+&:hover {
+  opacity: 0.6;
+}
+`
+

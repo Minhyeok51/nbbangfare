@@ -291,6 +291,7 @@ function Modify() {
             onClick={handleComplete}
             onChange={handleInput}
             value="우편번호 찾기"
+            className="find-postcode"
             style={{width:"300px"}}
             >
             우편번호 찾기

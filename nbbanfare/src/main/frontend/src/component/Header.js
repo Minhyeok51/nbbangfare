@@ -59,13 +59,10 @@ function Header({session,setSession}) {
                 <NavLink to="/" activeClassName="active">홈</NavLink>
               </li>
               <li>
-                <a>랭킹</a>
+                <NavLink to="/mypage/wishproduct" activeClassName="active">마이페이지</NavLink>
               </li>
               <li>
-                <a>브랜드</a>
-              </li>
-              <li>
-                <NavLink to="/mypage/wishproduct" activeClassName="active">선물함</NavLink>
+                <NavLink to="/nbbangfare" activeClassName="active">N빵빠레란?</NavLink>
               </li>
             </ul>
           </div>

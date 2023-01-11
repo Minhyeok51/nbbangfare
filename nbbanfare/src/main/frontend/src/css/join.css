@@ -1,14 +1,49 @@
- .form{
+.join-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.join-form{
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    border: 1px solid black;
-    /* width: 100vw; */
+    padding-top: 50px;
+    /* border-right: 1px solid black; */
+
+    border: 1px solid #eaedf2;
+    border-radius: 40px;
+    width: 50vw;
     /* height: 100vh; */
+}
+.find-postcode{
+    background: transparent;
+    margin-top: 10px;
+    width: 200px;
+    border: 1px solid black;
+}
+.join-form input{
+    border: none;
+    border-bottom: 1px solid black;
+    
+}
+.join-form button:hover{
+    opacity: 0.6;
+}
+.join-form button{
+    /* border: 1px solid black; */
+    border: none;
+    background: transparent;
+    background-color: #0095f6;;
+    color: white;
+    border-radius: 40px;
 }
 .form-el{
     width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
 }
 .message{
     color: red;
@@ -19,11 +54,6 @@
     margin-top: 10px;
     font-size: 13px;
 }
-#userJoinInner{
-    /* display: flex;
-    align-items: center;
-    flex-direction: column; */
-} 
 .authCode{
     margin-top: 10px;
     font-size: 13px;
