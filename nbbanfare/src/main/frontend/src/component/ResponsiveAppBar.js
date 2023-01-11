@@ -56,7 +56,6 @@ function ResponsiveAppBar({session,setSession}) {
             <ul className="nav-list">
               <li>
                 <NavLink to="/" activeClassName="active">홈</NavLink>
- 
               </li>
               <li>
                 <a>랭킹</a>
