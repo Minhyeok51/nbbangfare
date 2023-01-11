@@ -1,134 +1,139 @@
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import "../css/header.css";
+import { NavLink, useNavigate } from "react-router-dom";
+import mainLogo from "../img/mainLogo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
-import "../css/header.css"
-import {useNavigate} from "react-router-dom";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Typography from '@mui/material/Typography';
 import requests from '../api/requests';
-import { useState } from 'react';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import axios from 'axios';
-import mainLogo from '../img/mainLogo.png'
 
 function Header({session,setSession}) {
-    let navigate = useNavigate();
-
-    const [word, setWord] = useState([])
+  let navigate = useNavigate();
+  const settings = ['로그아웃'];
+  const [search, setSearch] = useState(false); 
+  const [anchorElUser, setAnchorElUser] = useState(); //이름드롭다운
+  const [word, setWord] = useState([]) //검색어 세팅
     
-    const onSubmit = async => {
+  const onSubmit = async => {
+    // console.log("clicked")
       window.location.href = "/Search/"  + word
-      
   }
-    const logOutFunc = ()=>{
-      axios.post(requests.kakaoLogoutPath     
-    ).then(res=>{
-      console.log(res.data)
-    })
-    .catch(error =>{
-      console.log(error)
-    })
-    .then(
-      console.log("카카오로그아웃")
-    )
-  }
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+  const logOutFunc = ()=>{
+    axios.post(requests.kakaoLogoutPath     
+  ).then(res=>{
+    console.log(res.data)
+  })
+  .catch(error =>{
+    console.log(error)
+  })
+  .then(
+    console.log("카카오로그아웃")
+  )
+}
+
   return (
-        <Container className='header-container'>
-          <Row className="header">
-            <Col>
-              {/* <h1>
-                <a onClick={()=>{navigate('/')}}>N빵빠레</a>
-              </h1> */}
-              <a onClick={()=>{navigate('/')}}><img className='mainLogo' src={mainLogo}/></a>
-            </Col>
-            <Col xs={5}>
-              <form action="/" method="get">
-                <fieldset>
-                  <legend>
-                    <input onChange={(e) => {setWord(e.target.value); console.log(word)}} type="text" placeholder="친구찾기" />
-                    <button type="button" onClick={() => {onSubmit();}}>
-                      <FontAwesomeIcon icon={faMagnifyingGlass} />
-                    </button>
-                  </legend>
-                </fieldset>
-              </form>
-            </Col>
-            <Col>
-            { session == false? (
-              <ul style={{ listStyle: "none" }}>
+    <>
+    <div className="test-container">
+        <div className="test-header">
+          <a
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            <img className="mainLogo" src={mainLogo} />
+          </a>
+
+          <div className="header-nav">
+            <ul className="nav-list">
               <li>
-                <a onClick={()=>{navigate('/login')}}>마이페이지</a>
+                <NavLink to="/" activeClassName="active">홈</NavLink>
               </li>
               <li>
-                <a onClick={()=>{navigate('/join')}}>회원가입</a>
+                <a>랭킹</a>
               </li>
               <li>
-                <a onClick={()=>{navigate("/login")}}>로그인</a>
+                <a>브랜드</a>
+              </li>
+              <li>
+                <NavLink to="/mypage/wishproduct" activeClassName="active">선물함</NavLink>
               </li>
             </ul>
-            ) : (
-              <ul style={{ listStyle: "none" }}>
+          </div>
+          <div className="header-utils">
+            <ul>
               <li>
-
-              {sessionStorage.getItem("name")}님
+                <FontAwesomeIcon
+                  icon={faMagnifyingGlass}
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    setSearch(!search);
+                  }}
+                />
               </li>
-              <li>
-                <a onClick={()=>{navigate(`/mypage`)}}>마이페이지</a>
-              </li>
-              <li>
-                <a onClick={()=>{
+              {
+                sessionStorage.getItem("name") !==null ? 
+                <li style={{cursor:"pointer"}} onClick={handleOpenUserMenu}>{sessionStorage.getItem("name")}님<FontAwesomeIcon icon={faCaretDown} style={{paddingLeft:"5px"}}/></li>
+                :
+                <li><a href="/login">로그인</a></li>
+              }
+              <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {settings.map((setting) => (
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center" onClick={()=>{
                   logOutFunc()
                   sessionStorage.clear()
                   setSession(false)
                   window.location.href="/"
-              }}>로그아웃</a>
-              </li>
+              }}>{setting}
+                </Typography>
+              </MenuItem>
+              ))}
+            </Menu>
             </ul>
-            )
-            }
-              
-            </Col>
-          </Row>
-
-          <Navbar bg="light" expand="lg">
-          <Container fluid  className='header-nav-container'>
-        {/* <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
-        <Navbar.Toggle aria-controls="navbarScroll" /> */}
-        <Navbar.Collapse id="navbarScroll">
-          <Nav
-            className="me-auto my-2 my-lg-0"
-            style={{ maxHeight: '100px' }}
-            navbarScroll
-          >
-            <Nav.Link href="#action1">Home </Nav.Link>
-            <Nav.Link href="#action2">찜목록 </Nav.Link>
-            <NavDropdown title="상품목록" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">전체보기</NavDropdown.Item>
-              <NavDropdown.Item href="001">
-                상의
-              </NavDropdown.Item>
-              <NavDropdown.Item href="002">
-                아우터
-              </NavDropdown.Item>
-              <NavDropdown.Item href="003">
-                하의
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action5">
-                Something else here
-              </NavDropdown.Item>
-            </NavDropdown>
-            <Nav.Link href="#action6">N빵빠레란 </Nav.Link>
-          </Nav>
-          
-        </Navbar.Collapse>
-      </Container>
-
-
-          </Navbar>
-        </Container>
+          </div>
+        </div>
+      </div>
+      {search ? (
+        <>
+        <div className="search-box">
+          <div className="test-search">
+            <form action="/" method="get">
+              <input type="text"  onChange={(e) => {setWord(e.target.value); console.log(word)}} placeholder="친구이름을 검색주세요 " />
+              <button type="button" onClick={onSubmit}>
+                <FontAwesomeIcon icon={faMagnifyingGlass} style={{ cursor: "pointer" }}/>
+              </button>
+            </form>
+          </div>
+        </div>
+        <div className="test-line"></div>
+        </>
+      ) : null}
+    </>
   );
 }
 export default Header;

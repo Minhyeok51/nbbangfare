@@ -1,12 +1,11 @@
 
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import Header from "./component/Header";
 import Footer from "./component/Footer";
 import Login from "./component/Login";
 import ItemDetail from "./component/ItemDetail";
 import Mypage from "./component/Mypage";
-import { Routes, Route, useNavigate, Outlet, Navigate } from "react-router-dom";
+import { Routes, Route, useNavigate} from "react-router-dom";
 import Join from "./component/Join";
 import CategoryItem from "./component/CategoryItem";
 import Follower from "./component/Follower";
@@ -18,10 +17,8 @@ import Modify from "./component/Modify";
 import PayList from "./component/PayList";
 import WishProduct from "./component/WishProduct";
 import Purlist from "./component/Purlist";
-import ResponsiveAppBar from "./component/ResponsiveAppBar";
 import styled from "styled-components";
 import Product from "./component/Product";
-import MypageSample from "./component/MypageSample";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false); //로그인 관리
@@ -46,8 +43,7 @@ function App() {
 
   return (
     <Container>
-      <ResponsiveAppBar session={isLogin} setSession={setIsLogin}/>
-      {/* <Header session={isLogin} setSession={setIsLogin}/> */}
+      <Header session={isLogin} setSession={setIsLogin}/>
       <Routes>
         <Route
           path="/"
@@ -72,7 +68,7 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/forgotPassword" element={<ForgotPassword />} />
 
-        <Route path="/mypage" element={<MypageSample />}>
+        <Route path="/mypage" element={<Mypage />}>
           <Route path="/mypage/wishproduct" element={<WishProduct />}></Route>
           <Route path="/mypage/paylist" element={<PayList />}></Route>
           <Route path="/mypage/purlist" element={<Purlist />}></Route>
