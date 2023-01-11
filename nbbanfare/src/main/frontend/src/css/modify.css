@@ -2,24 +2,41 @@
 .modifyform{
     display: flex;
     align-items: center;
-    justify-content: left;
+    justify-content: center;
+    /* border: 1px solid black; */
     flex-flow: column;
-    width: 100%;
+    /* width: 100%; */
+}
+.modifyform input{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    border-radius: 45px;
+    width: 300px;
+    flex-flow: column;
+    /* width: 100%; */
+}
+
+.modifyform button{
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    flex-flow: column;
+}
+.form-el{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .modify-container{
     margin: 0 auto;
-    width: 100%;
+    width:500px;
     height: 100%;
     display: flex;
     flex-direction: column;
-    text-align: center;
+    /* text-align: center; */
     align-items: center;
-    justify-content: left;
+    /* border: 1px solid black; */
+    justify-items: left;
 }
-/* .modify-user{
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    width: 50%;
-} */

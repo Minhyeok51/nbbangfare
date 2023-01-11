@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import requests from "../api/requests";
 import Post from "./Post";
 import "../css/modify.css";
+import { CategoryButton } from "./Product";
 
 function Modify() {
   const navigate = useNavigate();
@@ -285,12 +286,15 @@ function Modify() {
               className="inputs"
               placeholder="주소를 입력해주세요"
             />
-            <input
-              type="button"
-              onClick={handleComplete}
-              onChange={handleInput}
-              value="우편번호 찾기"
-            />
+            <CategoryButton 
+            type="button"
+            onClick={handleComplete}
+            onChange={handleInput}
+            value="우편번호 찾기"
+            style={{width:"300px"}}
+            >
+            우편번호 찾기
+            </CategoryButton>
             <br />
             <input
               type="text"
@@ -298,6 +302,7 @@ function Modify() {
               placeholder="주소"
               className="inputs"
             />
+            
             <br />
             <input
               type="text"
@@ -316,9 +321,9 @@ function Modify() {
           {popup && <Post company={address} setcompany={setAddress}></Post>}
           <br />
           <br />
-          <button type="submit" onClick={handleSubmit}>
+          <CategoryButton type="submit" onClick={handleSubmit}>
             수정하기
-          </button>
+          </CategoryButton>
         </form>
       </div>
   );

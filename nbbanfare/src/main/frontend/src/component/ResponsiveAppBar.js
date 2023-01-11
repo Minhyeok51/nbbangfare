@@ -16,9 +16,9 @@ function ResponsiveAppBar({session,setSession}) {
   const [search, setSearch] = useState(false); 
   const [anchorElUser, setAnchorElUser] = useState(); //이름드롭다운
   const [word, setWord] = useState([]) //검색어 세팅
-    
-  const onSubmit = async => {
-    // console.log("clicked")
+  
+  
+  const onSubmit = async (e)=> {
       window.location.href = "/Search/"  + word
   }
   const handleOpenUserMenu = (event) => {
@@ -39,6 +39,7 @@ function ResponsiveAppBar({session,setSession}) {
     console.log("카카오로그아웃")
   )
 }
+
   return (
     <>
     <div className="test-container">
@@ -53,8 +54,8 @@ function ResponsiveAppBar({session,setSession}) {
 
           <div className="header-nav">
             <ul className="nav-list">
-              <li className="home">
-                <NavLink to="/" className="active">홈</NavLink>
+              <li>
+                <NavLink to="/" activeClassName="active">홈</NavLink>
               </li>
               <li>
                 <a>랭킹</a>
@@ -62,8 +63,8 @@ function ResponsiveAppBar({session,setSession}) {
               <li>
                 <a>브랜드</a>
               </li>
-              <li className="mypage">
-                <NavLink to="/mypage/wishproduct" className="active">선물함</NavLink>
+              <li>
+                <NavLink to="/mypage/wishproduct" activeClassName="active">선물함</NavLink>
               </li>
             </ul>
           </div>
@@ -84,7 +85,7 @@ function ResponsiveAppBar({session,setSession}) {
                 :
                 <li><a href="/login">로그인</a></li>
               }
-               <Menu
+              <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
               anchorEl={anchorElUser}
@@ -108,9 +109,8 @@ function ResponsiveAppBar({session,setSession}) {
                   setSession(false)
                   window.location.href="/"
               }}>{setting}
-              
-              </Typography>
-                </MenuItem>
+                </Typography>
+              </MenuItem>
               ))}
             </Menu>
             </ul>
@@ -122,8 +122,8 @@ function ResponsiveAppBar({session,setSession}) {
         <div className="search-box">
           <div className="test-search">
             <form action="/" method="get">
-              <input type="search" onChange={(e) => {setWord(e.target.value); console.log(word)}} placeholder="친구이름을 검색주세요 " />
-              <button type="button" onClick={() => {onSubmit()}}>
+              <input type="text"  onChange={(e) => {setWord(e.target.value); console.log(word)}} placeholder="친구이름을 검색주세요 " />
+              <button type="button" onClick={onSubmit}>
                 <FontAwesomeIcon icon={faMagnifyingGlass} style={{ cursor: "pointer" }}/>
               </button>
             </form>

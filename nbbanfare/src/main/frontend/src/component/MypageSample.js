@@ -6,13 +6,13 @@ import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import requests from "../api/requests";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
-import styled from "styled-components";
 import { CategoryButton } from "./Product";
+import FollowerList from "./FollowerList";
 const MypageSample = () => {
   //파일 미리볼 url을 저장해줄 state
   const [fileImage, setFileImage] = useState("");
   const [showfileImage, setShowFileImage] = useState("");
-
+  const [modalShow, setModalShow] = useState(false);
   const [showImageUploadBtn, setShowImageUploadBtn] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
@@ -165,13 +165,18 @@ const MypageSample = () => {
             <li><a href="/mypage/wishproduct">찜한상품</a></li>
             <li><a href="/mypage/paylist">펀딩목록</a></li>
             <li><a href="/mypage/purlist">구매목록</a></li>
-            <li>팔로워보기</li>
+            <li onClick={()=>{
+                    return(
+                      setModalShow(true)
+                    )
+                }}>팔로워보기</li>
             <li><Link to="/mypage/modify">회원정보 수정하기</Link></li>
             {sessionStorage.getItem("kakaoUser") === "true" ? null 
                 :<li className="mypageList" onClick={deleteUser}>회원 탈퇴</li> }
           </ul>
         </div>
       </div>
+      <FollowerList show={modalShow} onHide={() => setModalShow(false)}/>
       <div className="sample-mypage-content">
           <Outlet></Outlet>
       </div>
