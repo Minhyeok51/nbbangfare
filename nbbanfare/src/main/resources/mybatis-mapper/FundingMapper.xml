@@ -13,8 +13,14 @@
 		select distinct(fd.merchant_uid) merchantuid, fd.funding_no fundingid, fd.user_email userid, fd.present_no presentid, pr.product_name productname, fd.follower_email followerid, u.user_name username, fd.funding_price fundingprice, fd.funding_result fundingresult
 		,pr.product_image productImage 
 		from funding fd, friend f, user_info u, present p, product_real pr
-		where fd.user_email = f.follower_email and f.follower_email = u.user_email and p.present_no = fd.present_no and p.product_no = pr.product_no and fd.user_email = #{userNo}
+		where fd.follower_email = f.follower_email and f.follower_email = u.user_email and p.present_no = fd.present_no and p.product_no = pr.product_no and fd.user_email = #{userNo}
 		order by fd.merchant_uid
+		
+<!-- 		select distinct(fd.merchant_uid) merchantuid, fd.funding_no fundingid, fd.user_email userid, fd.present_no presentid, pr.product_name productname, fd.follower_email followerid, u.user_name username, fd.funding_price fundingprice, fd.funding_result fundingresult -->
+<!-- 		,pr.product_image productImage  -->
+<!-- 		from funding fd, user_info u, present p, product_real pr -->
+<!-- 		where fd.user_email = u.user_email and p.present_no = fd.present_no and p.product_no = pr.product_no and fd.user_email = #{userNo} -->
+<!-- 		order by fd.merchant_uid -->
 	</select>
 	
 	<update id="refundFunding" parameterType="FundingForm">

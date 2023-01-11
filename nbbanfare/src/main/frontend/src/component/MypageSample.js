@@ -7,6 +7,8 @@ import axios from "axios";
 import requests from "../api/requests";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { CategoryButton } from "./Product";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import FollowerList from "./FollowerList";
 const MypageSample = () => {
   //파일 미리볼 url을 저장해줄 state
@@ -162,7 +164,7 @@ const MypageSample = () => {
         <div className="sample-mypage-list">
           <h4>마이페이지</h4>
           <ul>
-            <li><a href="/mypage/wishproduct">찜한상품</a></li>
+            <li style={{listStyleType:`${faHeart}`}}><a href="/mypage/wishproduct">찜한상품</a></li>
             <li><a href="/mypage/paylist">펀딩목록</a></li>
             <li><a href="/mypage/purlist">구매목록</a></li>
             <li className="mypageList" onClick={()=>{
