@@ -97,7 +97,10 @@ function CategoryItem() {
           .map((data, i) => {
             return (
               <Col>
-                <Card style={{ height: "33rem" }}>
+                <Card style={{ height: "33rem" }}
+                  onClick={() => {
+                    navigate(`/ItemDetail/${data.productNo}`);
+                  }}>
                   <Card.Img
                     style={{ height: "360px" }}
                     variant="top"
