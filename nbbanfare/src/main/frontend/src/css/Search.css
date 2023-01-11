@@ -1,0 +1,42 @@
+.search-listbox {
+    /* display: block; */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* justify-content: space-around; */
+    overflow: hidden;
+    padding: 20px 14px;
+    border: 1px solid #ededed;
+    border-radius: 2px;
+    background-color: #fff;
+    box-sizing: border-box;
+    box-shadow: 0 1px 2px -1px rgb(0 0 0 / 10%);
+}
+
+.search-card{
+    display: flex;
+    justify-content: space-between;
+    padding-left:10%;
+    padding-right:10%;
+    width: 100%;
+    align-items: center;
+
+}
+
+.search_box {
+    justify-content: center;
+    padding-left: 15%;
+    padding-right:15%;
+    padding-top:5%;
+    box-sizing: border-box;
+}
+
+.follow_box {
+    float: right
+}
+
+img{
+    border-radius: 70%;
+
+}
+

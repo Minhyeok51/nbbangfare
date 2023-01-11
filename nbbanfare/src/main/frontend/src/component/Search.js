@@ -5,6 +5,8 @@ import {useParams} from "react-router";
 import Table from 'react-bootstrap/Table';
 import FollowModal from "./Switchstate";
 import Switchstate from "./Switchstate";
+import Button from 'react-bootstrap/Button';
+import "../css/Search.css";
 
 
 function Search() {
@@ -114,30 +116,26 @@ const follow = (i,email) =>{
 
 }
       return(
-        <div>
+        <div className="search_box">
+
         {/* {searchUser.map((data,i) => { */}
            
-              <Table striped>
-              <thead>
-                <tr>
-                  <th>      #</th>
-                  <th>      사용자 이름</th>
-                  <th>      이메일</th>
-                </tr>
-              </thead>
-              <tbody>
+
               {searchUser.map((data,i) => {
+                arr.push(i)
                 return(
                   <>
-                {arr.push(i)}  
-                <tr key={i} >
-                  <td>{i+1}</td>
-                  <td>{data.userName}</td>
-                  <td>{data.userEmail}</td>
-                  <td key={i}>
+                <div className="search-listbox">
+                <div className="search-card" key={i} >
+                  {/* <td>{i+1}</td> */}
+                  <div ><img src={data.userImage} width="120px" height="120px"/></div>
+                  <div>{data.userName}</div>
+                  <div>{data.userEmail}</div>
+                  
+                  <div key={i}>
                   {/* {isCheck ? <button id={i+"button"} key={i} onClick={()=>{follow(i)}}>팔로우하기</button> : <button id={i+"button"} onClick={()=>{follow(i)}}>팔로우끊기</button>} */}
                   {/* {<button id={i+"button"} key={i} onClick={()=>{}}>팔로우하기</button>} */}
-                  <button id={i+"button"} email = {data.userEmail} key = {i} onClick={()=>{follow(i,`${data.userEmail}`)}}>
+                  <Button variant="outline-warning" id={i+"button"} email = {data.userEmail} key = {i} onClick={()=>{follow(i,`${data.userEmail}`)}}>
                     {
                       data.userEmail == (followList.find((follower, i)=> {
                         return (follower == data.userEmail);
@@ -157,14 +155,13 @@ const follow = (i,email) =>{
                           // }
                           // )
                    }
-                  </button>
-                  </td>
-                </tr>
-                
+                  </Button>
+                  </div>
+                </div>
+                </div>
                 </>
              )})}
-             </tbody>
-            </Table>
+             
             
         
         </div>
