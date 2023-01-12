@@ -65,7 +65,7 @@ def loopJson():
         f.write(json.dumps(fin_dic_list, ensure_ascii=False))
     print("ok")
 
-schedule.every().day.at("09:45:00").do(loopJson)
+schedule.every().day.at("10:41:00").do(loopJson)
 
 while True:
     schedule.run_pending()
