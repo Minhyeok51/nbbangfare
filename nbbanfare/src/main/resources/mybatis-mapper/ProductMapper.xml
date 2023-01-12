@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="com.team1.nbbanfare.repository.mybatis.ProductMapper">
+
+<select id="selectAll" resultType="ProductForm">
+		select * from product_real where product_price != '0' and product_name is not null and product_image is not null 
+		order by product_no
+</select>
+
+<select id="selectById" resultType="ProductForm">
+	select product_no productno, product_name productname, product_price productprice, product_image productimage, product_content productcontent 
+	from product_real
+	where product_no = #{productNo}
+</select>
+
+<select id="selectByKind" resultType="ProductForm">
+	select * from product_real where product_price != '0' and product_name is not null and product_image is not null 
+	and product_kind=#{productKind}
+	order by product_no
+</select>
+
+<insert id="insertProduct" parameterType="ProductForm">
+	insert into product_test
+	values(productPK.NEXTVAL, #{productName}, #{productPrice}, #{productImage}, #{productKind}, #{productContent}, sysdate)
+</insert>
+
+<update id="mergeProduct">
+	merge into product_real r
+	using (select * from product_test) p
+	on ( r.product_name = p.product_name)
+	when matched then
+	update set r.product_price = p.product_price
+	when not matched then
+	insert (r.product_no,r.product_name,r.product_price,r.product_image,r.product_kind,r.product_content,r.create_date)
+	values (p.product_no,p.product_name,p.product_price,p.product_image,p.product_kind,p.product_content,p.create_date)
+</update>
+
+<delete id="deleteAll">
+	delete from product_test
+	where 'create_date' ^= to_char(sysdate, 'yyyymmdd') 
+</delete>
+
+</mapper>

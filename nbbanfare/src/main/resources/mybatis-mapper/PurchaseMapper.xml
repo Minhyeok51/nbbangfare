@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="com.team1.nbbanfare.repository.mybatis.PurchaseMapper">
+	<insert id="insertPurchase" parameterType="PurchaseForm">
+		insert into purchase
+		values(purchasePK.nextval, #{productNo}, #{presentNo}, #{userId}, sysdate)
+	</insert>
+	
+	<select id="selectByPurchase" resultType="PurchaseForm">
+		select pu.purchase_no purchaseno, p.present_no presentNo, pr.product_name productname, p.present_count presentcount, to_number(substr(product_price, 1, instr(product_price, '원', 1, 1)-1), 'FM999999') productprice, TO_CHAR(pu.purchase_date, 'YYYY-MM-DD') purchasedate
+		, pr.product_image productImage
+		from purchase pu, product_real pr, present p
+		where pu.product_no = pr.product_no and pu.present_no = p.present_no  and pu.user_email = #{userId}
+	</select>
+	
+	<select id="selectPurchaseFundingFriendName" resultType="PresentForm">
+		select fd.user_email userno, u.user_name username, fd.funding_price fundingprice
+		from funding fd, user_info u
+		where u.user_email = fd.user_email and fd.present_no = #{presentNo} and fd.funding_result = 3
+	</select>
+</mapper>

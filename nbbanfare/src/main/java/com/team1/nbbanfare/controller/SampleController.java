@@ -1,21 +1,37 @@
 package com.team1.nbbanfare.controller;
 
 
+import java.util.List;
+
 import org.python.core.PyFunction;
 import org.python.core.PyInteger;
 import org.python.core.PyObject;
 import org.python.util.PythonInterpreter;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.team1.nbbanfare.dto.ProductForm;
+import com.team1.nbbanfare.dto.User;
+import com.team1.nbbanfare.repository.ProductRepository;
+import com.team1.nbbanfare.repository.UserRepository;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @RestController
+@RequiredArgsConstructor
 public class SampleController {
-	
 	private static PythonInterpreter interpreter;
-	
-	@RequestMapping("/rest1")
+	private final ProductRepository productRepository;
+
+	@GetMapping("/rest1")
 	public String rest1() {
-	return "rest1";
+		
+		return "rest1";
 	}
 	
 	@GetMapping("/pytest") //파이썬 연결
@@ -34,4 +50,21 @@ public class SampleController {
 		
 		return pyobj.toString();
 	}
+	
+	
+
+	
+	
+
+	
+	@GetMapping("/{productKind}")
+	public List<ProductForm> food(Model model, @PathVariable("productKind") String productKind) {
+		System.out.println(productKind);
+		
+		List<ProductForm> item = productRepository.selectByKind(productKind);
+		
+		return item;
+	}
+	
+	
 }

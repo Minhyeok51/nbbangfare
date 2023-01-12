@@ -1,0 +1,27 @@
+.ItemDetail-contianer{
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.ItemDetail {
+    display: flex;
+    flex-direction: row;
+}
+.textStyle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    /* width: 70vh; */
+}
+.btncss {
+    float: right;
+    margin-right: 250px;
+}
+
+.imgcls {
+    width: 500px;
+    height: 500px;
+}

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="com.team1.nbbanfare.repository.mybatis.FundingMapper">
+	<insert id="insertFunding" parameterType="FundingForm">
+		insert into funding
+		values(#{fundingid}, #{merchantUid}, #{userNo}, #{presentId}, #{followerId}, #{fundingPrice}, sysdate, #{fundingResult})
+	</insert>
+	
+	<select id="selectFunding" resultType="FundingForm">
+		select distinct(fd.merchant_uid) merchantuid, fd.funding_no fundingid, fd.user_email userid, fd.present_no presentid, pr.product_name productname, fd.follower_email followerid, u.user_name username, fd.funding_price fundingprice, fd.funding_result fundingresult
+		,pr.product_image productImage 
+        from funding fd, friend f, user_info u, present p, product_real pr
+        where fd.follower_email = f.follower_email and f.follower_email = u.user_email and p.present_no = fd.present_no and p.product_no = pr.product_no and fd.user_email = #{userNo}
+        order by fd.merchant_uid
+	</select>
+	
+	<update id="refundFunding" parameterType="FundingForm">
+		update funding
+		set funding_result = 2
+		where funding_no = #{fundingid} and user_email = #{userNo}
+	</update>
+	
+	<select id="selectPresentNoSearch" resultType="FundingForm">
+		select funding_no fundingid from funding
+		where present_no = #{presentNo}
+	</select>
+	
+	<update id="refundPresentFunding" parameterType="PresentForm">
+		update funding
+		set funding_result = 2
+		where present_no = #{presentNo}
+	</update>
+	
+	<select id="selectPresentFundingFriendName" resultType="PresentForm">
+		select fd.user_email userno, u.user_name username, fd.funding_price fundingprice
+		from funding fd, user_info u
+		where u.user_email = fd.user_email and fd.present_no = #{presentNo} and fd.funding_result = 1
+	</select>
+	
+	<update id="puchaseUpdate" parameterType="PurchaseForm">
+		update funding
+		set funding_result = 3
+		where present_no = #{presentNo} and funding_result = 1
+	</update>
+	
+	
+	
+</mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="com.team1.nbbanfare.repository.mybatis.PresentMapper">
+	<insert id="insertPresent" parameterType="PresentForm">
+		insert into present
+		values(presentPK.nextval, #{productNo}, #{userNo}, 1, sysdate, 1)
+	</insert>
+	
+	<select id="selectByPresent" resultType="PresentForm">
+		select p.present_no presentNo, u.user_name username, pr.product_no productno, pr.product_name productname, to_number(substr(product_price, 1, instr(product_price, '원', 1, 1)-1), 'FM999999') productprice, nvl(fd.fundingprice,0) fundingprice,
+        	nvl(to_number(substr(product_price, 1, instr(product_price, '원', 1, 1)-1), 'FM999999')-fd.fundingprice,(to_number(substr(product_price, 1, instr(product_price, '원', 1, 1)-1), 'FM999999'))) calculate,
+        	p.present_count presentCount,TO_CHAR(p.present_date, 'YYYY-MM-DD') presentDate, p.user_email userno, p.present_result presentresult, pr.product_image productImage
+		from present p join user_info u on p.user_email = u.user_email
+       		join product_real pr on p.product_no = pr.product_no 
+       		left outer join (select present_no, sum(funding_price) fundingprice from funding where funding_result = 1 group by present_no, funding_result) fd on fd.present_no = p.present_no
+        where u.user_email = #{userNo} and present_result = 1
+        order by p.present_no
+	</select>
+	
+	<select id="selectByFriendPresent" resultType="PresentForm">
+	select distinct(p.present_no) presentno, f.follower_email followerid, u.user_name username, u.user_birth userbirth, u.user_phone userphone, u.user_email useremail, 
+	    u.user_address useraddress, u.create_date createdate, pr.product_image productimage,
+	    pr.product_name productname, to_number(substr(product_price, 1, instr(product_price, '원', 1, 1)-1), 'FM999999') productprice, nvl(fd.fundingprice, 0) fundingprice,
+	   nvl(to_number(substr(product_price, 1, instr(product_price, '원', 1, 1)-1), 'FM999999')-fd.fundingprice,(to_number(substr(product_price, 1, instr(product_price, '원', 1, 1)-1), 'FM999999'))) calculate,
+	    p.present_count presentCount,TO_CHAR(p.present_date, 'YYYY-MM-DD') presentDate, p.present_result presentresult
+	from present p join user_info u on p.user_email = u.user_email
+        join product_real pr on p.product_no = pr.product_no
+        join friend f on f.follower_email = u.user_email
+        left outer join funding fd1 on fd1.present_no = p.present_no
+        left outer join (select present_no, sum(funding_price) fundingprice from funding where funding_result = 1 group by present_no, funding_result) fd on fd.present_no = p.present_no
+	where f.follower_email = #{followerid} and p.present_result = 1
+	order by p.present_no
+	</select>
+	
+	<update id="updatePresent" parameterType="PresentForm">
+		update present
+		set present_result = 2
+		where present_no = #{presentNo} and user_email = #{userNo}
+	</update>
+	
+	<update id="updateToPurchase" parameterType="PresentForm">
+		update present
+		set present_result = 3
+		where present_no = #{presentNo}
+	</update>
+</mapper>

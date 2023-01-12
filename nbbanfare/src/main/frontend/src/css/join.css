@@ -1,0 +1,71 @@
+.join-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.join-form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 50px;
+    /* border-right: 1px solid black; */
+
+    border: 1px solid #eaedf2;
+    border-radius: 40px;
+    width: 50vw;
+    /* height: 100vh; */
+}
+.find-postcode{
+    background: transparent;
+    margin-top: 10px;
+    width: 200px;
+    border: 1px solid black;
+}
+.join-form input{
+    border: none;
+    border-bottom: 1px solid black;
+    
+}
+.join-form button:hover{
+    opacity: 0.6;
+}
+.join-form button{
+    /* border: 1px solid black; */
+    border: none;
+    background: transparent;
+    background-color: #0095f6;;
+    color: white;
+    border-radius: 40px;
+}
+.form-el{
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+}
+.message{
+    color: red;
+    font-size: 13px;
+}
+.inputs{
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 13px;
+}
+.authCode{
+    margin-top: 10px;
+    font-size: 13px;
+    padding: 10px;
+}
+
+.postmodal{
+    background : rgba(0,0,0,0.25);
+    position : absolute;
+    display: block;
+    left:0;
+    top:0;
+    height:400px;
+    width:400px;
+} 

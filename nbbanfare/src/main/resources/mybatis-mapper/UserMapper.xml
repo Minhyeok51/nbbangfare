@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="com.team1.nbbanfare.repository.mybatis.UserMapper">
+
+<insert id="insert" parameterType="User">
+	insert into user_info(user_email, user_password
+	, user_name, user_birth, user_phone, user_address, user_image, is_active, kakao_user)
+		values(
+		  #{userEmail}, #{userPassword}, #{userName}, #{userBirth},
+		  #{userPhone},#{userAddress}, #{userImage}, 1, 0)
+</insert>
+
+<insert id="insertKakaoUser" parameterType="User">
+	insert into user_info(user_email, user_password
+	, user_name, user_birth, user_phone, user_address, user_image, is_active, kakao_user)
+		values(
+		  #{userEmail}, #{userPassword}, #{userName}, #{userBirth},
+		  #{userPhone},#{userAddress}, #{userImage}, 1, 1)
+</insert>
+
+<select id="selectByUserEmail" resultType="User">
+	select *
+	from user_info
+	where user_email = #{userEmail} and is_active = 1
+</select>
+
+<select id="searchUser" resultType="User">
+	select * from user_info
+	where user_name like '%' || #{word} || '%'
+</select>
+
+<update id="updateUserPassword" parameterType="User">
+	update user_info
+	set user_password = #{userPassword}
+	where user_email = #{userEmail}
+	and user_name = #{userName}
+</update>
+
+<update id="updateUserInfo" parameterType="User">
+	update user_info
+	set 
+	user_email = #{userEmail},
+	user_password = #{userPassword},
+	user_name = #{userName},
+	user_birth = #{userBirth},
+	user_phone = #{userPhone},
+	user_address = #{userAddress},
+	user_image = #{userImage},
+	is_active = #{isActive},
+	kakao_user = #{kakaoUser}
+	where user_email = #{userEmail}
+</update>
+
+<update id="updateUserActive" parameterType="User">
+	update user_info
+	set 
+	is_active = 0
+	where user_email = #{userEmail}
+</update>
+
+<update id="uploadUserImage" parameterType="User">
+	update user_info
+	set 
+	user_image = #{userImage}
+	where user_email = #{userEmail}
+</update>
+
+</mapper>
